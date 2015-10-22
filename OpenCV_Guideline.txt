@@ -1,0 +1,11 @@
+==================================================
+General tips for working with OpenCV:
+==================================================
+The default copy behavior for a cv::Mat is shallow copy. This copies only the matrix header, and none of its data. It follows that when you’re passing a cv::Mat as a parameter, you should pass by reference rather than value:
+
+void doThing(cv::Mat &mat){};
+
+Try to use const when you’re only reading the cv::Mat in a method:
+
+void doThing(const cv::Mat &mat){};
+

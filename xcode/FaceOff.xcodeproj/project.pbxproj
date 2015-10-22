@@ -16,13 +16,51 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
+		46EC09771BD84F800098FD81 /* ConfigHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09751BD84F800098FD81 /* ConfigHandler.cpp */; settings = {ASSET_TAGS = (); }; };
+		46EC097B1BD8524E0098FD81 /* FaceOff.cfg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46EC09781BD851EE0098FD81 /* FaceOff.cfg */; };
+		46EC097D1BD857060098FD81 /* libconfig++.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EC097C1BD857060098FD81 /* libconfig++.9.dylib */; settings = {ASSET_TAGS = (); }; };
+		46EC09831BD877130098FD81 /* CameraCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09821BD877130098FD81 /* CameraCapture.cpp */; settings = {ASSET_TAGS = (); }; };
+		46EC09881BD960890098FD81 /* PS3EyeCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09861BD960890098FD81 /* PS3EyeCapture.cpp */; settings = {ASSET_TAGS = (); }; };
+		46EC098B1BD962D60098FD81 /* SystemCameraCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09891BD962D60098FD81 /* SystemCameraCapture.cpp */; settings = {ASSET_TAGS = (); }; };
+		46F246E91BD810FA008292AC /* FPSCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46F246E71BD810FA008292AC /* FPSCounter.cpp */; settings = {ASSET_TAGS = (); }; };
+		46F2470C1BD812F5008292AC /* libopencv_calib3d.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246F71BD812F4008292AC /* libopencv_calib3d.3.0.0.dylib */; };
+		46F2470D1BD812F5008292AC /* libopencv_core.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246F81BD812F4008292AC /* libopencv_core.3.0.0.dylib */; };
+		46F2470E1BD812F5008292AC /* libopencv_features2d.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246F91BD812F4008292AC /* libopencv_features2d.3.0.0.dylib */; };
+		46F2470F1BD812F5008292AC /* libopencv_flann.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246FA1BD812F5008292AC /* libopencv_flann.3.0.0.dylib */; };
+		46F247101BD812F5008292AC /* libopencv_hal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246FB1BD812F5008292AC /* libopencv_hal.a */; };
+		46F247111BD812F5008292AC /* libopencv_highgui.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246FC1BD812F5008292AC /* libopencv_highgui.3.0.0.dylib */; };
+		46F247121BD812F5008292AC /* libopencv_imgcodecs.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246FD1BD812F5008292AC /* libopencv_imgcodecs.3.0.0.dylib */; };
+		46F247131BD812F5008292AC /* libopencv_imgproc.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246FE1BD812F5008292AC /* libopencv_imgproc.3.0.0.dylib */; };
+		46F247141BD812F5008292AC /* libopencv_ml.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246FF1BD812F5008292AC /* libopencv_ml.3.0.0.dylib */; };
+		46F247151BD812F5008292AC /* libopencv_objdetect.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247001BD812F5008292AC /* libopencv_objdetect.3.0.0.dylib */; };
+		46F247161BD812F5008292AC /* libopencv_photo.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247011BD812F5008292AC /* libopencv_photo.3.0.0.dylib */; };
+		46F247171BD812F5008292AC /* libopencv_shape.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247021BD812F5008292AC /* libopencv_shape.3.0.0.dylib */; };
+		46F247181BD812F5008292AC /* libopencv_stitching.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247031BD812F5008292AC /* libopencv_stitching.3.0.0.dylib */; };
+		46F247191BD812F5008292AC /* libopencv_superres.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247041BD812F5008292AC /* libopencv_superres.3.0.0.dylib */; };
+		46F2471A1BD812F5008292AC /* libopencv_ts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247051BD812F5008292AC /* libopencv_ts.a */; };
+		46F2471B1BD812F5008292AC /* libopencv_video.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247061BD812F5008292AC /* libopencv_video.3.0.0.dylib */; };
+		46F2471C1BD812F5008292AC /* libopencv_videoio.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247071BD812F5008292AC /* libopencv_videoio.3.0.0.dylib */; };
+		46F2471D1BD812F5008292AC /* libopencv_videostab.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247081BD812F5008292AC /* libopencv_videostab.3.0.0.dylib */; };
+		46F247201BD812F5008292AC /* libusb-1.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F2470B1BD812F5008292AC /* libusb-1.0.0.dylib */; };
+		46F2472C1BD83EF8008292AC /* GUIHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46F2472A1BD83EF8008292AC /* GUIHandler.cpp */; settings = {ASSET_TAGS = (); }; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		681FC6367C524414857956A3 /* FaceOff_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 3645407D08A84202B093A03D /* FaceOff_Prefix.pch */; };
 		B953DB2F6F2048828BBAAA1D /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2AEABFF198CB4630A9C0DA65 /* CinderApp.icns */; };
-		0A37C373A52544589AF566EE /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1A6260141C4A69B2558FE2 /* Resources.h */; };
 		C38E610CD0BD4536B8FD0327 /* FaceOffApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E80CADEF5564EC39C9A885A /* FaceOffApp.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		46EC097A1BD852440098FD81 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				46EC097B1BD8524E0098FD81 /* FaceOff.cfg in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		006D720219952D00008149E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -34,16 +72,58 @@
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		00B995581B128DF400A5C623 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		00B995591B128DF400A5C623 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/Frameworks/IOSurface.framework; sourceTree = SDKROOT; };
+		0E80CADEF5564EC39C9A885A /* FaceOffApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = FaceOffApp.cpp; path = ../src/FaceOffApp.cpp; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2AEABFF198CB4630A9C0DA65 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		2C1A6260141C4A69B2558FE2 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
+		3645407D08A84202B093A03D /* FaceOff_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = FaceOff_Prefix.pch; sourceTree = "<group>"; };
+		46EC09751BD84F800098FD81 /* ConfigHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigHandler.cpp; path = ../src/config/ConfigHandler.cpp; sourceTree = "<group>"; };
+		46EC09761BD84F800098FD81 /* ConfigHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConfigHandler.hpp; path = ../src/config/ConfigHandler.hpp; sourceTree = "<group>"; };
+		46EC09781BD851EE0098FD81 /* FaceOff.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FaceOff.cfg; path = ../resources/FaceOff.cfg; sourceTree = "<group>"; };
+		46EC097C1BD857060098FD81 /* libconfig++.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libconfig++.9.dylib"; path = "../../../../../../../usr/local/Cellar/libconfig/1.5/lib/libconfig++.9.dylib"; sourceTree = "<group>"; };
+		46EC09811BD8770D0098FD81 /* CameraCapture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CameraCapture.hpp; path = ../src/camera/CameraCapture.hpp; sourceTree = "<group>"; };
+		46EC09821BD877130098FD81 /* CameraCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraCapture.cpp; path = ../src/camera/CameraCapture.cpp; sourceTree = "<group>"; };
+		46EC09861BD960890098FD81 /* PS3EyeCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PS3EyeCapture.cpp; path = ../src/camera/PS3EyeDriver/PS3EyeCapture.cpp; sourceTree = "<group>"; };
+		46EC09871BD960890098FD81 /* PS3EyeCapture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PS3EyeCapture.hpp; path = ../src/camera/PS3EyeDriver/PS3EyeCapture.hpp; sourceTree = "<group>"; };
+		46EC09891BD962D60098FD81 /* SystemCameraCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SystemCameraCapture.cpp; path = ../src/camera/SystemCameraCapture.cpp; sourceTree = "<group>"; };
+		46EC098A1BD962D60098FD81 /* SystemCameraCapture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SystemCameraCapture.hpp; path = ../src/camera/SystemCameraCapture.hpp; sourceTree = "<group>"; };
+		46EC098C1BD9632D0098FD81 /* CaptureBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CaptureBase.h; path = ../src/camera/CaptureBase.h; sourceTree = "<group>"; };
+		46EC098D1BD97F470098FD81 /* UsesGUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = UsesGUI.hpp; path = ../src/gui/UsesGUI.hpp; sourceTree = "<group>"; };
+		46F246E71BD810FA008292AC /* FPSCounter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FPSCounter.cpp; path = ../src/performance/FPSCounter.cpp; sourceTree = "<group>"; };
+		46F246E81BD810FA008292AC /* FPSCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPSCounter.h; path = ../src/performance/FPSCounter.h; sourceTree = "<group>"; };
+		46F246EA1BD8113D008292AC /* BuildNotes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = BuildNotes.rtf; path = ../BuildNotes.rtf; sourceTree = "<group>"; };
+		46F246EB1BD8113D008292AC /* GuidelinesAndTips.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GuidelinesAndTips.txt; path = ../GuidelinesAndTips.txt; sourceTree = "<group>"; };
+		46F246EC1BD8113D008292AC /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = ../LICENSE.txt; sourceTree = "<group>"; };
+		46F246ED1BD8113D008292AC /* OpenCV_Guideline.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = OpenCV_Guideline.txt; path = ../OpenCV_Guideline.txt; sourceTree = "<group>"; };
+		46F246EE1BD8113D008292AC /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = readme.md; path = ../readme.md; sourceTree = "<group>"; };
+		46F246F51BD811FC008292AC /* libPS3EyeDriver.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = libPS3EyeDriver.bundle; path = ../Frameworks/PS3EyeDriver/libPS3EyeDriver.bundle; sourceTree = "<group>"; };
+		46F246F71BD812F4008292AC /* libopencv_calib3d.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_calib3d.3.0.0.dylib; path = /usr/local/lib/libopencv_calib3d.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F246F81BD812F4008292AC /* libopencv_core.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.3.0.0.dylib; path = /usr/local/lib/libopencv_core.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F246F91BD812F4008292AC /* libopencv_features2d.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_features2d.3.0.0.dylib; path = /usr/local/lib/libopencv_features2d.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F246FA1BD812F5008292AC /* libopencv_flann.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_flann.3.0.0.dylib; path = /usr/local/lib/libopencv_flann.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F246FB1BD812F5008292AC /* libopencv_hal.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_hal.a; path = /usr/local/lib/libopencv_hal.a; sourceTree = "<absolute>"; };
+		46F246FC1BD812F5008292AC /* libopencv_highgui.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.3.0.0.dylib; path = /usr/local/lib/libopencv_highgui.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F246FD1BD812F5008292AC /* libopencv_imgcodecs.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.3.0.0.dylib; path = /usr/local/lib/libopencv_imgcodecs.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F246FE1BD812F5008292AC /* libopencv_imgproc.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.3.0.0.dylib; path = /usr/local/lib/libopencv_imgproc.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F246FF1BD812F5008292AC /* libopencv_ml.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_ml.3.0.0.dylib; path = /usr/local/lib/libopencv_ml.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F247001BD812F5008292AC /* libopencv_objdetect.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_objdetect.3.0.0.dylib; path = /usr/local/lib/libopencv_objdetect.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F247011BD812F5008292AC /* libopencv_photo.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_photo.3.0.0.dylib; path = /usr/local/lib/libopencv_photo.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F247021BD812F5008292AC /* libopencv_shape.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_shape.3.0.0.dylib; path = /usr/local/lib/libopencv_shape.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F247031BD812F5008292AC /* libopencv_stitching.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_stitching.3.0.0.dylib; path = /usr/local/lib/libopencv_stitching.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F247041BD812F5008292AC /* libopencv_superres.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_superres.3.0.0.dylib; path = /usr/local/lib/libopencv_superres.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F247051BD812F5008292AC /* libopencv_ts.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopencv_ts.a; path = /usr/local/lib/libopencv_ts.a; sourceTree = "<absolute>"; };
+		46F247061BD812F5008292AC /* libopencv_video.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_video.3.0.0.dylib; path = /usr/local/lib/libopencv_video.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F247071BD812F5008292AC /* libopencv_videoio.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_videoio.3.0.0.dylib; path = /usr/local/lib/libopencv_videoio.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F247081BD812F5008292AC /* libopencv_videostab.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_videostab.3.0.0.dylib; path = /usr/local/lib/libopencv_videostab.3.0.0.dylib; sourceTree = "<absolute>"; };
+		46F2470B1BD812F5008292AC /* libusb-1.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libusb-1.0.0.dylib"; path = "/usr/local/Cellar/libusb/1.0.19/lib/libusb-1.0.0.dylib"; sourceTree = "<absolute>"; };
+		46F247251BD81D1A008292AC /* FaceOffApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FaceOffApp.h; path = ../src/FaceOffApp.h; sourceTree = "<group>"; };
+		46F2472A1BD83EF8008292AC /* GUIHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GUIHandler.cpp; path = ../src/gui/GUIHandler.cpp; sourceTree = "<group>"; };
+		46F2472B1BD83EF8008292AC /* GUIHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GUIHandler.hpp; path = ../src/gui/GUIHandler.hpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		8D1107320486CEB800E47090 /* FaceOff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceOff.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E80CADEF5564EC39C9A885A /* FaceOffApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/FaceOffApp.cpp; sourceTree = "<group>"; name = FaceOffApp.cpp; };
-		2C1A6260141C4A69B2558FE2 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
-		2AEABFF198CB4630A9C0DA65 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; name = CinderApp.icns; };
-		E408BF25DD8C4F379864E34B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
-		3645407D08A84202B093A03D /* FaceOff_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = FaceOff_Prefix.pch; sourceTree = "<group>"; name = FaceOff_Prefix.pch; };
+		E408BF25DD8C4F379864E34B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +131,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46F2470C1BD812F5008292AC /* libopencv_calib3d.3.0.0.dylib in Frameworks */,
+				46F2470D1BD812F5008292AC /* libopencv_core.3.0.0.dylib in Frameworks */,
+				46F2470E1BD812F5008292AC /* libopencv_features2d.3.0.0.dylib in Frameworks */,
+				46F2470F1BD812F5008292AC /* libopencv_flann.3.0.0.dylib in Frameworks */,
+				46F247101BD812F5008292AC /* libopencv_hal.a in Frameworks */,
+				46F247111BD812F5008292AC /* libopencv_highgui.3.0.0.dylib in Frameworks */,
+				46F247121BD812F5008292AC /* libopencv_imgcodecs.3.0.0.dylib in Frameworks */,
+				46F247131BD812F5008292AC /* libopencv_imgproc.3.0.0.dylib in Frameworks */,
+				46F247141BD812F5008292AC /* libopencv_ml.3.0.0.dylib in Frameworks */,
+				46F247151BD812F5008292AC /* libopencv_objdetect.3.0.0.dylib in Frameworks */,
+				46F247161BD812F5008292AC /* libopencv_photo.3.0.0.dylib in Frameworks */,
+				46F247171BD812F5008292AC /* libopencv_shape.3.0.0.dylib in Frameworks */,
+				46F247181BD812F5008292AC /* libopencv_stitching.3.0.0.dylib in Frameworks */,
+				46F247191BD812F5008292AC /* libopencv_superres.3.0.0.dylib in Frameworks */,
+				46F2471A1BD812F5008292AC /* libopencv_ts.a in Frameworks */,
+				46F2471B1BD812F5008292AC /* libopencv_video.3.0.0.dylib in Frameworks */,
+				46F2471C1BD812F5008292AC /* libopencv_videoio.3.0.0.dylib in Frameworks */,
+				46F2471D1BD812F5008292AC /* libopencv_videostab.3.0.0.dylib in Frameworks */,
+				46F247201BD812F5008292AC /* libusb-1.0.0.dylib in Frameworks */,
+				46EC097D1BD857060098FD81 /* libconfig++.9.dylib in Frameworks */,
 				006D720419952D00008149E2 /* AVFoundation.framework in Frameworks */,
 				006D720519952D00008149E2 /* CoreMedia.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -68,10 +168,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01B97315FEAEA392516A2CEA /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Blocks;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				46F247251BD81D1A008292AC /* FaceOffApp.h */,
 				0E80CADEF5564EC39C9A885A /* FaceOffApp.cpp */,
+				46EC09841BD878280098FD81 /* camera */,
+				46EC09741BD84EFF0098FD81 /* config */,
+				46F247261BD83E85008292AC /* gui */,
+				46F246E61BD810D2008292AC /* performance */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -120,15 +232,13 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				46F246EA1BD8113D008292AC /* BuildNotes.rtf */,
+				46F246EB1BD8113D008292AC /* GuidelinesAndTips.txt */,
+				46F246EC1BD8113D008292AC /* LICENSE.txt */,
+				46F246ED1BD8113D008292AC /* OpenCV_Guideline.txt */,
+				46F246EE1BD8113D008292AC /* readme.md */,
 			);
 			name = FaceOff;
-			sourceTree = "<group>";
-		};
-		01B97315FEAEA392516A2CEA /* Blocks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Blocks;
 			sourceTree = "<group>";
 		};
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
@@ -145,6 +255,7 @@
 			children = (
 				2AEABFF198CB4630A9C0DA65 /* CinderApp.icns */,
 				E408BF25DD8C4F379864E34B /* Info.plist */,
+				46EC09781BD851EE0098FD81 /* FaceOff.cfg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -152,10 +263,113 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				46F246F41BD811B3008292AC /* User Frameworks */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		46EC096F1BD84E730098FD81 /* OpenCV */ = {
+			isa = PBXGroup;
+			children = (
+				46F246F71BD812F4008292AC /* libopencv_calib3d.3.0.0.dylib */,
+				46F246F81BD812F4008292AC /* libopencv_core.3.0.0.dylib */,
+				46F246F91BD812F4008292AC /* libopencv_features2d.3.0.0.dylib */,
+				46F246FA1BD812F5008292AC /* libopencv_flann.3.0.0.dylib */,
+				46F246FB1BD812F5008292AC /* libopencv_hal.a */,
+				46F246FC1BD812F5008292AC /* libopencv_highgui.3.0.0.dylib */,
+				46F246FD1BD812F5008292AC /* libopencv_imgcodecs.3.0.0.dylib */,
+				46F246FE1BD812F5008292AC /* libopencv_imgproc.3.0.0.dylib */,
+				46F246FF1BD812F5008292AC /* libopencv_ml.3.0.0.dylib */,
+				46F247001BD812F5008292AC /* libopencv_objdetect.3.0.0.dylib */,
+				46F247011BD812F5008292AC /* libopencv_photo.3.0.0.dylib */,
+				46F247021BD812F5008292AC /* libopencv_shape.3.0.0.dylib */,
+				46F247031BD812F5008292AC /* libopencv_stitching.3.0.0.dylib */,
+				46F247041BD812F5008292AC /* libopencv_superres.3.0.0.dylib */,
+				46F247051BD812F5008292AC /* libopencv_ts.a */,
+				46F247061BD812F5008292AC /* libopencv_video.3.0.0.dylib */,
+				46F247071BD812F5008292AC /* libopencv_videoio.3.0.0.dylib */,
+				46F247081BD812F5008292AC /* libopencv_videostab.3.0.0.dylib */,
+			);
+			name = OpenCV;
+			sourceTree = "<group>";
+		};
+		46EC09701BD84E850098FD81 /* PS3EyeDriver */ = {
+			isa = PBXGroup;
+			children = (
+				46F2470B1BD812F5008292AC /* libusb-1.0.0.dylib */,
+				46F246F51BD811FC008292AC /* libPS3EyeDriver.bundle */,
+			);
+			name = PS3EyeDriver;
+			sourceTree = "<group>";
+		};
+		46EC09731BD84EA40098FD81 /* LibConfig */ = {
+			isa = PBXGroup;
+			children = (
+				46EC097C1BD857060098FD81 /* libconfig++.9.dylib */,
+			);
+			name = LibConfig;
+			sourceTree = "<group>";
+		};
+		46EC09741BD84EFF0098FD81 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				46EC09761BD84F800098FD81 /* ConfigHandler.hpp */,
+				46EC09751BD84F800098FD81 /* ConfigHandler.cpp */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
+		46EC09841BD878280098FD81 /* camera */ = {
+			isa = PBXGroup;
+			children = (
+				46EC09851BD9603D0098FD81 /* PS3EyeDriver */,
+				46EC09811BD8770D0098FD81 /* CameraCapture.hpp */,
+				46EC09821BD877130098FD81 /* CameraCapture.cpp */,
+				46EC098A1BD962D60098FD81 /* SystemCameraCapture.hpp */,
+				46EC09891BD962D60098FD81 /* SystemCameraCapture.cpp */,
+				46EC098C1BD9632D0098FD81 /* CaptureBase.h */,
+			);
+			name = camera;
+			sourceTree = "<group>";
+		};
+		46EC09851BD9603D0098FD81 /* PS3EyeDriver */ = {
+			isa = PBXGroup;
+			children = (
+				46EC09871BD960890098FD81 /* PS3EyeCapture.hpp */,
+				46EC09861BD960890098FD81 /* PS3EyeCapture.cpp */,
+			);
+			name = PS3EyeDriver;
+			sourceTree = "<group>";
+		};
+		46F246E61BD810D2008292AC /* performance */ = {
+			isa = PBXGroup;
+			children = (
+				46F246E81BD810FA008292AC /* FPSCounter.h */,
+				46F246E71BD810FA008292AC /* FPSCounter.cpp */,
+			);
+			name = performance;
+			sourceTree = "<group>";
+		};
+		46F246F41BD811B3008292AC /* User Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				46EC09731BD84EA40098FD81 /* LibConfig */,
+				46EC09701BD84E850098FD81 /* PS3EyeDriver */,
+				46EC096F1BD84E730098FD81 /* OpenCV */,
+			);
+			name = "User Frameworks";
+			sourceTree = "<group>";
+		};
+		46F247261BD83E85008292AC /* gui */ = {
+			isa = PBXGroup;
+			children = (
+				46F2472B1BD83EF8008292AC /* GUIHandler.hpp */,
+				46F2472A1BD83EF8008292AC /* GUIHandler.cpp */,
+				46EC098D1BD97F470098FD81 /* UsesGUI.hpp */,
+			);
+			name = gui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +382,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				46EC097A1BD852440098FD81 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -184,6 +399,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FaceOff" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -219,7 +436,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46EC098B1BD962D60098FD81 /* SystemCameraCapture.cpp in Sources */,
 				C38E610CD0BD4536B8FD0327 /* FaceOffApp.cpp in Sources */,
+				46EC09881BD960890098FD81 /* PS3EyeCapture.cpp in Sources */,
+				46F246E91BD810FA008292AC /* FPSCounter.cpp in Sources */,
+				46EC09771BD84F800098FD81 /* ConfigHandler.cpp in Sources */,
+				46F2472C1BD83EF8008292AC /* GUIHandler.cpp in Sources */,
+				46EC09831BD877130098FD81 /* CameraCapture.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,24 +453,37 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				FRAMEWORK_SEARCH_PATHS = /usr/local/lib;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FaceOff_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = FaceOff_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/include\"",
+					/usr/local/include,
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/anttweakbar/1.16/lib,
+					/usr/local/Cellar/libusb/1.0.19/lib,
+					/usr/local/lib,
+					/usr/local/Cellar/libconfig/1.5/lib,
+				);
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.libcinder.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = FaceOff;
 				SYMROOT = ./build;
+				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -258,24 +494,37 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = /usr/local/lib;
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FaceOff_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NDEBUG=1",
 					"$(inherited)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = FaceOff_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/include\"",
+					/usr/local/include,
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/anttweakbar/1.16/lib,
+					/usr/local/Cellar/libusb/1.0.19/lib,
+					/usr/local/lib,
+					/usr/local/Cellar/libconfig/1.5/lib,
+				);
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.libcinder.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = FaceOff;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = ./build;
+				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -284,7 +533,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CINDER_PATH = "../../../../Resources/Frameworks/cinder_0.9.0_mac";
+				CINDER_PATH = ../../../../Resources/Frameworks/cinder_0.9.0_mac;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				ENABLE_TESTABILITY = YES;
@@ -302,7 +551,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CINDER_PATH = "../../../../Resources/Frameworks/cinder_0.9.0_mac";
+				CINDER_PATH = ../../../../Resources/Frameworks/cinder_0.9.0_mac;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
 				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

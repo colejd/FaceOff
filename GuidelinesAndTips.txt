@@ -1,0 +1,30 @@
+==================================================
+General coding style:
+==================================================
+- Use camelCasing for variable names
+- Use PascalCase for method names
+- Defines and consts should be named with all caps and underscores, e.g. #define VAR_NAME 5
+- Avoid global variables as a rule
+- Leave docstring comments above method declarations (you can see these by holding Option and clicking on a method name)
+
+Sample code:
+
+#define COOL_VARIABLE 5
+
+/** Docstring comment */
+public int AddTwoNumbers(int num1, int num2){
+
+double fooFighters;
+float diveBar;
+
+//Regular comment
+return num1 + num2;
+
+}
+
+
+==================================================
+XCode tips:
+==================================================
+- Hold Option and click a method name to view its documentation.
+- Hold Command and click a method name to go to its declaration.
