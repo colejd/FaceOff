@@ -11,11 +11,13 @@ This project is in a very early alpha state and doesn't really have an end goal 
 
 ###Requirements
 This project uses Cinder as its base.
+
 Additional dependencies:
-    - Libconfig
-    - LibUSB
-    - Intel Threading Building Blocks
-    - OpenCV 3.0
+- Libconfig
+- LibUSB
+- Intel Threading Building Blocks
+- OpenCV 3.0
+
 See BuildNotes.rtf for instructions on building OpenCV for this project.
 
 
