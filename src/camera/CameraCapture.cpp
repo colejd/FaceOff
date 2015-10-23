@@ -26,6 +26,7 @@ bool CameraCapture::Init(const int deviceNum, const DEVICE_TYPE deviceType){
         return success;
     }
     else if(GetDeviceType() == DEVICE_TYPE::PS3EYE){
+        printf("PS3 Eye camera is not supported yet!\n");
         return false;
     }
     else{
