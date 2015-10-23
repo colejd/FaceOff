@@ -31,9 +31,6 @@ bool CameraCapture::Init(const int deviceNum, const DEVICE_TYPE deviceType){
     else{
         return false;
     }
-    //Error out if the camera can't be found.
-    assert(currentCapture != NULL);
-    return false;
 }
 
 /**

@@ -22,6 +22,7 @@
 		46EC09831BD877130098FD81 /* CameraCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09821BD877130098FD81 /* CameraCapture.cpp */; settings = {ASSET_TAGS = (); }; };
 		46EC09881BD960890098FD81 /* PS3EyeCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09861BD960890098FD81 /* PS3EyeCapture.cpp */; settings = {ASSET_TAGS = (); }; };
 		46EC098B1BD962D60098FD81 /* SystemCameraCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09891BD962D60098FD81 /* SystemCameraCapture.cpp */; settings = {ASSET_TAGS = (); }; };
+		46EC09901BD990730098FD81 /* libPS3EyeDriver.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246F51BD811FC008292AC /* libPS3EyeDriver.bundle */; };
 		46F246E91BD810FA008292AC /* FPSCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46F246E71BD810FA008292AC /* FPSCounter.cpp */; settings = {ASSET_TAGS = (); }; };
 		46F2470C1BD812F5008292AC /* libopencv_calib3d.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246F71BD812F4008292AC /* libopencv_calib3d.3.0.0.dylib */; };
 		46F2470D1BD812F5008292AC /* libopencv_core.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246F81BD812F4008292AC /* libopencv_core.3.0.0.dylib */; };
@@ -91,6 +92,7 @@
 		46EC098A1BD962D60098FD81 /* SystemCameraCapture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SystemCameraCapture.hpp; path = ../src/camera/SystemCameraCapture.hpp; sourceTree = "<group>"; };
 		46EC098C1BD9632D0098FD81 /* CaptureBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CaptureBase.h; path = ../src/camera/CaptureBase.h; sourceTree = "<group>"; };
 		46EC098D1BD97F470098FD81 /* UsesGUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = UsesGUI.hpp; path = ../src/gui/UsesGUI.hpp; sourceTree = "<group>"; };
+		46EC098F1BD990580098FD81 /* PS3EyePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PS3EyePlugin.h; path = ../Frameworks/PS3EyeDriver/PS3EyePlugin.h; sourceTree = "<group>"; };
 		46F246E71BD810FA008292AC /* FPSCounter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FPSCounter.cpp; path = ../src/performance/FPSCounter.cpp; sourceTree = "<group>"; };
 		46F246E81BD810FA008292AC /* FPSCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPSCounter.h; path = ../src/performance/FPSCounter.h; sourceTree = "<group>"; };
 		46F246EA1BD8113D008292AC /* BuildNotes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = BuildNotes.rtf; path = ../BuildNotes.rtf; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				46F2471D1BD812F5008292AC /* libopencv_videostab.3.0.0.dylib in Frameworks */,
 				46F247201BD812F5008292AC /* libusb-1.0.0.dylib in Frameworks */,
 				46EC097D1BD857060098FD81 /* libconfig++.9.dylib in Frameworks */,
+				46EC09901BD990730098FD81 /* libPS3EyeDriver.bundle in Frameworks */,
 				006D720419952D00008149E2 /* AVFoundation.framework in Frameworks */,
 				006D720519952D00008149E2 /* CoreMedia.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -298,6 +301,7 @@
 		46EC09701BD84E850098FD81 /* PS3EyeDriver */ = {
 			isa = PBXGroup;
 			children = (
+				46EC098F1BD990580098FD81 /* PS3EyePlugin.h */,
 				46F2470B1BD812F5008292AC /* libusb-1.0.0.dylib */,
 				46F246F51BD811FC008292AC /* libPS3EyeDriver.bundle */,
 			);
@@ -469,6 +473,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(CINDER_PATH)/include\"",
 					/usr/local/include,
+					"$(SRCROOT)/Frameworks/PS3EyeDriver",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -509,6 +514,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(CINDER_PATH)/include\"",
 					/usr/local/include,
+					"$(SRCROOT)/Frameworks/PS3EyeDriver",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
