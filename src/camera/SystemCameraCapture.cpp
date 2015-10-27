@@ -19,29 +19,35 @@ bool SystemCameraCapture::Init(const int deviceNum){
         SetFrameHeight(cap.get(CV_CAP_PROP_FRAME_HEIGHT));
     }
     
+    //frame = new cv::Mat(cv::Size(GetFrameWidth(), GetFrameHeight()), CV_8UC3);
+    //frame = std::make_shared<cv::Mat>();
     return cap.isOpened();
 }
 
 void SystemCameraCapture::Update(){
     //If the frame is empty, try to fill it from the capture. Sometimes OpenCV gives garbage
     //data, so we wait until this operation succeeds before continuing.
-    
     if(cap.isOpened()){
         bool waitIfEmpty = false;
         
-        if(waitIfEmpty && frame.empty()){
+        if(waitIfEmpty && frame->empty()){
             //Wait until the frame gets filled by actual camera data.
             int maxWaitIterations = 50;
             int waitIterations = 0;
-            while(frame.empty() || waitIterations < maxWaitIterations){
-                cap >> frame;
+            while(frame->empty() || waitIterations < maxWaitIterations){
+                cap.read(*frame);
                 waitIterations += 1;
             }
         }
         //Otherwise just read from cap into the frame.
         else{
-            cap >> frame;
+            cap.read(*frame);
+            frameIsReady = true;
         }
     }
     
+}
+
+const bool SystemCameraCapture::FrameIsReady(){
+    return frameIsReady;
 }

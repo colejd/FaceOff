@@ -16,6 +16,7 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
+		4661E9501BDFD23F001EA163 /* FaceOffGlobals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E94E1BDFD23F001EA163 /* FaceOffGlobals.cpp */; settings = {ASSET_TAGS = (); }; };
 		46EC09771BD84F800098FD81 /* ConfigHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09751BD84F800098FD81 /* ConfigHandler.cpp */; settings = {ASSET_TAGS = (); }; };
 		46EC097B1BD8524E0098FD81 /* FaceOff.cfg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46EC09781BD851EE0098FD81 /* FaceOff.cfg */; };
 		46EC097D1BD857060098FD81 /* libconfig++.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EC097C1BD857060098FD81 /* libconfig++.9.dylib */; settings = {ASSET_TAGS = (); }; };
@@ -80,6 +81,8 @@
 		2AEABFF198CB4630A9C0DA65 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		2C1A6260141C4A69B2558FE2 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		3645407D08A84202B093A03D /* FaceOff_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = FaceOff_Prefix.pch; sourceTree = "<group>"; };
+		4661E94E1BDFD23F001EA163 /* FaceOffGlobals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FaceOffGlobals.cpp; path = ../src/FaceOffGlobals.cpp; sourceTree = "<group>"; };
+		4661E94F1BDFD23F001EA163 /* FaceOffGlobals.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FaceOffGlobals.hpp; path = ../src/FaceOffGlobals.hpp; sourceTree = "<group>"; };
 		46EC09751BD84F800098FD81 /* ConfigHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigHandler.cpp; path = ../src/config/ConfigHandler.cpp; sourceTree = "<group>"; };
 		46EC09761BD84F800098FD81 /* ConfigHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConfigHandler.hpp; path = ../src/config/ConfigHandler.hpp; sourceTree = "<group>"; };
 		46EC09781BD851EE0098FD81 /* FaceOff.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FaceOff.cfg; path = ../resources/FaceOff.cfg; sourceTree = "<group>"; };
@@ -176,6 +179,8 @@
 			children = (
 				46F247251BD81D1A008292AC /* FaceOffApp.h */,
 				0E80CADEF5564EC39C9A885A /* FaceOffApp.cpp */,
+				4661E94F1BDFD23F001EA163 /* FaceOffGlobals.hpp */,
+				4661E94E1BDFD23F001EA163 /* FaceOffGlobals.cpp */,
 				46EC09841BD878280098FD81 /* camera */,
 				46EC09741BD84EFF0098FD81 /* config */,
 				46F247261BD83E85008292AC /* gui */,
@@ -433,6 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46EC098B1BD962D60098FD81 /* SystemCameraCapture.cpp in Sources */,
+				4661E9501BDFD23F001EA163 /* FaceOffGlobals.cpp in Sources */,
 				C38E610CD0BD4536B8FD0327 /* FaceOffApp.cpp in Sources */,
 				46EC09881BD960890098FD81 /* PS3EyeCapture.cpp in Sources */,
 				46F246E91BD810FA008292AC /* FPSCounter.cpp in Sources */,

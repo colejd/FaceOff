@@ -8,12 +8,14 @@
 
 #include "CameraCapture.hpp"
 
+std::thread updateThread;
+
 CameraCapture::CameraCapture(){
     
 }
 
 CameraCapture::~CameraCapture(){
-    
+    StopUpdateThread();
 }
 
 /** Starts the camera capture, returning true if successful and false if not. */
@@ -23,6 +25,7 @@ bool CameraCapture::Init(const int deviceNum, const DEVICE_TYPE deviceType){
     if(GetDeviceType() == DEVICE_TYPE::GENERIC){
         currentCapture = new SystemCameraCapture();
         bool success = currentCapture->Init(deviceNum);
+        
         return success;
     }
     else if(GetDeviceType() == DEVICE_TYPE::PS3EYE){
@@ -83,6 +86,34 @@ void CameraCapture::Update(){
     currentCapture->Update();
 }
 
-cv::Mat& CameraCapture::GetLatestFrame(){
+std::shared_ptr<cv::Mat> CameraCapture::GetLatestFrame(){
     return currentCapture->GetLatestFrame();
 }
+
+const bool CameraCapture::FrameIsReady(){
+    return currentCapture->FrameIsReady();
+}
+
+void CameraCapture::StartUpdateThread(){
+    updateThread = std::thread(&CameraCapture::ThreadUpdateFunction, this);
+}
+
+void CameraCapture::StopUpdateThread(){
+    if(updateThread.joinable()){
+        updateThread.join();
+        printf("Update thread stopped.\n");
+    }
+}
+
+//Will terminate automatically when the program exits.
+void CameraCapture::ThreadUpdateFunction(){
+    while(FaceOffGlobals::ThreadsShouldStop == false){
+        Update();
+    }
+}
+
+
+
+
+
+

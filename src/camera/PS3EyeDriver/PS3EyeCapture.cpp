@@ -23,3 +23,7 @@ bool PS3EyeCapture::Init(const int deviceNum){
 void PS3EyeCapture::Update(){
     
 }
+
+const bool PS3EyeCapture::FrameIsReady(){
+    return false;
+}

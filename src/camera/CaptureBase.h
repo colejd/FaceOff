@@ -9,6 +9,7 @@
 #ifndef CaptureInterface_h
 #define CaptureInterface_h
 
+#include <memory>
 #include "opencv2/opencv.hpp"
 
 /**
@@ -16,6 +17,9 @@
  used in a CameraCapture implementation.
  */
 class CaptureBase {
+protected:
+    bool frameIsReady = false;
+    
 private:
     /** Index of the device; starts at 0. */
     int deviceIndex = -1;
@@ -53,7 +57,7 @@ public:
      Gives a cv::Mat reference to the pixel data pulled from the device.
      You must call Update() to populate frame with data.
      */
-    cv::Mat& GetLatestFrame(){
+    const std::shared_ptr<cv::Mat> GetLatestFrame(){
         return frame;
     }
     
@@ -68,8 +72,13 @@ public:
      */
     virtual void Update() = 0;
     
-    cv::Mat frame;
+    /**
+     Returns true if a processed frame is ready to be used by the program.
+     */
+    virtual const bool FrameIsReady() = 0;
     
+    //cv::Mat frame;
+    std::shared_ptr<cv::Mat> frame = std::make_shared<cv::Mat>();
 };
 
 

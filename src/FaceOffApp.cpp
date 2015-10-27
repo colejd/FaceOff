@@ -53,6 +53,8 @@ void FaceOffApp::setup(){
     
     static bool FULLSCREEN_ON_LAUNCH = ConfigHandler::GetInstance().config.lookup("FULLSCREEN_ON_LAUNCH");
     setFullScreen(FULLSCREEN_ON_LAUNCH);
+    
+    capture.StartUpdateThread();
 }
 
 void FaceOffApp::SetupGUIVariables(){
@@ -67,33 +69,38 @@ void FaceOffApp::update(){
     //Grab a new frame from the camera
     
     //Capture is very slow sometimes. Why?
-    capture.Update();
-    frame = capture.GetLatestFrame();
+    //capture.Update();
     
-    if(drawEdges){
-        //Downsample
-        //cv::resize(frame, frame, cv::Size(), 0.5, 0.5, INTER_NEAREST);
-        //Convert to grayscale
-        cvtColor(frame, edges, COLOR_BGR2GRAY);
-        //Blur the result to reduce noise
-        GaussianBlur(edges, edges, cv::Size(7,7), 1.5, 1.5);
-        //Run Canny detection on the blurred image
-        Canny(edges, edges, cannyThresholdLow, cannyThresholdHigh, 3); //0, 30, 3
-        //cv::resize(edges, edges, cv::Size(), 2.0, 2.0, INTER_NEAREST);
+    if(capture.FrameIsReady()){
+        frame = capture.GetLatestFrame();
         
-        //Convert the grayscale edges mat back into BGR
-        cvtColor(edges, finalImage, cv::COLOR_GRAY2BGRA);
+        if(!frame->empty()){
+            if(drawEdges){
+                //Downsample
+                //cv::resize(frame, frame, cv::Size(), 0.5, 0.5, INTER_NEAREST);
+                //Convert to grayscale
+                cvtColor(*frame, edges, COLOR_BGR2GRAY);
+                //Blur the result to reduce noise
+                GaussianBlur(edges, edges, cv::Size(7,7), 1.5, 1.5);
+                //Run Canny detection on the blurred image
+                Canny(edges, edges, cannyThresholdLow, cannyThresholdHigh, 3); //0, 30, 3
+                //cv::resize(edges, edges, cv::Size(), 2.0, 2.0, INTER_NEAREST);
+                
+                //Convert the grayscale edges mat back into BGR
+                cvtColor(edges, finalImage, cv::COLOR_GRAY2BGRA);
+            }
+            else{
+                cvtColor(*frame, finalImage, cv::COLOR_BGR2BGRA);
+            }
+            
+            //putText(finalImage, format("OpenCL: %s", ocl::useOpenCL() ? "ON" : "OFF"), cv::Point(0, 50), FONT_HERSHEY_SIMPLEX, 0.8, Scalar(0, 0, 255, 255), 2);
+            
+            //Send final image data to Cinder
+            frame_bgra = finalImage.data;
+            finalImageData = Surface(frame_bgra, capture.GetWidth(), capture.GetHeight(), capture.GetWidth()*4, SurfaceChannelOrder::BGRA);
+            finalTexture = gl::Texture::create( finalImageData );
+        }
     }
-    else{
-        cvtColor(frame, finalImage, cv::COLOR_BGR2BGRA);
-    }
-    
-    //putText(finalImage, format("OpenCL: %s", ocl::useOpenCL() ? "ON" : "OFF"), cv::Point(0, 50), FONT_HERSHEY_SIMPLEX, 0.8, Scalar(0, 0, 255, 255), 2);
-    
-    //Send final image data to Cinder
-    frame_bgra = finalImage.data;
-    finalImageData = Surface(frame_bgra, capture.GetWidth(), capture.GetHeight(), capture.GetWidth()*4, SurfaceChannelOrder::BGRA);
-    finalTexture = gl::Texture::create( finalImageData );
 }
 
 
@@ -145,8 +152,16 @@ void FaceOffApp::keyDown( KeyEvent event )
         if( isFullScreen() )
             setFullScreen( false );
         else
-            quit();
+            QuitApp();
     }
+    else if( event.getCode() == KeyEvent::KEY_w ){
+        exit(EXIT_SUCCESS);
+    }
+}
+
+void FaceOffApp::QuitApp(){
+    FaceOffGlobals::ThreadsShouldStop = true;
+    quit();
 }
 
 CINDER_APP( FaceOffApp, RendererGl, prepareSettings )

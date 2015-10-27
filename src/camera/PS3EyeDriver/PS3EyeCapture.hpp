@@ -15,6 +15,7 @@ class PS3EyeCapture : CaptureBase {
 public:
     bool Init(const int deviceNum) override;
     void Update() override;
+    const bool FrameIsReady() override;
     
 private:
     

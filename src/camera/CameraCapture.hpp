@@ -9,9 +9,13 @@
 #ifndef CameraCapture_hpp
 #define CameraCapture_hpp
 
+#include <memory>
+
 #include "opencv2/opencv.hpp"
 
 #include "SystemCameraCapture.hpp"
+
+#include "FaceOffGlobals.hpp"
 
 using namespace cv;
 
@@ -55,7 +59,15 @@ public:
     /** Call during the update loop to pull the newest camera data. */
     void Update();
     
-    cv::Mat& GetLatestFrame();
+    const bool FrameIsReady();
+    
+    //const cv::Mat& GetLatestFrame();
+    std::shared_ptr<cv::Mat> GetLatestFrame();
+    
+    //std::thread updateThread;
+    void StartUpdateThread();
+    void StopUpdateThread();
+    void ThreadUpdateFunction();
     
 private:
     

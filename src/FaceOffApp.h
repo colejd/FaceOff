@@ -30,6 +30,10 @@ using namespace cv;
 #include "config/ConfigHandler.hpp"
 #include "camera/CameraCapture.hpp"
 
+#include <memory>
+
+#include "FaceOffGlobals.hpp"
+
 /**
  The main application. This program is designed to interpret data
  from an attached camera using OpenCV.
@@ -47,6 +51,8 @@ public:
     // Cinder will call 'draw' each time the contents of the window need to be redrawn.
     void draw() override;
     
+    void QuitApp();
+    
     void SetupGUIVariables() override;
     
 private:
@@ -57,7 +63,7 @@ private:
     CameraCapture capture;
     
     //The image data from the camera will be stored here.
-    Mat frame;
+    std::shared_ptr<cv::Mat> frame;
     
     //Canny results will be stored here
     Mat edges;
