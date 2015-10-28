@@ -97,6 +97,10 @@
 		4661E94F1BDFD23F001EA163 /* FaceOffGlobals.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FaceOffGlobals.hpp; path = ../src/FaceOffGlobals.hpp; sourceTree = "<group>"; };
 		4661E9591BE04F44001EA163 /* libPS3EyeDriver.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libPS3EyeDriver.dylib; path = ../Frameworks/PS3EyeDriver/libPS3EyeDriver.dylib; sourceTree = "<group>"; };
 		4661E9651BE153DE001EA163 /* PS3EyeDriver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = PS3EyeDriver.hpp; path = ../Frameworks/PS3EyeDriver/PS3EyeDriver.hpp; sourceTree = "<group>"; };
+		4661E9671BE16507001EA163 /* libusb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = libusb.h; path = ../Frameworks/PS3EyeDriver/libusb.h; sourceTree = "<group>"; };
+		4661E9681BE16507001EA163 /* ps3eye.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ps3eye.h; path = ../Frameworks/PS3EyeDriver/ps3eye.h; sourceTree = "<group>"; };
+		4661E9691BE16507001EA163 /* PS3EyeDriverPriv.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = PS3EyeDriverPriv.hpp; path = ../Frameworks/PS3EyeDriver/PS3EyeDriverPriv.hpp; sourceTree = "<group>"; };
+		4661E96A1BE16507001EA163 /* YUVBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = YUVBuffer.hpp; path = ../Frameworks/PS3EyeDriver/YUVBuffer.hpp; sourceTree = "<group>"; };
 		46EC09751BD84F800098FD81 /* ConfigHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigHandler.cpp; path = ../src/config/ConfigHandler.cpp; sourceTree = "<group>"; };
 		46EC09761BD84F800098FD81 /* ConfigHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConfigHandler.hpp; path = ../src/config/ConfigHandler.hpp; sourceTree = "<group>"; };
 		46EC09781BD851EE0098FD81 /* FaceOff.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FaceOff.cfg; path = ../resources/FaceOff.cfg; sourceTree = "<group>"; };
@@ -280,6 +284,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4661E96B1BE1651A001EA163 /* Dependency Headers */ = {
+			isa = PBXGroup;
+			children = (
+				4661E9671BE16507001EA163 /* libusb.h */,
+				4661E9681BE16507001EA163 /* ps3eye.h */,
+				4661E9691BE16507001EA163 /* PS3EyeDriverPriv.hpp */,
+				4661E96A1BE16507001EA163 /* YUVBuffer.hpp */,
+			);
+			name = "Dependency Headers";
+			sourceTree = "<group>";
+		};
 		46EC096F1BD84E730098FD81 /* OpenCV */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +323,7 @@
 		46EC09701BD84E850098FD81 /* PS3EyeDriver */ = {
 			isa = PBXGroup;
 			children = (
+				4661E96B1BE1651A001EA163 /* Dependency Headers */,
 				4661E9591BE04F44001EA163 /* libPS3EyeDriver.dylib */,
 				4661E9651BE153DE001EA163 /* PS3EyeDriver.hpp */,
 			);
