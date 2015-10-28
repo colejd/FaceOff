@@ -14,6 +14,7 @@
 #include "opencv2/opencv.hpp"
 
 #include "SystemCameraCapture.hpp"
+#include "PS3EyeCapture.hpp"
 
 #include "FaceOffGlobals.hpp"
 
@@ -60,17 +61,17 @@ public:
     void Update();
     
     const bool FrameIsReady();
+    void MarkFrameUsed();
     
     //const cv::Mat& GetLatestFrame();
     std::shared_ptr<cv::Mat> GetLatestFrame();
     
-    //std::thread updateThread;
     void StartUpdateThread();
     void StopUpdateThread();
     void ThreadUpdateFunction();
+    //std::thread updateThread;
     
 private:
-    
     CaptureBase* currentCapture;
     DEVICE_TYPE deviceType = DEVICE_TYPE::GENERIC;
     

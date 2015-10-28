@@ -8,7 +8,7 @@ void prepareSettings( App::Settings *settings )
 {
     //settings->setHighDensityDisplayEnabled();
     settings->setWindowPos(0, 0);
-    settings->setFrameRate(90);
+    settings->setFrameRate(60);
     //Prevent the computer from dimming the display or sleeping
     settings->setPowerManagementEnabled(false);
 }
@@ -18,6 +18,12 @@ void prepareSettings( App::Settings *settings )
  */
 void FaceOffApp::setup(){
     
+    //Print debug info
+    #ifdef DEBUG
+        std::cout << "Debug build\n";
+        //std::cout << cv::getBuildInformation();
+    #endif
+    
     static int WINDOW_WIDTH = ConfigHandler::GetInstance().config.lookup("DEFAULT_WINDOW_WIDTH");
     static int WINDOW_HEIGHT = ConfigHandler::GetInstance().config.lookup("DEFAULT_WINDOW_HEIGHT");
     
@@ -25,22 +31,17 @@ void FaceOffApp::setup(){
     setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     
     //Set up OpenCV
-    cv::ocl::setUseOpenCL(true);
+    cv::ocl::setUseOpenCL(false);
     
     //Set up camera device
     capture = CameraCapture();
-    bool success = capture.Init(0, CameraCapture::DEVICE_TYPE::GENERIC);
+    //bool success = capture.Init(0, CameraCapture::DEVICE_TYPE::GENERIC);
+    bool success = capture.Init(0, CameraCapture::DEVICE_TYPE::PS3EYE);
     //Quit if the capture doesn't take
     if(!success){
-        printf("There was a problem initializing the camera capture.");
+        printf("There was a problem initializing the camera capture.\n");
         exit(EXIT_FAILURE);
     }
-    
-    //Print debug info
-    #ifdef DEBUG
-    std::cout << "Debug build\n";
-    std::cout << cv::getBuildInformation();
-    #endif
     
     //frame.create(cv::Size(capture.GetWidth(), capture.GetHeight()), CV_8UC3);
     
@@ -48,6 +49,8 @@ void FaceOffApp::setup(){
     
     frame_bgra = new uint8_t[capture.GetWidth() * capture.GetHeight() * 4];
     memset(frame_bgra, 0, capture.GetWidth() * capture.GetHeight() * 4);
+    
+    edges = cv::Mat(cv::Size(capture.GetWidth(), capture.GetHeight()), CV_8U);
     
     SetupGUIVariables();
     
@@ -72,14 +75,20 @@ void FaceOffApp::update(){
     //capture.Update();
     
     if(capture.FrameIsReady()){
-        frame = capture.GetLatestFrame();
+        //frame = capture.GetLatestFrame();
         
-        if(!frame->empty()){
+        cv::Mat rawFrame(capture.GetWidth(), capture.GetHeight(), CV_8UC3, capture.GetLatestFrame()->data);
+        
+        //printf("Data: %i\n", rawFrame.data[100]);
+        //printf("Width: %i, Height: %i\n", rawFrame.cols, rawFrame.rows);
+        
+        //Do computer vision stuff
+        if(!rawFrame.empty()){
             if(drawEdges){
                 //Downsample
                 //cv::resize(frame, frame, cv::Size(), 0.5, 0.5, INTER_NEAREST);
                 //Convert to grayscale
-                cvtColor(*frame, edges, COLOR_BGR2GRAY);
+                cvtColor(rawFrame, edges, COLOR_BGR2GRAY);
                 //Blur the result to reduce noise
                 GaussianBlur(edges, edges, cv::Size(7,7), 1.5, 1.5);
                 //Run Canny detection on the blurred image
@@ -90,7 +99,7 @@ void FaceOffApp::update(){
                 cvtColor(edges, finalImage, cv::COLOR_GRAY2BGRA);
             }
             else{
-                cvtColor(*frame, finalImage, cv::COLOR_BGR2BGRA);
+                cvtColor(rawFrame, finalImage, cv::COLOR_BGR2BGRA);
             }
             
             //putText(finalImage, format("OpenCL: %s", ocl::useOpenCL() ? "ON" : "OFF"), cv::Point(0, 50), FONT_HERSHEY_SIMPLEX, 0.8, Scalar(0, 0, 255, 255), 2);
@@ -100,12 +109,24 @@ void FaceOffApp::update(){
             finalImageData = Surface(frame_bgra, capture.GetWidth(), capture.GetHeight(), capture.GetWidth()*4, SurfaceChannelOrder::BGRA);
             finalTexture = gl::Texture::create( finalImageData );
         }
+        //Directly draw the data from the frame
+        else{
+            printf("Frame is empty\n");
+            //finalImageData = Surface(rawFrame.data, capture.GetWidth(), capture.GetHeight(), capture.GetWidth()*3, SurfaceChannelOrder::RGB);
+            //finalTexture = gl::Texture::create( finalImageData );
+        }
+        
+        capture.MarkFrameUsed();
+        rawFrame.release();
     }
 }
 
 
 void FaceOffApp::draw(){
     gl::clear( Color( 0, 0, 0 ) );
+    
+    //For drawing the image and keeping aspect ratio
+    //https://gist.github.com/jkosoy/3895744
     
     //Draw the final image
     gl::setMatricesWindow( capture.GetWidth(), capture.GetHeight() );

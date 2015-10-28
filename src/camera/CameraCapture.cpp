@@ -29,8 +29,10 @@ bool CameraCapture::Init(const int deviceNum, const DEVICE_TYPE deviceType){
         return success;
     }
     else if(GetDeviceType() == DEVICE_TYPE::PS3EYE){
-        printf("PS3 Eye camera is not supported yet!\n");
-        return false;
+        printf("Init PS3 Eye capture at index %i\n", deviceNum);
+        currentCapture = new PS3EyeCapture();
+        bool success = currentCapture->Init(deviceNum);
+        return success;
     }
     else{
         return false;
@@ -94,8 +96,15 @@ const bool CameraCapture::FrameIsReady(){
     return currentCapture->FrameIsReady();
 }
 
+void CameraCapture::MarkFrameUsed(){
+    currentCapture->MarkFrameUsed();
+}
+
 void CameraCapture::StartUpdateThread(){
-    updateThread = std::thread(&CameraCapture::ThreadUpdateFunction, this);
+    //updateThread = std::thread(std::bind(&CameraCapture::ThreadUpdateFunction, this));
+    printf("Starting update thread\n");
+    updateThread = std::thread( [this] { this->ThreadUpdateFunction(); } );
+    printf("Update thread started\n");
 }
 
 void CameraCapture::StopUpdateThread(){

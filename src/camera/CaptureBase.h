@@ -18,7 +18,6 @@
  */
 class CaptureBase {
 protected:
-    bool frameIsReady = false;
     
 private:
     /** Index of the device; starts at 0. */
@@ -29,6 +28,7 @@ private:
     int frameHeight = -1;
     
 public:
+    bool frameIsReady = false;
     /** Sets the device index */
     void SetDeviceIndex(const int index){
         deviceIndex = index;
@@ -67,6 +67,7 @@ public:
      return false if not.
      */
     virtual bool Init(const int deviceNum) = 0;
+    
     /**
      Updates frame with the camera data.
      */
@@ -76,6 +77,10 @@ public:
      Returns true if a processed frame is ready to be used by the program.
      */
     virtual const bool FrameIsReady() = 0;
+    
+    virtual void MarkFrameUsed(){
+        frameIsReady = false;
+    }
     
     //cv::Mat frame;
     std::shared_ptr<cv::Mat> frame = std::make_shared<cv::Mat>();

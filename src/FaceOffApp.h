@@ -62,9 +62,6 @@ private:
     
     CameraCapture capture;
     
-    //The image data from the camera will be stored here.
-    std::shared_ptr<cv::Mat> frame;
-    
     //Canny results will be stored here
     Mat edges;
     
