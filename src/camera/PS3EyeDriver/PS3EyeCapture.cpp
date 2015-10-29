@@ -14,7 +14,7 @@ PS3EyeCapture::PS3EyeCapture(){
 
 PS3EyeCapture::~PS3EyeCapture(){
     free(rawData);
-    PS3EyeDriver::GetInstance().StopThreadUpdate();
+    if(useThreadedUpdate) PS3EyeDriver::GetInstance().StopThreadUpdate();
 }
 
 bool PS3EyeCapture::Init(const int deviceNum){
@@ -24,11 +24,14 @@ bool PS3EyeCapture::Init(const int deviceNum){
     //The requested FPS will be changed to the next-lowest valid framerate if an invalid framerate is requested.
     bool success = PS3EyeDriver::GetInstance().InitCamera(deviceNum, PS3EyeDriver::RESOLUTION_SETTING::FULL_640_480, 60);
     if(success){
-        SetFrameWidth(PS3EyeDriver::GetInstance().GetWidth(deviceNum));
-        SetFrameHeight(PS3EyeDriver::GetInstance().GetHeight(deviceNum));
+        SetFrameWidth(PS3EyeDriver::GetInstance().GetHeight(deviceNum));
+        SetFrameHeight(PS3EyeDriver::GetInstance().GetWidth(deviceNum));
         rawData = (unsigned char*)malloc(GetFrameWidth()*GetFrameHeight()*3*sizeof(unsigned char));
         //cv::Mat frame(cv::Mat(cv::Size(GetFrameWidth(), GetFrameHeight()), CV_8U));
-        PS3EyeDriver::GetInstance().StartThreadUpdate();
+        if(useThreadedUpdate) PS3EyeDriver::GetInstance().StartThreadUpdate();
+    }
+    else{
+        //printf("Unsuccessful\n");
     }
     return success;
 }
@@ -39,6 +42,8 @@ bool PS3EyeCapture::Init(const int deviceNum){
 //  the draw loop grab the data.
 
 void PS3EyeCapture::Update(){
+    if(!useThreadedUpdate) PS3EyeDriver::GetInstance().Update();
+    
     //Each frame assume the frame isn't ready
     //frameIsReady = false;
     //printf("Update status: %i\n", res);
@@ -48,8 +53,10 @@ void PS3EyeCapture::Update(){
         //printf("New frame\n");
         //Pull latest converted frame from PS3EyeDriver
         //Store raw data into buffer
+        
+        
         PS3EyeDriver::GetInstance().ConvertRawData(GetDeviceIndex(), rawData);
-        //printf("%i\n", rawData[0]);
+        //rawData = PS3EyeDriver::GetInstance().GetRawFrame(GetDeviceIndex());
         
         //cv::Mat* frame(GetFrameWidth(), GetFrameHeight(), CV_8U, rawData); // does not copy
         

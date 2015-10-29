@@ -69,12 +69,18 @@ public:
     void StartUpdateThread();
     void StopUpdateThread();
     void ThreadUpdateFunction();
-    //std::thread updateThread;
+    
+    const bool IsInitialized();
     
 private:
     CaptureBase* currentCapture;
     DEVICE_TYPE deviceType = DEVICE_TYPE::GENERIC;
+    std::thread updateThread;
+    bool initialized = false;
+    
+    //std::thread updateThread { [] { CameraCapture{}(); } };
     
 };
+
 
 #endif /* CameraCapture_hpp */

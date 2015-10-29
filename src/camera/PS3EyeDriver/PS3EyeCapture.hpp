@@ -22,6 +22,8 @@ public:
     
     void SwapBuffers();
     
+    bool useThreadedUpdate = false;
+    
 private:
     uint8_t *rawData;
     

@@ -8,13 +8,14 @@
 
 #include "CameraCapture.hpp"
 
-std::thread updateThread;
+//std::thread updateThread;
 
 CameraCapture::CameraCapture(){
-    
+    printf("CameraCapture constructor\n");
 }
 
 CameraCapture::~CameraCapture(){
+    printf("CameraCapture destructor\n");
     StopUpdateThread();
 }
 
@@ -23,20 +24,20 @@ bool CameraCapture::Init(const int deviceNum, const DEVICE_TYPE deviceType){
     SetDeviceType(deviceType);
     
     if(GetDeviceType() == DEVICE_TYPE::GENERIC){
+        printf("Init [Generic] capture at index %i\n", deviceNum);
         currentCapture = new SystemCameraCapture();
-        bool success = currentCapture->Init(deviceNum);
-        
-        return success;
+        initialized = currentCapture->Init(deviceNum);
     }
     else if(GetDeviceType() == DEVICE_TYPE::PS3EYE){
-        printf("Init PS3 Eye capture at index %i\n", deviceNum);
+        printf("Init [PS3EYE] capture at index %i\n", deviceNum);
         currentCapture = new PS3EyeCapture();
-        bool success = currentCapture->Init(deviceNum);
-        return success;
+        initialized = currentCapture->Init(deviceNum);
     }
     else{
-        return false;
+        initialized = false;
     }
+    
+    return initialized;
 }
 
 /**
@@ -93,7 +94,9 @@ std::shared_ptr<cv::Mat> CameraCapture::GetLatestFrame(){
 }
 
 const bool CameraCapture::FrameIsReady(){
-    return currentCapture->FrameIsReady();
+    if(currentCapture != nullptr)
+        return currentCapture->FrameIsReady();
+    else return false;
 }
 
 void CameraCapture::MarkFrameUsed(){
@@ -104,6 +107,8 @@ void CameraCapture::StartUpdateThread(){
     //updateThread = std::thread(std::bind(&CameraCapture::ThreadUpdateFunction, this));
     printf("Starting update thread\n");
     updateThread = std::thread( [this] { this->ThreadUpdateFunction(); } );
+    //std::thread updateThread = std::thread( [this] { this->ThreadUpdateFunction(); } );
+    //updateThread.detach();
     printf("Update thread started\n");
 }
 
@@ -117,10 +122,14 @@ void CameraCapture::StopUpdateThread(){
 //Will terminate automatically when the program exits.
 void CameraCapture::ThreadUpdateFunction(){
     while(FaceOffGlobals::ThreadsShouldStop == false){
-        Update();
+            Update();
     }
 }
 
+
+const bool CameraCapture::IsInitialized(){
+    return initialized;
+}
 
 
 

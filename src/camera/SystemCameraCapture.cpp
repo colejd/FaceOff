@@ -15,8 +15,8 @@ bool SystemCameraCapture::Init(const int deviceNum){
     cap.open(GetDeviceIndex());
     
     if(cap.isOpened()){
-        SetFrameWidth(cap.get(CV_CAP_PROP_FRAME_WIDTH));
-        SetFrameHeight(cap.get(CV_CAP_PROP_FRAME_HEIGHT));
+        SetFrameWidth(cap.get(CV_CAP_PROP_FRAME_HEIGHT));
+        SetFrameHeight(cap.get(CV_CAP_PROP_FRAME_WIDTH));
     }
     
     //frame = new cv::Mat(cv::Size(GetFrameWidth(), GetFrameHeight()), CV_8UC3);

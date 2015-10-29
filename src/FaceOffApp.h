@@ -55,25 +55,19 @@ public:
     
     void SetupGUIVariables() override;
     
+    cinder::gl::Texture2dRef GetTextureFromMat(cv::Mat& mat);
+    
 private:
     
     //const int WINDOW_WIDTH = 640;
     //const int WINDOW_HEIGHT = 400;
     
-    CameraCapture capture;
-    
-    //Canny results will be stored here
-    Mat edges;
+    CameraCapture* capture1;
+    CameraCapture* capture2;
     
     //The final image that will be shown
-    Mat finalImage;
-    
-    //Points to BGRA8888 array; assign a cv::Mat to draw from OpenCV.
-    uint8_t *frame_bgra;
-    //Holds ordered texture data for OpenGL
-    Surface8u finalImageData;
-    //The cinder texture that will be drawn on screen
-    gl::TextureRef finalTexture;
+    Mat finalImageLeft;
+    Mat finalImageRight;
     
     bool drawEdges = true;
     int cannyThresholdLow = 30; //0
