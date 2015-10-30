@@ -9,7 +9,7 @@
 #include "GUIHandler.hpp"
 
 GUIHandler::GUIHandler(){
-    mParams = params::InterfaceGl::create( getWindow(), "General Settings", toPixels( ivec2( 200, 100 ) ) );
+    mParams = params::InterfaceGl::create( getWindow(), "General Settings", toPixels( ivec2( 200, 150 ) ) );
     mParams->setPosition(ivec2(0, 50));
 }
 

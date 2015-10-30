@@ -8,7 +8,7 @@ void prepareSettings( App::Settings *settings )
 {
     //settings->setHighDensityDisplayEnabled();
     settings->setWindowPos(0, 0);
-    settings->setFrameRate(120);
+    settings->setFrameRate(240);
     //Prevent the computer from dimming the display or sleeping
     settings->setPowerManagementEnabled(false);
 }
@@ -24,8 +24,8 @@ void FaceOffApp::setup(){
         //std::cout << cv::getBuildInformation();
     #endif
     
-    static int WINDOW_WIDTH = ConfigHandler::GetInstance().config.lookup("DEFAULT_WINDOW_WIDTH");
-    static int WINDOW_HEIGHT = ConfigHandler::GetInstance().config.lookup("DEFAULT_WINDOW_HEIGHT");
+    static int WINDOW_WIDTH = ConfigHandler::GetConfig().lookup("DEFAULT_WINDOW_WIDTH");
+    static int WINDOW_HEIGHT = ConfigHandler::GetConfig().lookup("DEFAULT_WINDOW_HEIGHT");
     
     //Set up app window
     setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -35,7 +35,7 @@ void FaceOffApp::setup(){
     
     //Set up camera device
     capture1 = new CameraCapture();
-    capture1->Init(0, CameraCapture::DEVICE_TYPE::PS3EYE);
+    capture1->Init(0, CameraCapture::DEVICE_TYPE::GENERIC);
     //Quit if the capture doesn't take
     if(capture1->IsInitialized()){
         capture1->StartUpdateThread();
@@ -47,7 +47,9 @@ void FaceOffApp::setup(){
     
     
     capture2 = new CameraCapture();
-    capture2->Init(1, CameraCapture::DEVICE_TYPE::PS3EYE);
+    
+    /*
+    capture2->Init(1, CameraCapture::DEVICE_TYPE::GENERIC);
     //Quit if the capture doesn't take
     if(capture2->IsInitialized()){
         capture2->StartUpdateThread();
@@ -56,6 +58,9 @@ void FaceOffApp::setup(){
         printf("There was a problem initializing the camera capture.\n");
         exit(EXIT_FAILURE);
     }
+     */
+    
+    
      
     
     
@@ -67,7 +72,7 @@ void FaceOffApp::setup(){
     
     SetupGUIVariables();
     
-    static bool FULLSCREEN_ON_LAUNCH = ConfigHandler::GetInstance().config.lookup("FULLSCREEN_ON_LAUNCH");
+    static bool FULLSCREEN_ON_LAUNCH = ConfigHandler::GetConfig().lookup("FULLSCREEN_ON_LAUNCH");
     setFullScreen(FULLSCREEN_ON_LAUNCH);
     printf("FaceOff Init finished.\n");
     
@@ -75,16 +80,17 @@ void FaceOffApp::setup(){
 
 void FaceOffApp::SetupGUIVariables(){
     GetGUI().GetParams()->addParam("Edge Detection", &drawEdges).keyIncr("e");
+    GetGUI().GetParams()->addParam("Use Contours", &useContours).keyIncr("c");
     GetGUI().GetParams()->addParam("Low Threshold", &cannyThresholdLow).max(255).min(0);
     GetGUI().GetParams()->addParam("High Threshold", &cannyThresholdHigh).max(255).min(0);
+    GetGUI().GetParams()->addParam("Contour Subdivisions", &contourSubdivisions).min(1).max(16);
+    GetGUI().GetParams()->addParam("Draw cool edges", &drawCoolEdges);
 }
 
 
 void FaceOffApp::update(){
     
     //Grab a new frame from the camera
-    
-    //Capture is very slow sometimes. Why?
     //capture.Update();
     
     if(capture1->IsInitialized()){
@@ -93,26 +99,57 @@ void FaceOffApp::update(){
             
             cv::Mat rawFrame(capture1->GetWidth(), capture1->GetHeight(), CV_8UC3, capture1->GetLatestFrame()->data);
             cv::Mat edges;
+            cv::Mat contours;
             //printf("Data1: %i\n", rawFrame.data[100]);
             //printf("Width: %i, Height: %i\n", rawFrame.cols, rawFrame.rows);
             
             //imshow("Raw Frame", rawFrame);
             
             //Do computer vision stuff
+            
             if(!rawFrame.empty()){
+                
                 if(drawEdges){
-                    //Downsample
-                    //cv::resize(frame, frame, cv::Size(), 0.5, 0.5, INTER_NEAREST);
-                    //Convert to grayscale
-                    cvtColor(rawFrame, edges, COLOR_BGR2GRAY);
-                    //Blur the result to reduce noise
-                    GaussianBlur(edges, edges, cv::Size(7,7), 1.5, 1.5);
-                    //Run Canny detection on the blurred image
-                    Canny(edges, edges, cannyThresholdLow, cannyThresholdHigh, 3); //0, 30, 3
-                    //cv::resize(edges, edges, cv::Size(), 2.0, 2.0, INTER_NEAREST);
-                    
-                    //Convert the grayscale edges mat back into BGR
-                    cvtColor(edges, finalImageLeft, cv::COLOR_GRAY2BGR);
+                    if(!drawCoolEdges){
+                        //Downsample
+                        //cv::resize(frame, frame, cv::Size(), 0.5, 0.5, INTER_NEAREST);
+                        
+                        //Convert to grayscale
+                        cvtColor(rawFrame, edges, COLOR_BGR2GRAY);
+                        //Blur the result to reduce noise
+                        GaussianBlur(edges, edges, cv::Size(7,7), 1.5, 1.5);
+                        //Run Canny detection on the blurred image
+                        Canny(edges, edges, cannyThresholdLow, cannyThresholdHigh, 3); //0, 30, 3
+                        
+                        //cv::resize(edges, edges, cv::Size(), 2.0, 2.0, INTER_NEAREST);
+                        
+                        if(useContours) cv::parallel_for_(cv::Range(0, contourSubdivisions), ParallelContourDetector(edges, edges, contourSubdivisions));
+                        
+                        cvtColor(edges, finalImageLeft, cv::COLOR_GRAY2BGR);
+                    }
+                    else{
+                        //http://docs.opencv.org/master/d0/da5/tutorial_ximgproc_prediction.html
+                        using namespace cv;
+                        using namespace cv::ximgproc;
+                        
+                        cv::Mat cool;
+                        //rawFrame.convertTo(cool, CV_32FC3);
+                        rawFrame.convertTo( cool, cv::DataType<float>::type, 1/255.0 );
+                        
+                        cv::Mat edges( cool.size(), cool.type() );
+                        
+                        //String path = "../../../model.yml.gz";
+                        pDollar->detectEdges(cool, edges);
+                        //std::cout << "Edges - " << "Channels: " << edges.channels() << " Element Size: " << edges.elemSize() << "\n";
+                        
+                        cv::Mat result;
+                        
+                        //imshow("Edges", edges);
+                        edges.convertTo(result, CV_8UC1, 255);
+                        //std::cout << "Result - " << "Channels: " << result.channels() << " Element Size: " << result.elemSize() << "\n";
+                        cvtColor(result, finalImageLeft, cv::COLOR_GRAY2BGR);
+                    }
+                 
                 }
                 else{
                     rawFrame.copyTo(finalImageLeft);
@@ -160,6 +197,8 @@ void FaceOffApp::update(){
                     Canny(edges, edges, cannyThresholdLow, cannyThresholdHigh, 3); //0, 30, 3
                     //cv::resize(edges, edges, cv::Size(), 2.0, 2.0, INTER_NEAREST);
                     
+                    if(useContours) cv::parallel_for_(cv::Range(0, contourSubdivisions), ParallelContourDetector(edges, edges, contourSubdivisions));
+                    
                     //Convert the grayscale edges mat back into BGR
                     cvtColor(edges, finalImageRight, cv::COLOR_GRAY2BGR);
                 }
@@ -200,8 +239,16 @@ void FaceOffApp::draw(){
     //gl::setMatricesWindow( capture1->GetWidth() * 2, capture1->GetHeight() );
     //if( finalTexture ) {
         //gl::pushViewMatrix();
-        gl::draw(GetTextureFromMat(finalImageLeft), Rectf(0, 0, getWindowSize().x/2, getWindowSize().y) );
-        gl::draw(GetTextureFromMat(finalImageRight), Rectf(getWindowSize().x/2, 0, getWindowSize().x, getWindowSize().y));
+    Rectf leftRect(0, 0, getWindowSize().x/2, getWindowSize().y) ;
+    Rectf rightRect(getWindowSize().x/2, 0, getWindowSize().x, getWindowSize().y);
+    cinder::gl::Texture2dRef leftRef = GetTextureFromMat(finalImageLeft);
+    cinder::gl::Texture2dRef rightRef = GetTextureFromMat(finalImageRight);
+    
+    //Rectf(leftRef.getBounds()).getCenteredFit(leftRect, true)
+    gl::draw(leftRef, Rectf(leftRef->getBounds()).getCenteredFit(leftRect, true));
+    gl::draw(rightRef, Rectf(rightRef->getBounds()).getCenteredFit(rightRect, true));
+        //gl::draw(GetTextureFromMat(finalImageLeft), Rectf(0, 0, getWindowSize().x/2, getWindowSize().y) );
+        //gl::draw(GetTextureFromMat(finalImageRight), Rectf(getWindowSize().x/2, 0, getWindowSize().x, getWindowSize().y));
         //gl::popViewMatrix();
     //}
     
@@ -258,5 +305,83 @@ void FaceOffApp::QuitApp(){
     FaceOffGlobals::ThreadsShouldStop = true;
     quit();
 }
+
+void ParallelContourDetector::operator ()(const cv::Range &range) const{
+    using namespace cv;
+    
+    for(int i = range.start; i < range.end; i++){
+        vector< vector<cv::Point> > contourData;
+        vector<Vec4i> contourHierarchy;
+        cv::Mat in(src_gray, cv::Rect(0, (src_gray.rows/subsections)*i, src_gray.cols, src_gray.rows/subsections));
+        cv::Mat out(out_gray, cv::Rect(0, (out_gray.rows/subsections)*i, out_gray.cols, out_gray.rows/subsections) );
+        try{
+            //C++ API
+            
+            findContours( in, contourData, contourHierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+            out = Scalar::all(0);
+            Scalar color = Scalar(255, 255, 255, 255);
+            //srand (time(NULL));
+            int thickness = 3;
+            //drawContours(out, contourData, -1, color, thickness, 8, contourHierarchy);
+            for (vector<cv::Point> contour : contourData) {
+                if(true) color = Scalar(rand()&255, rand()&255, rand()&255);
+                polylines(out, contour, true, color, thickness, 8);
+            }
+            
+            //C API
+            /*
+            CvMemStorage *mem;
+            mem = cvCreateMemStorage(0);
+            CvSeq *contours = 0;
+            //Find contours in canny_output
+            //IplImage convertedCanny = (in.getMat(ACCESS_READ));
+            //IplImage* convertedCanny = new IplImage(in.getMat(0));
+            
+            IplImage* convertedCanny;
+            convertedCanny = cvCreateImage(cvSize(in.cols,in.rows),8,3);
+            IplImage ipltemp=in;
+            cvCopy(&ipltemp,convertedCanny);
+            
+            cvFindContours(&convertedCanny, mem, &contours, sizeof(CvContour), CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
+            //Draw contours in contour_output
+            IplImage* convertedContours = cvCreateImage(cvSize(out.size().width, out.size().height), 8, 3);
+            cvZero(convertedContours);
+            
+            cv::Scalar lineColor = cv::Scalar(255, 0, 0);
+            cv::Scalar holeColor = cv::Scalar(0, 0, 0);
+            cvDrawContours(convertedContours, contours, lineColor,
+                           holeColor,
+                           100, thickness);
+            //printf("%s\n", type2str(finalContours.type()).c_str());
+            //printf("%i\n", finalContours.rows * finalContours.cols );
+            
+            //Convert image back to UMat
+            
+            Mat finalContours;
+            finalContours.create(out.rows, out.cols, CV_8UC3);
+            finalContours = cvarrToMat(convertedContours);
+            finalContours.copyTo(out);
+            finalContours.release();
+            
+            //cvRelease(contours);
+            
+            cvClearMemStorage(mem);
+            cvReleaseImage(&convertedContours);
+            cvReleaseImage(&convertedCanny);
+            //cvReleaseImage(&(&convertedCanny));
+             */
+            
+        }
+        catch(...){
+            printf("[CVEye] ParallelContourDetector error.\n");
+        }
+        
+        in.release();
+        out.release();
+    }
+    
+}
+
+ParallelContourDetector::~ParallelContourDetector(){ }
 
 CINDER_APP( FaceOffApp, RendererGl, prepareSettings )

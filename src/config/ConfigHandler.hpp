@@ -19,8 +19,7 @@ using namespace libconfig;
  THIS IS NOT THREAD SAFE IN C++03 -- USE C++11!
  */
 class ConfigHandler {
-    
-public:
+protected:
     //==== SINGLETON STUFF ==============================================//
     static ConfigHandler& GetInstance()
     {
@@ -29,6 +28,15 @@ public:
         return instance;
     }
     //==== END SINGLETON STUFF ==============================================//
+    
+public:
+    
+    /**
+     Get the config statically using fewer commands
+     */
+    static Config& GetConfig(){
+        return GetInstance().config;
+    }
     
     Config config;
     
