@@ -116,7 +116,7 @@
 		4661E9681BE16507001EA163 /* ps3eye.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ps3eye.h; path = ../Frameworks/PS3EyeDriver/ps3eye.h; sourceTree = "<group>"; };
 		4661E9691BE16507001EA163 /* PS3EyeDriverPriv.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = PS3EyeDriverPriv.hpp; path = ../Frameworks/PS3EyeDriver/PS3EyeDriverPriv.hpp; sourceTree = "<group>"; };
 		4661E96A1BE16507001EA163 /* YUVBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = YUVBuffer.hpp; path = ../Frameworks/PS3EyeDriver/YUVBuffer.hpp; sourceTree = "<group>"; };
-		4661E96C1BE1E9C0001EA163 /* libopencv_ximgproc.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_ximgproc.3.0.0.dylib; path = ../../../../../../../usr/local/lib/libopencv_ximgproc.3.0.0.dylib; sourceTree = "<group>"; };
+		4661E96C1BE1E9C0001EA163 /* libopencv_ximgproc.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_ximgproc.3.0.0.dylib; path = /usr/local/lib/libopencv_ximgproc.3.0.0.dylib; sourceTree = "<absolute>"; };
 		4661E96E1BE1EF22001EA163 /* model.yml.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; name = model.yml.gz; path = ../resources/model.yml.gz; sourceTree = "<group>"; };
 		4661E9731BE2E8C6001EA163 /* EdgeDetectorModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EdgeDetectorModule.cpp; path = ../src/modules/edge_detector/EdgeDetectorModule.cpp; sourceTree = "<group>"; };
 		4661E9741BE2E8C6001EA163 /* EdgeDetectorModule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EdgeDetectorModule.hpp; path = ../src/modules/edge_detector/EdgeDetectorModule.hpp; sourceTree = "<group>"; };
@@ -301,7 +301,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4661E96C1BE1E9C0001EA163 /* libopencv_ximgproc.3.0.0.dylib */,
 				46F246F41BD811B3008292AC /* User Frameworks */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
@@ -342,6 +341,7 @@
 		46EC096F1BD84E730098FD81 /* OpenCV */ = {
 			isa = PBXGroup;
 			children = (
+				4661E96C1BE1E9C0001EA163 /* libopencv_ximgproc.3.0.0.dylib */,
 				46F246F71BD812F4008292AC /* libopencv_calib3d.3.0.0.dylib */,
 				46F246F81BD812F4008292AC /* libopencv_core.3.0.0.dylib */,
 				46F246F91BD812F4008292AC /* libopencv_features2d.3.0.0.dylib */,
