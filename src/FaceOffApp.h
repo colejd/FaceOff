@@ -35,6 +35,8 @@ using namespace cv;
 
 #include "FaceOffGlobals.hpp"
 
+#include "EdgeDetectorModule.hpp"
+
 /**
  The main application. This program is designed to interpret data
  from an attached camera using OpenCV.
@@ -70,37 +72,10 @@ private:
     Mat finalImageLeft;
     Mat finalImageRight;
     
-    bool drawEdges = true;
-    bool drawCoolEdges = false;
-    int cannyThresholdLow = 30; //0
-    int cannyThresholdHigh = 50; //50
-    
-    bool useContours = false;
-    
-    int contourSubdivisions = 4;
-    
-    String path = "/Users/jonathancole/Dev/Projects/Work/FaceOff/xcode/build/Release/model.yml.gz";
-    Ptr<cv::ximgproc::StructuredEdgeDetection> pDollar = cv::ximgproc::createStructuredEdgeDetection(path);
+    EdgeDetectorModule edgeDetector;
     
 };
 
-/**
- * Takes an image and processes it in segments, which are distributed across the CPU cores by TBB.
- */
-class ParallelContourDetector : public cv::ParallelLoopBody {
-private:
-    cv::Mat src_gray;
-    cv::Mat &out_gray;
-    int subsections;
-    
-public:
-    
-    ParallelContourDetector(cv::Mat _src_gray, cv::Mat &_out_gray, int _subsections) : src_gray(_src_gray), out_gray(_out_gray), subsections(_subsections) {};
-    ~ParallelContourDetector();
-    
-    virtual void operator ()(const cv::Range &range) const;
-    
-    
-};
+
 
 #endif /* FaceOffApp_h */

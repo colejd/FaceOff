@@ -14,6 +14,8 @@
 #ifndef GUIHandler_hpp
 #define GUIHandler_hpp
 
+#include <string>
+
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/params/Params.h"
@@ -38,8 +40,11 @@ public:
     }
     //==== END SINGLETON STUFF ==============================================//
     
-    void Draw();
-    params::InterfaceGlRef GetParams();
+    void DrawWindow(string name);
+    void DrawAll();
+    
+    void AddWindow(string name, ivec2 size);
+    params::InterfaceGlRef GetWindow(string name);
     
     
     
@@ -53,6 +58,8 @@ private:
     //==== END SINGLETON STUFF ==============================================//
     
     params::InterfaceGlRef mParams;
+    
+    unordered_map<string, params::InterfaceGlRef> windows;
     
 };
 

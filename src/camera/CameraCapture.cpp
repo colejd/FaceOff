@@ -37,6 +37,11 @@ bool CameraCapture::Init(const int deviceNum, const DEVICE_TYPE deviceType){
         initialized = false;
     }
     
+    if(initialized) StartUpdateThread();
+    else{
+        printf("Capture init failed!\n");
+    }
+    
     return initialized;
 }
 

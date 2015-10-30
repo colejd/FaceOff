@@ -24,6 +24,7 @@
 		4661E96F1BE1EF22001EA163 /* model.yml.gz in Resources */ = {isa = PBXBuildFile; fileRef = 4661E96E1BE1EF22001EA163 /* model.yml.gz */; settings = {ASSET_TAGS = (); }; };
 		4661E9711BE1EF33001EA163 /* model.yml.gz in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4661E96E1BE1EF22001EA163 /* model.yml.gz */; };
 		4661E9751BE2E8C6001EA163 /* EdgeDetectorModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E9731BE2E8C6001EA163 /* EdgeDetectorModule.cpp */; settings = {ASSET_TAGS = (); }; };
+		4661E97C1BE2F099001EA163 /* ParallelContourDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E97A1BE2F099001EA163 /* ParallelContourDetector.cpp */; settings = {ASSET_TAGS = (); }; };
 		46EC09771BD84F800098FD81 /* ConfigHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09751BD84F800098FD81 /* ConfigHandler.cpp */; settings = {ASSET_TAGS = (); }; };
 		46EC097B1BD8524E0098FD81 /* FaceOff.cfg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46EC09781BD851EE0098FD81 /* FaceOff.cfg */; };
 		46EC097D1BD857060098FD81 /* libconfig++.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EC097C1BD857060098FD81 /* libconfig++.9.dylib */; settings = {ASSET_TAGS = (); }; };
@@ -119,6 +120,8 @@
 		4661E96E1BE1EF22001EA163 /* model.yml.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; name = model.yml.gz; path = ../resources/model.yml.gz; sourceTree = "<group>"; };
 		4661E9731BE2E8C6001EA163 /* EdgeDetectorModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EdgeDetectorModule.cpp; path = ../src/modules/edge_detector/EdgeDetectorModule.cpp; sourceTree = "<group>"; };
 		4661E9741BE2E8C6001EA163 /* EdgeDetectorModule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EdgeDetectorModule.hpp; path = ../src/modules/edge_detector/EdgeDetectorModule.hpp; sourceTree = "<group>"; };
+		4661E97A1BE2F099001EA163 /* ParallelContourDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParallelContourDetector.cpp; path = ../src/modules/edge_detector/ParallelContourDetector.cpp; sourceTree = "<group>"; };
+		4661E97B1BE2F099001EA163 /* ParallelContourDetector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ParallelContourDetector.hpp; path = ../src/modules/edge_detector/ParallelContourDetector.hpp; sourceTree = "<group>"; };
 		46EC09751BD84F800098FD81 /* ConfigHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigHandler.cpp; path = ../src/config/ConfigHandler.cpp; sourceTree = "<group>"; };
 		46EC09761BD84F800098FD81 /* ConfigHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConfigHandler.hpp; path = ../src/config/ConfigHandler.hpp; sourceTree = "<group>"; };
 		46EC09781BD851EE0098FD81 /* FaceOff.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FaceOff.cfg; path = ../resources/FaceOff.cfg; sourceTree = "<group>"; };
@@ -320,10 +323,20 @@
 		4661E9721BE2E851001EA163 /* modules */ = {
 			isa = PBXGroup;
 			children = (
-				4661E9731BE2E8C6001EA163 /* EdgeDetectorModule.cpp */,
-				4661E9741BE2E8C6001EA163 /* EdgeDetectorModule.hpp */,
+				4661E9761BE2EE93001EA163 /* edge_detect */,
 			);
 			name = modules;
+			sourceTree = "<group>";
+		};
+		4661E9761BE2EE93001EA163 /* edge_detect */ = {
+			isa = PBXGroup;
+			children = (
+				4661E9741BE2E8C6001EA163 /* EdgeDetectorModule.hpp */,
+				4661E9731BE2E8C6001EA163 /* EdgeDetectorModule.cpp */,
+				4661E97B1BE2F099001EA163 /* ParallelContourDetector.hpp */,
+				4661E97A1BE2F099001EA163 /* ParallelContourDetector.cpp */,
+			);
+			name = edge_detect;
 			sourceTree = "<group>";
 		};
 		46EC096F1BD84E730098FD81 /* OpenCV */ = {
@@ -505,6 +518,7 @@
 				46F2472C1BD83EF8008292AC /* GUIHandler.cpp in Sources */,
 				4661E9751BE2E8C6001EA163 /* EdgeDetectorModule.cpp in Sources */,
 				46EC09831BD877130098FD81 /* CameraCapture.cpp in Sources */,
+				4661E97C1BE2F099001EA163 /* ParallelContourDetector.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

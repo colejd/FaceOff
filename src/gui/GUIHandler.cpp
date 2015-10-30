@@ -9,14 +9,44 @@
 #include "GUIHandler.hpp"
 
 GUIHandler::GUIHandler(){
-    mParams = params::InterfaceGl::create( getWindow(), "General Settings", toPixels( ivec2( 200, 150 ) ) );
-    mParams->setPosition(ivec2(0, 50));
+    AddWindow("General Settings", ivec2(200, 150));
+    GetWindow("General Settings")->setPosition(ivec2(0, 50));
 }
 
-void GUIHandler::Draw(){
-    mParams->draw();
+/**
+ Adds a window to the GUI with the given name and size.
+ */
+void GUIHandler::AddWindow(string name, ivec2 size){
+    params::InterfaceGlRef newWindow = params::InterfaceGl::create( getWindow(), name, toPixels( size ) );
+    windows.insert(std::make_pair(name, newWindow));
 }
 
-params::InterfaceGlRef GUIHandler::GetParams(){
-    return mParams;
+/**
+ Returns a handle for the window with the specified name.
+ Gives the default window if the name doesn't exist.
+ */
+params::InterfaceGlRef GUIHandler::GetWindow(string name){
+    if(windows.count(name) > 0){
+        return windows.at(name);
+    }
+    else{
+        return windows.at("General Settings");
+    }
+}
+
+/**
+ Invokes a draw call on the window with the specified name.
+ */
+void GUIHandler::DrawWindow(string name){
+    GetWindow(name)->draw();
+}
+
+/**
+ Invokes a draw call on every registered window.
+ */
+void GUIHandler::DrawAll(){
+    for (const auto& i : windows)
+    {
+        i.second->draw();
+    }
 }
