@@ -10,9 +10,11 @@
 
 PS3EyeCapture::PS3EyeCapture(){
     //PS3EyeDriver::GetInstance().Update();
+    printf("[PS3EyeCapture] constructor\n");
 }
 
 PS3EyeCapture::~PS3EyeCapture(){
+    printf("[PS3EyeCapture] destructor\n");
     free(rawData);
     if(useThreadedUpdate) PS3EyeDriver::GetInstance().StopThreadUpdate();
 }
@@ -42,6 +44,8 @@ bool PS3EyeCapture::Init(const int deviceNum){
 //  the draw loop grab the data.
 
 void PS3EyeCapture::Update(){
+    //TODO: This gets called twice per frame, once per camera object.
+    //We need to make sure this only gets called once across all Update calls this frame.
     if(!useThreadedUpdate) PS3EyeDriver::GetInstance().Update();
     
     //Each frame assume the frame isn't ready
@@ -49,7 +53,7 @@ void PS3EyeCapture::Update(){
     //printf("Update status: %i\n", res);
     
     //If the camera has new data, grab the data and convert it
-    if(PS3EyeDriver::GetInstance().HasNewFrame(GetDeviceIndex())){
+    if(PS3EyeDriver::GetInstance().HasNewFrame(GetDeviceIndex())){ //&& frameIsReady == false here //(Mutex lock kind of)
         //printf("New frame\n");
         //Pull latest converted frame from PS3EyeDriver
         //Store raw data into buffer
@@ -60,7 +64,8 @@ void PS3EyeCapture::Update(){
         
         //cv::Mat* frame(GetFrameWidth(), GetFrameHeight(), CV_8U, rawData); // does not copy
         
-        frame->data = rawData;
+        //frame = cv::Mat(GetFrameWidth(), GetFrameHeight(), CV_8UC3, rawData);
+        frame.data = rawData;
         
         //Swap the buffers
         frameIsReady = true;

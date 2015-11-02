@@ -10,7 +10,7 @@
 
 GUIHandler::GUIHandler(){
     AddWindow("General Settings", ivec2(200, 150));
-    GetWindow("General Settings")->setPosition(ivec2(0, 50));
+    GetWindow("General Settings")->setPosition(ivec2(5, 50));
 }
 
 /**

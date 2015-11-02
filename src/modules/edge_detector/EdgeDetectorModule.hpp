@@ -20,6 +20,8 @@
 #include "ConfigHandler.hpp"
 #include "ParallelContourDetector.hpp"
 
+
+
 using namespace std;
 using namespace cv;
 
@@ -28,19 +30,35 @@ public:
     EdgeDetectorModule();
     ~EdgeDetectorModule();
     
+    void Enable();
+    void Disable();
+    const bool IsEnabled();
+    
     cv::Mat ProcessFrame(cv::Mat& frame);
     cv::Mat CompositeImages(cv::Mat& result, cv::Mat& base);
     
     enum ChannelType{
-        GRAYSCALE,
-        HUE //huehuehuehue
+        GRAYSCALE, //!< Use Greyscale conversion with Canny
+        HUE, //!< (huehuehuehue) Use Hue channel with Canny
+        COLOR //!< Use R, G, and B channels with Canny then combine
     };
-    std::vector<string> channelTypeVec {"Grayscale", "Hue"};
+    std::vector<string> channelTypeVec {"Grayscale", "Hue", "Color"};
+    
+    enum BlurType{
+        DEFAULT,
+        GAUSSIAN,
+        ADAPTIVE_MANIFOLD,
+        NONE
+    };
+    std::vector<string> blurTypeVec {"Default", "Gaussian", "Adaptive Manifold", "None"};
+    
+    void BlurImage(cv::Mat &in, cv::Mat &out, int blurType);
     
     
 private:
-    
+    bool enabled = true;
     int currentChannelType = ChannelType::GRAYSCALE;
+    int currentBlurType = BlurType::DEFAULT;
     //The final image that will be shown
     Mat finalMat;
     
@@ -59,11 +77,9 @@ private:
     
     int contourSubdivisions = 4;
     
-    cv::Mat edges, contours, rawFrame;
-    
     int lineThickness = 2;
     
-    bool showEdgesOnly = true;
+    bool showEdgesOnly = false;
     
     Color lineColor = Color(255, 255, 0);
     
@@ -73,6 +89,11 @@ private:
     static cv::Scalar ColorToScalar(const Color& c){
         return cv::Scalar(c[2] * 255.0f, c[1] * 255.0f, c[0] * 255.0f);
     }
+    
+    Ptr<cv::ximgproc::AdaptiveManifoldFilter> AMFilter;
+    
+    double sigma_s = 16.0;
+    double sigma_r = 0.2;
 };
 
 #endif /* EdgeDetectorModule_hpp */

@@ -57,7 +57,7 @@ public:
      Gives a cv::Mat reference to the pixel data pulled from the device.
      You must call Update() to populate frame with data.
      */
-    const std::shared_ptr<cv::Mat> GetLatestFrame(){
+    cv::Mat& GetLatestFrame(){
         return frame;
     }
     
@@ -83,7 +83,7 @@ public:
     }
     
     //cv::Mat frame;
-    std::shared_ptr<cv::Mat> frame = std::make_shared<cv::Mat>();
+    cv::Mat frame;
 };
 
 

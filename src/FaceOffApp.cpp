@@ -31,23 +31,27 @@ void FaceOffApp::setup(){
     setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     
     //Set up OpenCV
-    cv::ocl::setUseOpenCL(true);
+    cv::ocl::setUseOpenCL(false);
     
     //Set up camera device
     capture1 = new CameraCapture();
     capture1->Init(0, CameraCapture::DEVICE_TYPE::GENERIC);
     //Quit if the capture doesn't take
     if(!capture1->IsInitialized()){
+        printf("Camera is not initialized.\n");
         //exit(EXIT_FAILURE);
     }
     
     
     capture2 = new CameraCapture();
-    capture2->Init(1, CameraCapture::DEVICE_TYPE::GENERIC);
+    capture2->Init(1, CameraCapture::DEVICE_TYPE::PS3EYE);
     //Quit if the capture doesn't take
     if(!capture2->IsInitialized()){
+        printf("Camera is not initialized.\n");
         //exit(EXIT_FAILURE);
     }
+    
+    //sleep(2);
     
     
     edgeDetector = EdgeDetectorModule();
@@ -73,11 +77,30 @@ void FaceOffApp::update(){
     
     if(capture1->IsInitialized()){
         if(capture1->FrameIsReady()){
-            cv::Mat rawFrame(capture1->GetWidth(), capture1->GetHeight(), CV_8UC3, capture1->GetLatestFrame()->data);
+            //Explicitly make a new Mat with the properties of the capture and the data of the capture's latest frame.
+            //We do this because capture->GetLatestFrame returns a Mat with an invalid header but correct data.
+            cv::Mat rawFrame(capture1->GetWidth(), capture1->GetHeight(), CV_8UC3, capture1->GetLatestFrame().data);
             
             finalImageLeft = edgeDetector.ProcessFrame(rawFrame);
+            //finalImageLeft = edgeDetector.ProcessFrame(capture1->GetLatestFrame());
             
+            //More or less a mutex unlock for capture->GetLatestFrame()
             capture1->MarkFrameUsed();
+            rawFrame.release();
+        }
+    }
+    
+    if(capture2->IsInitialized()){
+        if(capture2->FrameIsReady()){
+            //Explicitly make a new Mat with the properties of the capture and the data of the capture's latest frame.
+            //We do this because capture->GetLatestFrame returns a Mat with an invalid header but correct data.
+            cv::Mat rawFrame(capture2->GetWidth(), capture2->GetHeight(), CV_8UC3, capture2->GetLatestFrame().data);
+            
+            finalImageRight = edgeDetector.ProcessFrame(rawFrame);
+            //finalImageRight = edgeDetector.ProcessFrame(capture2->GetLatestFrame());
+            
+            //More or less a mutex unlock for capture->GetLatestFrame()
+            capture2->MarkFrameUsed();
             rawFrame.release();
         }
     }
@@ -109,14 +132,13 @@ void FaceOffApp::draw(){
     //Draw the FPS counter
     char fpsString[50];
     sprintf(fpsString, "FPS: %.2f", getAverageFps());
-    
     Font mFont = Font( "Courier", 20 );
     gl::TextureRef mTextTexture;
     vec2 mSize = vec2( 100, 100 );
     TextBox tbox = TextBox().alignment( TextBox::CENTER ).font( mFont ).size( ivec2( mSize.x, TextBox::GROW ) );
     tbox.text(fpsString);
     tbox.setColor( Color( 1.0f, 0.65f, 0.35f ) );
-    tbox.setBackgroundColor( ColorA( 0, 0, 0, 1 ) );
+    tbox.setBackgroundColor( ColorA( 0, 0, 0, 0 ) );
     mTextTexture = gl::Texture2d::create( tbox.render() );
     if( mTextTexture ){
         gl::draw( mTextTexture );

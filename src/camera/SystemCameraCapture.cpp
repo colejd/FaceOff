@@ -30,18 +30,18 @@ void SystemCameraCapture::Update(){
     if(cap.isOpened()){
         bool waitIfEmpty = false;
         
-        if(waitIfEmpty && frame->empty()){
+        if(waitIfEmpty && frame.empty()){
             //Wait until the frame gets filled by actual camera data.
             int maxWaitIterations = 50;
             int waitIterations = 0;
-            while(frame->empty() || waitIterations < maxWaitIterations){
-                cap.read(*frame);
+            while(frame.empty() || waitIterations < maxWaitIterations){
+                cap.read(frame);
                 waitIterations += 1;
             }
         }
         //Otherwise just read from cap into the frame.
         else{
-            cap.read(*frame);
+            cap.read(frame);
             frameIsReady = true;
         }
     }

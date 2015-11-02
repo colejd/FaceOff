@@ -94,7 +94,7 @@ void CameraCapture::Update(){
     currentCapture->Update();
 }
 
-std::shared_ptr<cv::Mat> CameraCapture::GetLatestFrame(){
+cv::Mat& CameraCapture::GetLatestFrame(){
     return currentCapture->GetLatestFrame();
 }
 
