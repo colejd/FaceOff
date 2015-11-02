@@ -68,8 +68,6 @@ cv::Mat EdgeDetectorModule::ProcessFrame(cv::Mat& frame){
     frame.copyTo(rawFrame);
     rawFrame = frame; //Shallow copy
     
-    BlurImage(frame, frame, currentBlurType);
-    
     if(!rawFrame.empty() && IsEnabled()){
         rawFrame.copyTo(finalFrame);
         
@@ -77,7 +75,7 @@ cv::Mat EdgeDetectorModule::ProcessFrame(cv::Mat& frame){
         if(currentChannelType == ChannelType::GRAYSCALE){ //Channel is grayscale
             cvtColor(rawFrame, edges, COLOR_BGR2GRAY);
         }
-        else{ //Channel is hue channel of original image
+        else if(currentChannelType == ChannelType::HUE){ //Channel is hue channel of original image
             std::vector<cv::Mat> channels;
             cv::Mat hsv;
             cv::cvtColor( rawFrame, hsv, CV_RGB2HSV );
@@ -89,7 +87,7 @@ cv::Mat EdgeDetectorModule::ProcessFrame(cv::Mat& frame){
         //threshold(edges, edges, 0, 255, THRESH_BINARY | THRESH_OTSU);
         
         //Do blurring operation on the source image
-        //BlurImage(edges, edges, currentBlurType);
+        BlurImage(edges, edges, currentBlurType);
         
         //fastNlMeansDenoising(edges, edges, 3, 7, 21);
         
