@@ -9,3 +9,6 @@ Try to use const when you’re only reading the cv::Mat in a method:
 
 void doThing(const cv::Mat &mat){};
 
+
+You should make efforts to use cv::InputArray and cv::OutputArray in your methods if you can help it. That is, use cv::InputArray as a parameter type when you want a read-only reference to a Mat/UMat, and use cv::OutputArray when you want a reference to a Mat/UMat that will be written to.
+
