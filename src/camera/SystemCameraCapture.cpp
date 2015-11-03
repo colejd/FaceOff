@@ -27,7 +27,7 @@ bool SystemCameraCapture::Init(const int deviceNum){
 void SystemCameraCapture::Update(){
     //If the frame is empty, try to fill it from the capture. Sometimes OpenCV gives garbage
     //data, so we wait until this operation succeeds before continuing.
-    if(cap.isOpened()){
+    if(cap.isOpened() && !frameMutex){
         bool waitIfEmpty = false;
         
         if(waitIfEmpty && frame.empty()){

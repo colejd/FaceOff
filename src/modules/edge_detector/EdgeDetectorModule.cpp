@@ -62,26 +62,28 @@ void EdgeDetectorModule::SetupGUIVariables(){
 
 
 void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
-    cv::UMat edges;
+    cv::UMat latestStep;
     cv::UMat finalFrame;
+    
+    in.copyTo(latestStep);
     
     //rawFrame = frame; //Shallow copy
     
-    if(!in.empty() && IsEnabled()){
+    if(!latestStep.empty() && IsEnabled()){
         //Condense the source image into a single channel for use with the Canny algorithm
-        CondenseImage(in, edges, currentChannelType);
+        CondenseImage(latestStep, latestStep, currentChannelType);
         
         //threshold(edges, edges, 0, 255, THRESH_BINARY | THRESH_OTSU);
         
         //Blur the source image to reduce noise and texture details
-        BlurImage(edges, edges, currentBlurType);
+        BlurImage(latestStep, latestStep, currentBlurType);
         
         //fastNlMeansDenoising(edges, edges, 3, 7, 21);
         
         //Perform erosion and dilution if requested
         if(doErosionDilution){
-            erode(edges, edges, Mat(), cv::Point(-1,-1), erosionIterations, BORDER_CONSTANT, morphologyDefaultBorderValue());
-            dilate(edges, edges, Mat(), cv::Point(-1,-1), dilutionIterations, BORDER_CONSTANT, morphologyDefaultBorderValue());
+            erode(latestStep, latestStep, Mat(), cv::Point(-1,-1), erosionIterations, BORDER_CONSTANT, morphologyDefaultBorderValue());
+            dilate(latestStep, latestStep, Mat(), cv::Point(-1,-1), dilutionIterations, BORDER_CONSTANT, morphologyDefaultBorderValue());
         }
         
         //Normal edge detection
@@ -93,9 +95,9 @@ void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
             //If the image has more than one color channel, then it wasn't condensed.
             //Divide it up and run Canny on each channel.
             //TODO: This should probably be run without any blurring beforehand.
-            if(edges.channels() > 1){
+            if(latestStep.channels() > 1){
                 std::vector<cv::Mat> channels;
-                cv::split(edges, channels);
+                cv::split(latestStep, channels);
                 
                 //Separate the three color channels and perform Canny on each
                 Canny(channels[0], channels[0], cannyThresholdLow, cannyThresholdHigh, 3);
@@ -105,26 +107,30 @@ void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
                 //Merge the three color channels into one image
                 //merge(channels, canny_output);
                 bitwise_and(channels[0], channels[1], channels[1]);
-                bitwise_and(channels[1], channels[2], edges);
+                bitwise_and(channels[1], channels[2], latestStep);
             }
             else{
-                Canny(edges, edges, cannyThresholdLow, cannyThresholdHigh, 3); //0, 30, 3
+                Canny(latestStep, latestStep, cannyThresholdLow, cannyThresholdHigh, 3); //0, 30, 3
             }
             
             //cv::resize(edges, edges, cv::Size(), 2.0, 2.0, INTER_NEAREST);
             
             //Perform contour detection and drawing
             if(useContours){
-                ParallelContourDetector::DetectContoursParallel(edges, edges, contourSubdivisions, lineThickness);
+                cv::Mat contourOutput;
+                latestStep.copyTo(contourOutput);
+                ParallelContourDetector::DetectContoursParallel(latestStep, contourOutput, contourSubdivisions, lineThickness);
+                contourOutput.copyTo(latestStep);
+                //ParallelContourDetector::DetectContours(latestStep, latestStep, lineThickness);
             }
         
             if(showEdgesOnly){
-                cvtColor(edges, finalFrame, COLOR_GRAY2BGR);
-                finalFrame.setTo(ColorToScalar(lineColor), edges);
+                cvtColor(latestStep, finalFrame, COLOR_GRAY2BGR);
+                finalFrame.setTo(ColorToScalar(lineColor), latestStep);
             }
             else{
                 in.copyTo(finalFrame);
-                finalFrame.setTo(ColorToScalar(lineColor), edges);
+                finalFrame.setTo(ColorToScalar(lineColor), latestStep);
             }
         }
         //Structured edge detection
@@ -158,7 +164,7 @@ void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
         in.copyTo(out);
     }
     
-    edges.release();
+    latestStep.release();
     
     finalFrame.copyTo(out);
     finalFrame.release();

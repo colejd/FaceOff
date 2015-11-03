@@ -54,6 +54,8 @@ public:
     // Cinder will call 'draw' each time the contents of the window need to be redrawn.
     void draw() override;
     
+    void PrintDebugInfo();
+    
     void QuitApp();
     
     void SetupGUIVariables() override;

@@ -91,10 +91,12 @@ const int CameraCapture::GetHeight(){
  Pull the camera data into frame
  */
 void CameraCapture::Update(){
+    //std::lock_guard<std::mutex> guard(frameMutex);
     currentCapture->Update();
 }
 
 cv::Mat& CameraCapture::GetLatestFrame(){
+    //std::lock_guard<std::mutex> guard(frameMutex);
     return currentCapture->GetLatestFrame();
 }
 
@@ -106,6 +108,14 @@ const bool CameraCapture::FrameIsReady(){
 
 void CameraCapture::MarkFrameUsed(){
     currentCapture->MarkFrameUsed();
+}
+
+void CameraCapture::LockFrame(){
+    currentCapture->LockFrame();
+}
+
+void CameraCapture::UnlockFrame(){
+    currentCapture->UnlockFrame();
 }
 
 void CameraCapture::StartUpdateThread(){

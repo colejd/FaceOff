@@ -18,6 +18,7 @@
  */
 class CaptureBase {
 protected:
+    bool frameMutex = false;
     
 private:
     /** Index of the device; starts at 0. */
@@ -80,6 +81,14 @@ public:
     
     virtual void MarkFrameUsed(){
         frameIsReady = false;
+    }
+    
+    virtual void LockFrame(){
+        frameMutex = true;
+    }
+    
+    virtual void UnlockFrame(){
+        frameMutex = false;
     }
     
     //cv::Mat frame;

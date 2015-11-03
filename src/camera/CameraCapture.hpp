@@ -10,6 +10,8 @@
 #define CameraCapture_hpp
 
 #include <memory>
+#include <thread>
+#include <mutex>
 
 #include "opencv2/opencv.hpp"
 
@@ -70,12 +72,16 @@ public:
     void StopUpdateThread();
     void ThreadUpdateFunction();
     
+    void LockFrame();
+    void UnlockFrame();
+    
     const bool IsInitialized();
     
 private:
     CaptureBase* currentCapture;
     DEVICE_TYPE deviceType = DEVICE_TYPE::GENERIC;
     std::thread updateThread;
+    std::mutex frameMutex;
     bool initialized = false;
     
     //std::thread updateThread { [] { CameraCapture{}(); } };

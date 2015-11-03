@@ -17,17 +17,19 @@
 class ParallelContourDetector : public cv::ParallelLoopBody {
 private:
     cv::UMat input;
-    cv::UMat output;
+    cv::Mat output;
     int subsections;
     int lineThickness;
     
 public:
     
-    ParallelContourDetector(cv::UMat& _src_gray, cv::UMat& _out_gray, int _subsections, int _lineThickness);
+    ParallelContourDetector(cv::UMat& in, cv::Mat& out, int _subsections, int _lineThickness);
     
     virtual void operator ()(const cv::Range &range) const;
     
-    static void DetectContoursParallel(cv::UMat& in, cv::UMat& out, const int subsections, const int lineThickness);
+    static void DetectContoursParallel(cv::UMat in, cv::Mat& out, const int subsections, const int lineThickness);
+    
+    static void DetectContours(cv::UMat& in, cv::UMat& out, const int lineThickness);
     
     
 };

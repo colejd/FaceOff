@@ -19,10 +19,7 @@ void prepareSettings( App::Settings *settings )
 void FaceOffApp::setup(){
     
     //Print debug info
-    #ifdef DEBUG
-        std::cout << "Debug build\n";
-        //std::cout << cv::getBuildInformation();
-    #endif
+    PrintDebugInfo();
     
     static int WINDOW_WIDTH = ConfigHandler::GetConfig().lookup("DEFAULT_WINDOW_WIDTH");
     static int WINDOW_HEIGHT = ConfigHandler::GetConfig().lookup("DEFAULT_WINDOW_HEIGHT");
@@ -31,7 +28,9 @@ void FaceOffApp::setup(){
     setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     
     //Set up OpenCV
-    cv::ocl::setUseOpenCL(false);
+    
+    //Disable OpenCL acceleration
+    //cv::ocl::setUseOpenCL(false);
     
     //Set up camera device
     capture1 = new CameraCapture();
@@ -66,6 +65,47 @@ void FaceOffApp::setup(){
     
 }
 
+/**
+ Print information relevant to Cinder, OpenCV, etc.
+ */
+void FaceOffApp::PrintDebugInfo(){
+    std::cout << "--- BEGIN DEBUG INFO ---\n";
+    
+    //Set stdout to print bools as true/false rather than 1/0
+    std::cout.setf(std::ios::boolalpha);
+    
+    #ifdef DEBUG
+        std::cout << "Debug build\n";
+        //std::cout << cv::getBuildInformation();
+    #else
+        std::cout << "Release build\n";
+    #endif
+    
+    bool openCLSupport = ocl::useOpenCL();
+    std::cout << "OpenCL support: " << openCLSupport << "\n";
+    #ifdef DEBUG
+        if(openCLSupport){
+            std::vector<cv::ocl::PlatformInfo> platforms;
+            cv::ocl::getPlatfomsInfo(platforms);
+            for(int i=0; i<platforms.size(); i++){
+                printf("  Platform %i of %lu\n", i, platforms.size()-1);
+                printf("    Name:     %s\n", platforms[i].name().c_str());
+                printf("    Vendor:   %s\n", platforms[i].vendor().c_str());
+                printf("    Device:   %i\n", platforms[i].deviceNumber());
+                printf("    Version:  %s\n", platforms[i].version().c_str());
+            }
+        }
+    #endif
+    
+    std::cout << "Optimized code support: " << useOptimized() << "\n";
+    
+    std::cout << "IPP support: " << cv::ipp::useIPP() << "\n";
+    
+    std::cout << "Threads used by OpenCV: " << getNumThreads() << "\n";
+    
+    std::cout << "--- END DEBUG INFO ---\n";
+}
+
 void FaceOffApp::SetupGUIVariables(){
     
 }
@@ -79,17 +119,17 @@ void FaceOffApp::update(){
         if(capture1->FrameIsReady()){
             //Explicitly make a new Mat with the properties of the capture and the data of the capture's latest frame.
             //We do this because capture->GetLatestFrame returns a Mat with an invalid header but correct data.
+            capture1->LockFrame();
             cv::Mat rawFrame(capture1->GetWidth(), capture1->GetHeight(), CV_8UC3, capture1->GetLatestFrame().data);
-            cv::UMat rawGPUFrame;
-            rawFrame.copyTo(rawGPUFrame);
+            capture1->UnlockFrame();
             
-            edgeDetector.ProcessFrame(rawGPUFrame, finalImageLeft);
+            edgeDetector.ProcessFrame(rawFrame, finalImageLeft);
             //finalImageLeft = edgeDetector.ProcessFrame(capture1->GetLatestFrame());
             
             //More or less a mutex unlock for capture->GetLatestFrame()
             capture1->MarkFrameUsed();
             rawFrame.release();
-            rawGPUFrame.release();
+            //rawGPUFrame.release();
         }
     }
     
