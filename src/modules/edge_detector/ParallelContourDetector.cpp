@@ -11,13 +11,35 @@
 using namespace cv;
 using namespace std;
 
+/**
+ Constructor.
+ */
+ParallelContourDetector::ParallelContourDetector(cv::UMat& in, cv::UMat& out, int _subsections, int _lineThickness){
+    //in.copyTo(input);
+    //out.copyTo(output);
+    input = in;
+    output = out;
+    subsections = _subsections;
+    lineThickness = _lineThickness;
+    
+}
+
+/**
+ Runs parallel contour detection without the need for an instance of ParallelContourDetector.
+ */
+void ParallelContourDetector::DetectContoursParallel(cv::UMat& in, cv::UMat& out,
+                                                     const int subsections, const int lineThickness){
+    cv::parallel_for_(cv::Range(0, subsections), ParallelContourDetector(in, out, subsections, lineThickness));
+    
+}
+
 void ParallelContourDetector::operator ()(const cv::Range &range) const{
     
-    for(int i = range.start; i < range.end; i++){
+    for(int i = range.start; i != range.end; i++){
         vector< vector<cv::Point> > contourData;
         vector<Vec4i> contourHierarchy;
-        cv::Mat in(src_gray, cv::Rect(0, (src_gray.rows/subsections)*i, src_gray.cols, src_gray.rows/subsections));
-        cv::Mat out(out_gray, cv::Rect(0, (out_gray.rows/subsections)*i, out_gray.cols, out_gray.rows/subsections) );
+        cv::UMat in(input, cv::Rect(0, (input.rows/subsections)*i, input.cols, input.rows/subsections));
+        cv::UMat out(output, cv::Rect(0, (output.rows/subsections)*i, output.cols, output.rows/subsections) );
         try{
             findContours( in, contourData, contourHierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
             out = Scalar::all(0);
@@ -30,8 +52,10 @@ void ParallelContourDetector::operator ()(const cv::Range &range) const{
             
         }
         catch(...){
-            printf("[CVEye] ParallelContourDetector error.\n");
+            printf("ParallelContourDetector error!\n");
         }
+        
+        //out.copyTo(output(cv::Rect(0, (output.rows/subsections)*i, output.cols, output.rows/subsections)));
         
         in.release();
         out.release();
@@ -39,4 +63,6 @@ void ParallelContourDetector::operator ()(const cv::Range &range) const{
     
 }
 
-ParallelContourDetector::~ParallelContourDetector(){ }
+static void ParallelContourDetect(cv::InputArray in, cv::OutputArray out){
+    
+}

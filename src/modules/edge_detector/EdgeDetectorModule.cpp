@@ -60,33 +60,20 @@ void EdgeDetectorModule::SetupGUIVariables(){
     
 }
 
-//Pass in input and output frames
-cv::Mat EdgeDetectorModule::ProcessFrame(cv::Mat& frame){
-    cv::Mat edges, contours, rawFrame;
-    cv::Mat finalFrame;
+
+void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
+    cv::UMat edges;
+    cv::UMat finalFrame;
     
-    frame.copyTo(rawFrame);
-    rawFrame = frame; //Shallow copy
+    //rawFrame = frame; //Shallow copy
     
-    if(!rawFrame.empty() && IsEnabled()){
-        rawFrame.copyTo(finalFrame);
-        
-        //Prepare edges for use with Canny by condensing it to one channel
-        if(currentChannelType == ChannelType::GRAYSCALE){ //Channel is grayscale
-            cvtColor(rawFrame, edges, COLOR_BGR2GRAY);
-        }
-        else if(currentChannelType == ChannelType::HUE){ //Channel is hue channel of original image
-            std::vector<cv::Mat> channels;
-            cv::Mat hsv;
-            cv::cvtColor( rawFrame, hsv, CV_RGB2HSV );
-            cv::split(hsv, channels);
-            edges = channels[0];
-            hsv.release();
-        }
+    if(!in.empty() && IsEnabled()){
+        //Condense the source image into a single channel for use with the Canny algorithm
+        CondenseImage(in, edges, currentChannelType);
         
         //threshold(edges, edges, 0, 255, THRESH_BINARY | THRESH_OTSU);
         
-        //Do blurring operation on the source image
+        //Blur the source image to reduce noise and texture details
         BlurImage(edges, edges, currentBlurType);
         
         //fastNlMeansDenoising(edges, edges, 3, 7, 21);
@@ -101,14 +88,14 @@ cv::Mat EdgeDetectorModule::ProcessFrame(cv::Mat& frame){
         if(!drawCoolEdges){
             //Downsample
             //cv::resize(frame, frame, cv::Size(), 0.5, 0.5, INTER_NEAREST);
-            
-            //Convert to grayscale
         
-            //Run Canny detection on the blurred image
-            
-            if(currentChannelType == ChannelType::COLOR){
+            //Canny step--------------------------------------
+            //If the image has more than one color channel, then it wasn't condensed.
+            //Divide it up and run Canny on each channel.
+            //TODO: This should probably be run without any blurring beforehand.
+            if(edges.channels() > 1){
                 std::vector<cv::Mat> channels;
-                cv::split(rawFrame, channels);
+                cv::split(edges, channels);
                 
                 //Separate the three color channels and perform Canny on each
                 Canny(channels[0], channels[0], cannyThresholdLow, cannyThresholdHigh, 3);
@@ -126,16 +113,18 @@ cv::Mat EdgeDetectorModule::ProcessFrame(cv::Mat& frame){
             
             //cv::resize(edges, edges, cv::Size(), 2.0, 2.0, INTER_NEAREST);
             
-            if(useContours) cv::parallel_for_(cv::Range(0, contourSubdivisions), ParallelContourDetector(edges, edges, contourSubdivisions, lineThickness));
+            //Perform contour detection and drawing
+            if(useContours){
+                ParallelContourDetector::DetectContoursParallel(edges, edges, contourSubdivisions, lineThickness);
+            }
         
             if(showEdgesOnly){
                 cvtColor(edges, finalFrame, COLOR_GRAY2BGR);
                 finalFrame.setTo(ColorToScalar(lineColor), edges);
             }
             else{
-                rawFrame.copyTo(finalFrame);
+                in.copyTo(finalFrame);
                 finalFrame.setTo(ColorToScalar(lineColor), edges);
-                //edges.copyTo(finalMat, edges);
             }
         }
         //Structured edge detection
@@ -144,8 +133,9 @@ cv::Mat EdgeDetectorModule::ProcessFrame(cv::Mat& frame){
             using namespace cv::ximgproc;
             
             cv::Mat cool;
+            in.copyTo(cool);
             //rawFrame.convertTo(cool, CV_32FC3);
-            rawFrame.convertTo( cool, cv::DataType<float>::type, 1/255.0 );
+            cool.convertTo( cool, cv::DataType<float>::type, 1/255.0 );
             
             cv::Mat edges( cool.size(), cool.type() );
             
@@ -165,22 +155,42 @@ cv::Mat EdgeDetectorModule::ProcessFrame(cv::Mat& frame){
     //Directly draw the data from the frame
     else{
         printf("[EdgeDetectorModule] Frame is empty\n");
-        return frame;
+        in.copyTo(out);
     }
     
-    rawFrame.release();
     edges.release();
-    contours.release();
     
-    return finalFrame;
+    finalFrame.copyTo(out);
+    finalFrame.release();
 
 }
 
 /**
- Applies a blurring operation to the image based on blurType. Defaults to, uh, 
+ Condenses the input image into one channel based on the ChannelType specified.
+ */
+void EdgeDetectorModule::CondenseImage(cv::InputArray in, cv::OutputArray out, int channelType = 0){
+    if(channelType == ChannelType::GRAYSCALE){
+        cvtColor(in, out, COLOR_BGR2GRAY);
+    }
+    else if(channelType == ChannelType::HUE){
+        std::vector<cv::Mat> channels;
+        cv::Mat hsv;
+        cv::cvtColor( in, hsv, CV_RGB2HSV );
+        cv::split(hsv, channels);
+        channels[0].copyTo(out);
+        hsv.release();
+    }
+    else if(channelType == ChannelType::COLOR){
+        in.copyTo(out);
+        //Do nothing
+    }
+}
+
+/**
+ Applies a blurring operation to the image based on blurType. Defaults to, uh,
  BlurType::DEFAULT, which is the regular OpenCV kernel blur function.
  */
-void EdgeDetectorModule::BlurImage(cv::Mat &in, cv::Mat &out, int blurType = 0){
+void EdgeDetectorModule::BlurImage(cv::InputArray in, cv::OutputArray out, int blurType = 0){
     switch(blurType){
         default:
         case(BlurType::DEFAULT):
@@ -192,7 +202,8 @@ void EdgeDetectorModule::BlurImage(cv::Mat &in, cv::Mat &out, int blurType = 0){
         case(BlurType::ADAPTIVE_MANIFOLD):
             cv::ximgproc::amFilter(cv::noArray(), in, out, sigma_s, sigma_r);
             break;
-            
+        case(BlurType::NONE):
+            break;
             
     }
 }

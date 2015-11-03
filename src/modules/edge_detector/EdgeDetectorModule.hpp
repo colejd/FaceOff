@@ -34,13 +34,13 @@ public:
     void Disable();
     const bool IsEnabled();
     
-    cv::Mat ProcessFrame(cv::Mat& frame);
+    void ProcessFrame(cv::InputArray in, cv::OutputArray out);
     cv::Mat CompositeImages(cv::Mat& result, cv::Mat& base);
     
     enum ChannelType{
         GRAYSCALE, //!< Use Greyscale conversion with Canny
         HUE, //!< (huehuehuehue) Use Hue channel with Canny
-        COLOR //!< Use R, G, and B channels with Canny then combine
+        COLOR, //!< Use R, G, and B channels with Canny then combine
     };
     std::vector<string> channelTypeVec {"Grayscale", "Hue", "Color"};
     
@@ -52,7 +52,8 @@ public:
     };
     std::vector<string> blurTypeVec {"Default", "Gaussian", "Adaptive Manifold", "None"};
     
-    void BlurImage(cv::Mat &in, cv::Mat &out, int blurType);
+    void BlurImage(cv::InputArray in, cv::OutputArray out, int blurType);
+    void CondenseImage(cv::InputArray in, cv::OutputArray out, int channelType);
     
     
 private:
@@ -86,7 +87,7 @@ private:
     String path = "/Users/jonathancole/Dev/Projects/Work/FaceOff/xcode/build/Release/model.yml.gz";
     Ptr<cv::ximgproc::StructuredEdgeDetection> pDollar = cv::ximgproc::createStructuredEdgeDetection(path);
     
-    static cv::Scalar ColorToScalar(const Color& c){
+    static cv::Scalar ColorToScalar(const Color c){
         return cv::Scalar(c[2] * 255.0f, c[1] * 255.0f, c[0] * 255.0f);
     }
     

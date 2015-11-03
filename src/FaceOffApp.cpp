@@ -80,13 +80,16 @@ void FaceOffApp::update(){
             //Explicitly make a new Mat with the properties of the capture and the data of the capture's latest frame.
             //We do this because capture->GetLatestFrame returns a Mat with an invalid header but correct data.
             cv::Mat rawFrame(capture1->GetWidth(), capture1->GetHeight(), CV_8UC3, capture1->GetLatestFrame().data);
+            cv::UMat rawGPUFrame;
+            rawFrame.copyTo(rawGPUFrame);
             
-            finalImageLeft = edgeDetector.ProcessFrame(rawFrame);
+            edgeDetector.ProcessFrame(rawGPUFrame, finalImageLeft);
             //finalImageLeft = edgeDetector.ProcessFrame(capture1->GetLatestFrame());
             
             //More or less a mutex unlock for capture->GetLatestFrame()
             capture1->MarkFrameUsed();
             rawFrame.release();
+            rawGPUFrame.release();
         }
     }
     
@@ -96,7 +99,7 @@ void FaceOffApp::update(){
             //We do this because capture->GetLatestFrame returns a Mat with an invalid header but correct data.
             cv::Mat rawFrame(capture2->GetWidth(), capture2->GetHeight(), CV_8UC3, capture2->GetLatestFrame().data);
             
-            finalImageRight = edgeDetector.ProcessFrame(rawFrame);
+            edgeDetector.ProcessFrame(rawFrame, finalImageRight);
             //finalImageRight = edgeDetector.ProcessFrame(capture2->GetLatestFrame());
             
             //More or less a mutex unlock for capture->GetLatestFrame()
