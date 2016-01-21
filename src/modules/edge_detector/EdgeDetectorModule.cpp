@@ -13,18 +13,7 @@ EdgeDetectorModule::EdgeDetectorModule(){
 }
 
 EdgeDetectorModule::~EdgeDetectorModule(){
-}
-
-void EdgeDetectorModule::Enable(){
-    enabled = true;
-}
-
-void EdgeDetectorModule::Disable(){
-    enabled = false;
-}
-
-const bool EdgeDetectorModule::IsEnabled(){
-    return enabled;
+    
 }
 
 void EdgeDetectorModule::SetupGUIVariables(){
@@ -36,7 +25,7 @@ void EdgeDetectorModule::SetupGUIVariables(){
     edgesWindow->addParam("Module Enabled", &enabled).keyIncr("e");
     edgesWindow->addSeparator("All");
     edgesWindow->addParam("Low Threshold", &cannyThresholdLow).min(0).max(255);
-    edgesWindow->addParam("High Threshold", &cannyThresholdHigh).min(0).max(255);
+    edgesWindow->addParam("Ratio", &cannyThresholdRatio).min(2.0).max(3.0);
     edgesWindow->addParam("Line Color", &lineColor, "", false);
     edgesWindow->addParam("Show Edges Only", &showEdgesOnly);
     edgesWindow->addParam("Channel Type", channelTypeVec, &currentChannelType);
@@ -44,7 +33,7 @@ void EdgeDetectorModule::SetupGUIVariables(){
     //Contour settings
     edgesWindow->addParam("Use Contours", &useContours).keyIncr("c").group("Contour Settings");
     edgesWindow->addParam("Contour Subdivisions", &contourSubdivisions).min(1).max(16).group("Contour Settings");
-    edgesWindow->addParam("Contour Thickness", &lineThickness).min(-1).max(8).group("Contour Settings");
+    edgesWindow->addParam("Contour Thickness", &lineThickness).min(-1).max(8).group("Contour Settings").optionsStr("help='Set to -1 to fill all closed contours'");
     
     //Image tuning
     edgesWindow->addParam("Blur Type", blurTypeVec, &currentBlurType);
@@ -53,41 +42,48 @@ void EdgeDetectorModule::SetupGUIVariables(){
     edgesWindow->addParam("Dilution Iterations", &dilutionIterations).min(0).max(6).group("Image Tuning");
     
     //Misc.
-    edgesWindow->addParam("Draw cool edges", &drawCoolEdges).keyIncr("d").group("Misc.");
+    edgesWindow->addParam("Structured Edge Forests", &doStructuredEdgeForests).keyIncr("d").group("Misc.");
     edgesWindow->addParam("Sigma S", &sigma_s).group("Misc.").min(0).max(32);
     edgesWindow->addParam("Sigma R", &sigma_r).group("Misc.").min(0).max(1);
-    
+    edgesWindow->addParam("Sigma Color", &sigmaColor).group("Misc.").min(0).max(200);
+    edgesWindow->addParam("Sigma Spatial", &sigmaSpatial).group("Misc.").min(0).max(200);
+    edgesWindow->addParam("Edges Gamma", &edgesGamma).group("Misc.").min(0).max(300);
     
 }
 
 
 void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
-    cv::UMat latestStep;
-    cv::UMat finalFrame;
     
-    in.copyTo(latestStep);
-    
-    //rawFrame = frame; //Shallow copy
-    
-    if(!latestStep.empty() && IsEnabled()){
+    if(!in.empty() && IsEnabled()){
+        
+        cv::UMat latestStep;
+        cv::UMat finalFrame;
+        
+        in.copyTo(latestStep);
+        
         //Condense the source image into a single channel for use with the Canny algorithm
         CondenseImage(latestStep, latestStep, currentChannelType);
         
         //threshold(edges, edges, 0, 255, THRESH_BINARY | THRESH_OTSU);
         
         //Blur the source image to reduce noise and texture details
-        BlurImage(latestStep, latestStep, currentBlurType);
+        cv::Mat temp;
+        latestStep.copyTo(temp);
+        //temp = latestStep.clone();
+        BlurImage(temp, temp, currentBlurType);
+        
+        temp.copyTo(latestStep);
         
         //fastNlMeansDenoising(edges, edges, 3, 7, 21);
         
         //Perform erosion and dilution if requested
         if(doErosionDilution){
-            erode(latestStep, latestStep, Mat(), cv::Point(-1,-1), erosionIterations, BORDER_CONSTANT, morphologyDefaultBorderValue());
-            dilate(latestStep, latestStep, Mat(), cv::Point(-1,-1), dilutionIterations, BORDER_CONSTANT, morphologyDefaultBorderValue());
+            erode(latestStep, latestStep, UMat(), cv::Point(-1,-1), erosionIterations, BORDER_CONSTANT, morphologyDefaultBorderValue());
+            dilate(latestStep, latestStep, UMat(), cv::Point(-1,-1), dilutionIterations, BORDER_CONSTANT, morphologyDefaultBorderValue());
         }
         
         //Normal edge detection
-        if(!drawCoolEdges){
+        if(!doStructuredEdgeForests){
             //Downsample
             //cv::resize(frame, frame, cv::Size(), 0.5, 0.5, INTER_NEAREST);
         
@@ -100,9 +96,9 @@ void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
                 cv::split(latestStep, channels);
                 
                 //Separate the three color channels and perform Canny on each
-                Canny(channels[0], channels[0], cannyThresholdLow, cannyThresholdHigh, 3);
-                Canny(channels[1], channels[1], cannyThresholdLow, cannyThresholdHigh, 3);
-                Canny(channels[2], channels[2], cannyThresholdLow, cannyThresholdHigh, 3);
+                Canny(channels[0], channels[0], cannyThresholdLow, cannyThresholdLow * cannyThresholdRatio, 3);
+                Canny(channels[1], channels[1], cannyThresholdLow, cannyThresholdLow * cannyThresholdRatio, 3);
+                Canny(channels[2], channels[2], cannyThresholdLow, cannyThresholdLow * cannyThresholdRatio, 3);
                 
                 //Merge the three color channels into one image
                 //merge(channels, canny_output);
@@ -110,12 +106,12 @@ void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
                 bitwise_and(channels[1], channels[2], latestStep);
             }
             else{
-                Canny(latestStep, latestStep, cannyThresholdLow, cannyThresholdHigh, 3); //0, 30, 3
+                Canny(latestStep, latestStep, cannyThresholdLow, cannyThresholdLow * cannyThresholdRatio, 3); //0, 30, 3
             }
             
             //cv::resize(edges, edges, cv::Size(), 2.0, 2.0, INTER_NEAREST);
             
-            //Perform contour detection and drawing
+            //Contour step------------------------------------
             if(useContours){
                 cv::Mat contourOutput;
                 latestStep.copyTo(contourOutput);
@@ -124,6 +120,7 @@ void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
                 //ParallelContourDetector::DetectContours(latestStep, latestStep, lineThickness);
             }
         
+            //Output step-------------------------------------
             if(showEdgesOnly){
                 cvtColor(latestStep, finalFrame, COLOR_GRAY2BGR);
                 finalFrame.setTo(ColorToScalar(lineColor), latestStep);
@@ -157,17 +154,20 @@ void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
             cvtColor(result, finalFrame, cv::COLOR_GRAY2BGR);
         }
         
+        //Copy the result of all operations to the output frame.
+        finalFrame.copyTo(out);
+        
+        latestStep.release();
+        finalFrame.release();
+        
     }
     //Directly draw the data from the frame
     else{
-        printf("[EdgeDetectorModule] Frame is empty\n");
+        if(in.empty()) printf("[EdgeDetectorModule] Frame is empty\n");
+        //BlurImage(in, out, currentBlurType);
+        //filterStylize(in, out);
         in.copyTo(out);
     }
-    
-    latestStep.release();
-    
-    finalFrame.copyTo(out);
-    finalFrame.release();
 
 }
 
@@ -208,8 +208,38 @@ void EdgeDetectorModule::BlurImage(cv::InputArray in, cv::OutputArray out, int b
         case(BlurType::ADAPTIVE_MANIFOLD):
             cv::ximgproc::amFilter(cv::noArray(), in, out, sigma_s, sigma_r);
             break;
+        case(BlurType::DT_FILTER):
+            dtFilter(in, in, out, sigmaColor, sigmaSpatial, cv::ximgproc::DTF_RF);
+            break;
         case(BlurType::NONE):
             break;
             
     }
+}
+
+//stylizing filter
+void EdgeDetectorModule::filterStylize(InputArray frame, OutputArray dst)
+{
+    //blur frame
+    Mat filtered;
+    dtFilter(frame, frame, filtered, sigmaSpatial, sigmaColor, cv::ximgproc::DTF_NC);
+    
+    //compute grayscale blurred frame
+    Mat filteredGray;
+    cvtColor(filtered, filteredGray, COLOR_BGR2GRAY);
+    
+    //find gradients of blurred image
+    Mat gradX, gradY;
+    Sobel(filteredGray, gradX, CV_32F, 1, 0, 3, 1.0/255);
+    Sobel(filteredGray, gradY, CV_32F, 0, 1, 3, 1.0/255);
+    
+    //compute magnitude of gradient and fit it accordingly the gamma parameter
+    Mat gradMagnitude;
+    magnitude(gradX, gradY, gradMagnitude);
+    cv::pow(gradMagnitude, edgesGamma/100.0, gradMagnitude);
+    
+    //multiply a blurred frame to the value inversely proportional to the magnitude
+    Mat multiplier = 1.0/(1.0 + gradMagnitude);
+    cvtColor(multiplier, multiplier, COLOR_GRAY2BGR);
+    multiply(filtered, multiplier, dst, 1, dst.type());
 }

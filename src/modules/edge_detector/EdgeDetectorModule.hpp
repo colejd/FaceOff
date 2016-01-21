@@ -16,6 +16,8 @@
 #include <opencv2/core/ocl.hpp>
 #include <opencv2/ximgproc.hpp>
 
+#include "ModuleCommon.hpp"
+
 #include "UsesGUI.hpp"
 #include "ConfigHandler.hpp"
 #include "ParallelContourDetector.hpp"
@@ -25,14 +27,10 @@
 using namespace std;
 using namespace cv;
 
-class EdgeDetectorModule : UsesGUI {
+class EdgeDetectorModule : ModuleCommon, UsesGUI {
 public:
     EdgeDetectorModule();
     ~EdgeDetectorModule();
-    
-    void Enable();
-    void Disable();
-    const bool IsEnabled();
     
     void ProcessFrame(cv::InputArray in, cv::OutputArray out);
     cv::Mat CompositeImages(cv::Mat& result, cv::Mat& base);
@@ -48,27 +46,32 @@ public:
         DEFAULT,
         GAUSSIAN,
         ADAPTIVE_MANIFOLD,
+        DT_FILTER,
         NONE
     };
-    std::vector<string> blurTypeVec {"Default", "Gaussian", "Adaptive Manifold", "None"};
+    std::vector<string> blurTypeVec {"Default", "Gaussian", "Adaptive Manifold", "DTFilter", "None"};
     
     void BlurImage(cv::InputArray in, cv::OutputArray out, int blurType);
     void CondenseImage(cv::InputArray in, cv::OutputArray out, int channelType);
     
+    void filterStylize(InputArray frame, OutputArray dst);
+    
+    
     
 private:
-    bool enabled = true;
     int currentChannelType = ChannelType::GRAYSCALE;
     int currentBlurType = BlurType::DEFAULT;
     //The final image that will be shown
     Mat finalMat;
     
     void SetupGUIVariables() override;
+    void UpdateGUIState();
     
     bool drawEdges = true;
-    bool drawCoolEdges = false;
+    bool doStructuredEdgeForests = false;
     int cannyThresholdLow = 30; //0
     int cannyThresholdHigh = 50; //50
+    float cannyThresholdRatio = 2.0;
     
     bool useContours = false;
     
@@ -84,7 +87,7 @@ private:
     
     Color lineColor = Color(255, 255, 0);
     
-    String path = "/Users/jonathancole/Dev/Projects/Work/FaceOff/xcode/build/Release/model.yml.gz";
+    String path = "data/model.yml.gz";
     Ptr<cv::ximgproc::StructuredEdgeDetection> pDollar = cv::ximgproc::createStructuredEdgeDetection(path);
     
     static cv::Scalar ColorToScalar(const Color c){
@@ -93,8 +96,12 @@ private:
     
     Ptr<cv::ximgproc::AdaptiveManifoldFilter> AMFilter;
     
-    double sigma_s = 16.0;
+    double sigma_s = 24.0;
     double sigma_r = 0.2;
+    
+    int sigmaColor = 25;
+    int sigmaSpatial = 10;
+    int edgesGamma = 100;
 };
 
 #endif /* EdgeDetectorModule_hpp */

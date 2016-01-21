@@ -58,8 +58,9 @@ void ParallelContourDetector::operator ()(const cv::Range &range) const{
             }
             
         }
-        catch(...){
-            printf("ParallelContourDetector error!\n");
+        catch(cv::Exception& e){
+            const char* err_msg = e.what();
+            std::cout << "ParallelContourDetector exception caught: " << err_msg << std::endl;
         }
         
         //out.copyTo(output(cv::Rect(0, (output.rows/subsections)*i, output.cols, output.rows/subsections)));

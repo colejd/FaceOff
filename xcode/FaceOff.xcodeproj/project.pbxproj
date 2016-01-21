@@ -16,22 +16,28 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
-		4661E9501BDFD23F001EA163 /* FaceOffGlobals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E94E1BDFD23F001EA163 /* FaceOffGlobals.cpp */; settings = {ASSET_TAGS = (); }; };
-		4661E95A1BE04F44001EA163 /* libPS3EyeDriver.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4661E9591BE04F44001EA163 /* libPS3EyeDriver.dylib */; settings = {ASSET_TAGS = (); }; };
+		465DD3261BE88D4E00562FDB /* FaceDetectorModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465DD3241BE88D4E00562FDB /* FaceDetectorModule.cpp */; };
+		465DD3461BE914E200562FDB /* FaceOff.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 465DD3451BE914E200562FDB /* FaceOff.cfg */; };
+		465DD34F1BE914EE00562FDB /* haarcascade_eye_tree_eyeglasses.xml in Resources */ = {isa = PBXBuildFile; fileRef = 465DD3471BE914EE00562FDB /* haarcascade_eye_tree_eyeglasses.xml */; };
+		465DD3501BE914EE00562FDB /* haarcascade_eye.xml in Resources */ = {isa = PBXBuildFile; fileRef = 465DD3481BE914EE00562FDB /* haarcascade_eye.xml */; };
+		465DD3511BE914EE00562FDB /* haarcascade_frontalface_alt_tree.xml in Resources */ = {isa = PBXBuildFile; fileRef = 465DD3491BE914EE00562FDB /* haarcascade_frontalface_alt_tree.xml */; };
+		465DD3521BE914EE00562FDB /* haarcascade_frontalface_alt.xml in Resources */ = {isa = PBXBuildFile; fileRef = 465DD34A1BE914EE00562FDB /* haarcascade_frontalface_alt.xml */; };
+		465DD3531BE914EE00562FDB /* haarcascade_frontalface_alt2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 465DD34B1BE914EE00562FDB /* haarcascade_frontalface_alt2.xml */; };
+		465DD3541BE914EE00562FDB /* haarcascade_frontalface_default.xml in Resources */ = {isa = PBXBuildFile; fileRef = 465DD34C1BE914EE00562FDB /* haarcascade_frontalface_default.xml */; };
+		465DD3551BE914EE00562FDB /* haarcascade_smile.xml in Resources */ = {isa = PBXBuildFile; fileRef = 465DD34D1BE914EE00562FDB /* haarcascade_smile.xml */; };
+		465DD3561BE914EE00562FDB /* model.yml.gz in Resources */ = {isa = PBXBuildFile; fileRef = 465DD34E1BE914EE00562FDB /* model.yml.gz */; };
+		4661E9501BDFD23F001EA163 /* FaceOffGlobals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E94E1BDFD23F001EA163 /* FaceOffGlobals.cpp */; };
+		4661E95A1BE04F44001EA163 /* libPS3EyeDriver.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4661E9591BE04F44001EA163 /* libPS3EyeDriver.dylib */; };
 		4661E9611BE14EB9001EA163 /* libPS3EyeDriver.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4661E9591BE04F44001EA163 /* libPS3EyeDriver.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		4661E9661BE15A00001EA163 /* PS3EyeDriver.hpp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4661E9651BE153DE001EA163 /* PS3EyeDriver.hpp */; };
 		4661E96D1BE1E9C0001EA163 /* libopencv_ximgproc.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4661E96C1BE1E9C0001EA163 /* libopencv_ximgproc.3.0.0.dylib */; };
-		4661E96F1BE1EF22001EA163 /* model.yml.gz in Resources */ = {isa = PBXBuildFile; fileRef = 4661E96E1BE1EF22001EA163 /* model.yml.gz */; settings = {ASSET_TAGS = (); }; };
-		4661E9711BE1EF33001EA163 /* model.yml.gz in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4661E96E1BE1EF22001EA163 /* model.yml.gz */; };
-		4661E9751BE2E8C6001EA163 /* EdgeDetectorModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E9731BE2E8C6001EA163 /* EdgeDetectorModule.cpp */; settings = {ASSET_TAGS = (); }; };
-		4661E97C1BE2F099001EA163 /* ParallelContourDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E97A1BE2F099001EA163 /* ParallelContourDetector.cpp */; settings = {ASSET_TAGS = (); }; };
-		46EC09771BD84F800098FD81 /* ConfigHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09751BD84F800098FD81 /* ConfigHandler.cpp */; settings = {ASSET_TAGS = (); }; };
-		46EC097B1BD8524E0098FD81 /* FaceOff.cfg in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46EC09781BD851EE0098FD81 /* FaceOff.cfg */; };
-		46EC097D1BD857060098FD81 /* libconfig++.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EC097C1BD857060098FD81 /* libconfig++.9.dylib */; settings = {ASSET_TAGS = (); }; };
-		46EC09831BD877130098FD81 /* CameraCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09821BD877130098FD81 /* CameraCapture.cpp */; settings = {ASSET_TAGS = (); }; };
-		46EC09881BD960890098FD81 /* PS3EyeCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09861BD960890098FD81 /* PS3EyeCapture.cpp */; settings = {ASSET_TAGS = (); }; };
-		46EC098B1BD962D60098FD81 /* SystemCameraCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09891BD962D60098FD81 /* SystemCameraCapture.cpp */; settings = {ASSET_TAGS = (); }; };
-		46F246E91BD810FA008292AC /* FPSCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46F246E71BD810FA008292AC /* FPSCounter.cpp */; settings = {ASSET_TAGS = (); }; };
+		4661E9751BE2E8C6001EA163 /* EdgeDetectorModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E9731BE2E8C6001EA163 /* EdgeDetectorModule.cpp */; };
+		4661E97C1BE2F099001EA163 /* ParallelContourDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E97A1BE2F099001EA163 /* ParallelContourDetector.cpp */; };
+		46EC09771BD84F800098FD81 /* ConfigHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09751BD84F800098FD81 /* ConfigHandler.cpp */; };
+		46EC097D1BD857060098FD81 /* libconfig++.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EC097C1BD857060098FD81 /* libconfig++.9.dylib */; };
+		46EC09831BD877130098FD81 /* CameraCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09821BD877130098FD81 /* CameraCapture.cpp */; };
+		46EC09881BD960890098FD81 /* PS3EyeCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09861BD960890098FD81 /* PS3EyeCapture.cpp */; };
+		46EC098B1BD962D60098FD81 /* SystemCameraCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09891BD962D60098FD81 /* SystemCameraCapture.cpp */; };
+		46F246E91BD810FA008292AC /* FPSCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46F246E71BD810FA008292AC /* FPSCounter.cpp */; };
 		46F2470C1BD812F5008292AC /* libopencv_calib3d.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246F71BD812F4008292AC /* libopencv_calib3d.3.0.0.dylib */; };
 		46F2470D1BD812F5008292AC /* libopencv_core.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246F81BD812F4008292AC /* libopencv_core.3.0.0.dylib */; };
 		46F2470E1BD812F5008292AC /* libopencv_features2d.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F246F91BD812F4008292AC /* libopencv_features2d.3.0.0.dylib */; };
@@ -50,7 +56,7 @@
 		46F2471B1BD812F5008292AC /* libopencv_video.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247061BD812F5008292AC /* libopencv_video.3.0.0.dylib */; };
 		46F2471C1BD812F5008292AC /* libopencv_videoio.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247071BD812F5008292AC /* libopencv_videoio.3.0.0.dylib */; };
 		46F2471D1BD812F5008292AC /* libopencv_videostab.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F247081BD812F5008292AC /* libopencv_videostab.3.0.0.dylib */; };
-		46F2472C1BD83EF8008292AC /* GUIHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46F2472A1BD83EF8008292AC /* GUIHandler.cpp */; settings = {ASSET_TAGS = (); }; };
+		46F2472C1BD83EF8008292AC /* GUIHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46F2472A1BD83EF8008292AC /* GUIHandler.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		B953DB2F6F2048828BBAAA1D /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2AEABFF198CB4630A9C0DA65 /* CinderApp.icns */; };
@@ -65,27 +71,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4661E9611BE14EB9001EA163 /* libPS3EyeDriver.dylib in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4661E9701BE1EF2D001EA163 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 16;
-			files = (
-				4661E9711BE1EF33001EA163 /* model.yml.gz in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		46EC097A1BD852440098FD81 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 16;
-			files = (
-				46EC097B1BD8524E0098FD81 /* FaceOff.cfg in CopyFiles */,
-				4661E9661BE15A00001EA163 /* PS3EyeDriver.hpp in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +93,18 @@
 		2AEABFF198CB4630A9C0DA65 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		2C1A6260141C4A69B2558FE2 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		3645407D08A84202B093A03D /* FaceOff_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = FaceOff_Prefix.pch; sourceTree = "<group>"; };
+		465DD3241BE88D4E00562FDB /* FaceDetectorModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FaceDetectorModule.cpp; path = ../src/modules/face_detector/FaceDetectorModule.cpp; sourceTree = "<group>"; };
+		465DD3251BE88D4E00562FDB /* FaceDetectorModule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FaceDetectorModule.hpp; path = ../src/modules/face_detector/FaceDetectorModule.hpp; sourceTree = "<group>"; };
+		465DD3401BE894BA00562FDB /* ModuleCommon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ModuleCommon.hpp; path = ../src/modules/ModuleCommon.hpp; sourceTree = "<group>"; };
+		465DD3451BE914E200562FDB /* FaceOff.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FaceOff.cfg; path = ../resources/config/FaceOff.cfg; sourceTree = "<group>"; };
+		465DD3471BE914EE00562FDB /* haarcascade_eye_tree_eyeglasses.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = haarcascade_eye_tree_eyeglasses.xml; path = ../resources/data/haarcascade_eye_tree_eyeglasses.xml; sourceTree = "<group>"; };
+		465DD3481BE914EE00562FDB /* haarcascade_eye.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = haarcascade_eye.xml; path = ../resources/data/haarcascade_eye.xml; sourceTree = "<group>"; };
+		465DD3491BE914EE00562FDB /* haarcascade_frontalface_alt_tree.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = haarcascade_frontalface_alt_tree.xml; path = ../resources/data/haarcascade_frontalface_alt_tree.xml; sourceTree = "<group>"; };
+		465DD34A1BE914EE00562FDB /* haarcascade_frontalface_alt.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = haarcascade_frontalface_alt.xml; path = ../resources/data/haarcascade_frontalface_alt.xml; sourceTree = "<group>"; };
+		465DD34B1BE914EE00562FDB /* haarcascade_frontalface_alt2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = haarcascade_frontalface_alt2.xml; path = ../resources/data/haarcascade_frontalface_alt2.xml; sourceTree = "<group>"; };
+		465DD34C1BE914EE00562FDB /* haarcascade_frontalface_default.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = haarcascade_frontalface_default.xml; path = ../resources/data/haarcascade_frontalface_default.xml; sourceTree = "<group>"; };
+		465DD34D1BE914EE00562FDB /* haarcascade_smile.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = haarcascade_smile.xml; path = ../resources/data/haarcascade_smile.xml; sourceTree = "<group>"; };
+		465DD34E1BE914EE00562FDB /* model.yml.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; name = model.yml.gz; path = ../resources/data/model.yml.gz; sourceTree = "<group>"; };
 		4661E94E1BDFD23F001EA163 /* FaceOffGlobals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FaceOffGlobals.cpp; path = ../src/FaceOffGlobals.cpp; sourceTree = "<group>"; };
 		4661E94F1BDFD23F001EA163 /* FaceOffGlobals.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FaceOffGlobals.hpp; path = ../src/FaceOffGlobals.hpp; sourceTree = "<group>"; };
 		4661E9591BE04F44001EA163 /* libPS3EyeDriver.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libPS3EyeDriver.dylib; path = ../Frameworks/PS3EyeDriver/libPS3EyeDriver.dylib; sourceTree = "<group>"; };
@@ -117,14 +114,12 @@
 		4661E9691BE16507001EA163 /* PS3EyeDriverPriv.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = PS3EyeDriverPriv.hpp; path = ../Frameworks/PS3EyeDriver/PS3EyeDriverPriv.hpp; sourceTree = "<group>"; };
 		4661E96A1BE16507001EA163 /* YUVBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = YUVBuffer.hpp; path = ../Frameworks/PS3EyeDriver/YUVBuffer.hpp; sourceTree = "<group>"; };
 		4661E96C1BE1E9C0001EA163 /* libopencv_ximgproc.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_ximgproc.3.0.0.dylib; path = /usr/local/lib/libopencv_ximgproc.3.0.0.dylib; sourceTree = "<absolute>"; };
-		4661E96E1BE1EF22001EA163 /* model.yml.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; name = model.yml.gz; path = ../resources/model.yml.gz; sourceTree = "<group>"; };
 		4661E9731BE2E8C6001EA163 /* EdgeDetectorModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EdgeDetectorModule.cpp; path = ../src/modules/edge_detector/EdgeDetectorModule.cpp; sourceTree = "<group>"; };
 		4661E9741BE2E8C6001EA163 /* EdgeDetectorModule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EdgeDetectorModule.hpp; path = ../src/modules/edge_detector/EdgeDetectorModule.hpp; sourceTree = "<group>"; };
 		4661E97A1BE2F099001EA163 /* ParallelContourDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParallelContourDetector.cpp; path = ../src/modules/edge_detector/ParallelContourDetector.cpp; sourceTree = "<group>"; };
 		4661E97B1BE2F099001EA163 /* ParallelContourDetector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ParallelContourDetector.hpp; path = ../src/modules/edge_detector/ParallelContourDetector.hpp; sourceTree = "<group>"; };
 		46EC09751BD84F800098FD81 /* ConfigHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigHandler.cpp; path = ../src/config/ConfigHandler.cpp; sourceTree = "<group>"; };
 		46EC09761BD84F800098FD81 /* ConfigHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConfigHandler.hpp; path = ../src/config/ConfigHandler.hpp; sourceTree = "<group>"; };
-		46EC09781BD851EE0098FD81 /* FaceOff.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FaceOff.cfg; path = ../resources/FaceOff.cfg; sourceTree = "<group>"; };
 		46EC097C1BD857060098FD81 /* libconfig++.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libconfig++.9.dylib"; path = "../../../../../../../usr/local/Cellar/libconfig/1.5/lib/libconfig++.9.dylib"; sourceTree = "<group>"; };
 		46EC09811BD8770D0098FD81 /* CameraCapture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CameraCapture.hpp; path = ../src/camera/CameraCapture.hpp; sourceTree = "<group>"; };
 		46EC09821BD877130098FD81 /* CameraCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraCapture.cpp; path = ../src/camera/CameraCapture.cpp; sourceTree = "<group>"; };
@@ -290,10 +285,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4661E96E1BE1EF22001EA163 /* model.yml.gz */,
+				465DD3441BE914D900562FDB /* config */,
+				465DD3431BE914D400562FDB /* data */,
 				2AEABFF198CB4630A9C0DA65 /* CinderApp.icns */,
 				E408BF25DD8C4F379864E34B /* Info.plist */,
-				46EC09781BD851EE0098FD81 /* FaceOff.cfg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -306,6 +301,45 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		465DD3221BE88BAD00562FDB /* ps3eye_options */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ps3eye_options;
+			sourceTree = "<group>";
+		};
+		465DD3231BE88BD500562FDB /* face_detector */ = {
+			isa = PBXGroup;
+			children = (
+				465DD3251BE88D4E00562FDB /* FaceDetectorModule.hpp */,
+				465DD3241BE88D4E00562FDB /* FaceDetectorModule.cpp */,
+			);
+			name = face_detector;
+			sourceTree = "<group>";
+		};
+		465DD3431BE914D400562FDB /* data */ = {
+			isa = PBXGroup;
+			children = (
+				465DD3471BE914EE00562FDB /* haarcascade_eye_tree_eyeglasses.xml */,
+				465DD3481BE914EE00562FDB /* haarcascade_eye.xml */,
+				465DD3491BE914EE00562FDB /* haarcascade_frontalface_alt_tree.xml */,
+				465DD34A1BE914EE00562FDB /* haarcascade_frontalface_alt.xml */,
+				465DD34B1BE914EE00562FDB /* haarcascade_frontalface_alt2.xml */,
+				465DD34C1BE914EE00562FDB /* haarcascade_frontalface_default.xml */,
+				465DD34D1BE914EE00562FDB /* haarcascade_smile.xml */,
+				465DD34E1BE914EE00562FDB /* model.yml.gz */,
+			);
+			name = data;
+			sourceTree = "<group>";
+		};
+		465DD3441BE914D900562FDB /* config */ = {
+			isa = PBXGroup;
+			children = (
+				465DD3451BE914E200562FDB /* FaceOff.cfg */,
+			);
+			name = config;
 			sourceTree = "<group>";
 		};
 		4661E96B1BE1651A001EA163 /* Dependency Headers */ = {
@@ -322,12 +356,15 @@
 		4661E9721BE2E851001EA163 /* modules */ = {
 			isa = PBXGroup;
 			children = (
-				4661E9761BE2EE93001EA163 /* edge_detect */,
+				465DD3401BE894BA00562FDB /* ModuleCommon.hpp */,
+				465DD3231BE88BD500562FDB /* face_detector */,
+				465DD3221BE88BAD00562FDB /* ps3eye_options */,
+				4661E9761BE2EE93001EA163 /* edge_detector */,
 			);
 			name = modules;
 			sourceTree = "<group>";
 		};
-		4661E9761BE2EE93001EA163 /* edge_detect */ = {
+		4661E9761BE2EE93001EA163 /* edge_detector */ = {
 			isa = PBXGroup;
 			children = (
 				4661E9741BE2E8C6001EA163 /* EdgeDetectorModule.hpp */,
@@ -335,7 +372,7 @@
 				4661E97B1BE2F099001EA163 /* ParallelContourDetector.hpp */,
 				4661E97A1BE2F099001EA163 /* ParallelContourDetector.cpp */,
 			);
-			name = edge_detect;
+			name = edge_detector;
 			sourceTree = "<group>";
 		};
 		46EC096F1BD84E730098FD81 /* OpenCV */ = {
@@ -452,9 +489,8 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				46EC097A1BD852440098FD81 /* CopyFiles */,
 				4661E9601BE14E9E001EA163 /* CopyFiles */,
-				4661E9701BE1EF2D001EA163 /* CopyFiles */,
+				465DD3421BE911DB00562FDB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -497,12 +533,36 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4661E96F1BE1EF22001EA163 /* model.yml.gz in Resources */,
+				465DD3501BE914EE00562FDB /* haarcascade_eye.xml in Resources */,
+				465DD3531BE914EE00562FDB /* haarcascade_frontalface_alt2.xml in Resources */,
+				465DD3541BE914EE00562FDB /* haarcascade_frontalface_default.xml in Resources */,
 				B953DB2F6F2048828BBAAA1D /* CinderApp.icns in Resources */,
+				465DD3461BE914E200562FDB /* FaceOff.cfg in Resources */,
+				465DD3511BE914EE00562FDB /* haarcascade_frontalface_alt_tree.xml in Resources */,
+				465DD3521BE914EE00562FDB /* haarcascade_frontalface_alt.xml in Resources */,
+				465DD34F1BE914EE00562FDB /* haarcascade_eye_tree_eyeglasses.xml in Resources */,
+				465DD3561BE914EE00562FDB /* model.yml.gz in Resources */,
+				465DD3551BE914EE00562FDB /* haarcascade_smile.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		465DD3421BE911DB00562FDB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#Make the directory that the data is copied into\nmkdir -p \"$TARGET_BUILD_DIR/data/\"\n#Copy /resources/data to <build path>/data\ncp -a \"$SRCROOT/../resources/data/\" \"$TARGET_BUILD_DIR/data/\"\n\n#Make the directory that the data is copied into\nmkdir -p \"$TARGET_BUILD_DIR/config/\"\n#Copy /resources/data to <build path>/data\ncp -a \"$SRCROOT/../resources/config/\" \"$TARGET_BUILD_DIR/config/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D11072C0486CEB800E47090 /* Sources */ = {
@@ -511,6 +571,7 @@
 			files = (
 				46EC098B1BD962D60098FD81 /* SystemCameraCapture.cpp in Sources */,
 				4661E9501BDFD23F001EA163 /* FaceOffGlobals.cpp in Sources */,
+				465DD3261BE88D4E00562FDB /* FaceDetectorModule.cpp in Sources */,
 				C38E610CD0BD4536B8FD0327 /* FaceOffApp.cpp in Sources */,
 				46EC09881BD960890098FD81 /* PS3EyeCapture.cpp in Sources */,
 				46F246E91BD810FA008292AC /* FPSCounter.cpp in Sources */,
@@ -547,6 +608,8 @@
 					"\"$(CINDER_PATH)/include\"",
 					/usr/local/include,
 					"$(SRCROOT)/../Frameworks/PS3EyeDriver",
+					"$(SRCROOT)/../Frameworks/Cinder-ImGui/include/**",
+					"$(SRCROOT)/../Frameworks/Cinder-ImGui/lib/imgui/**",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -590,6 +653,8 @@
 					"\"$(CINDER_PATH)/include\"",
 					/usr/local/include,
 					"$(SRCROOT)/../Frameworks/PS3EyeDriver",
+					"$(SRCROOT)/../Frameworks/Cinder-ImGui/include/**",
+					"$(SRCROOT)/../Frameworks/Cinder-ImGui/lib/imgui/**",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";

@@ -49,7 +49,7 @@ private:
     void operator=(ConfigHandler const&) = delete;
     //==== END SINGLETON STUFF ==============================================//
     
-    const char *CONFIG_FILE = "FaceOff.cfg";
+    const char *CONFIG_FILE = "config/FaceOff.cfg";
 };
 
 

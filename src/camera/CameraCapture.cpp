@@ -95,7 +95,7 @@ void CameraCapture::Update(){
     currentCapture->Update();
 }
 
-cv::Mat& CameraCapture::GetLatestFrame(){
+cv::Mat CameraCapture::GetLatestFrame(){
     //std::lock_guard<std::mutex> guard(frameMutex);
     return currentCapture->GetLatestFrame();
 }

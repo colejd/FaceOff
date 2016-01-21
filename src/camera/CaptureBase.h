@@ -19,6 +19,7 @@
 class CaptureBase {
 protected:
     bool frameMutex = false;
+    std::mutex mutex;
     
 private:
     /** Index of the device; starts at 0. */
@@ -58,7 +59,7 @@ public:
      Gives a cv::Mat reference to the pixel data pulled from the device.
      You must call Update() to populate frame with data.
      */
-    cv::Mat& GetLatestFrame(){
+    cv::Mat GetLatestFrame(){
         return frame;
     }
     

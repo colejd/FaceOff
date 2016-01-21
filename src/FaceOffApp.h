@@ -36,6 +36,7 @@ using namespace cv;
 #include "FaceOffGlobals.hpp"
 
 #include "EdgeDetectorModule.hpp"
+#include "FaceDetectorModule.hpp"
 
 /**
  The main application. This program is designed to interpret data
@@ -75,6 +76,11 @@ private:
     Mat finalImageRight;
     
     EdgeDetectorModule edgeDetector;
+    FaceDetectorModule faceDetector;
+    
+    bool swapEyes = false;
+    
+    int convergence = 0;
     
 };
 

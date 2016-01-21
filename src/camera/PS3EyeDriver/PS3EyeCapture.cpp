@@ -42,7 +42,6 @@ bool PS3EyeCapture::Init(const int deviceNum){
 //Draw loop always pulls the newest completed frame (optionally: and only performs CV operations when the frame is new).
 //Update thread converts and stores latest camera data into frame (slow). Only when this conversion is done should
 //  the draw loop grab the data.
-
 void PS3EyeCapture::Update(){
     //TODO: This gets called twice per frame, once per camera object.
     //We need to make sure this only gets called once across all Update calls this frame.

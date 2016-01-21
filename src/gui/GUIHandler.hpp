@@ -46,6 +46,8 @@ public:
     void AddWindow(string name, ivec2 size);
     params::InterfaceGlRef GetWindow(string name);
     
+    void DefineGlobal(const string options);
+    
     
     
 private:
@@ -57,7 +59,7 @@ private:
     void operator=(GUIHandler const&) = delete;
     //==== END SINGLETON STUFF ==============================================//
     
-    params::InterfaceGlRef mParams;
+    params::InterfaceGlRef globalParams;
     
     unordered_map<string, params::InterfaceGlRef> windows;
     

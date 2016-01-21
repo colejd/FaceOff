@@ -66,7 +66,7 @@ public:
     void MarkFrameUsed();
     
     //const cv::Mat& GetLatestFrame();
-    cv::Mat& GetLatestFrame();
+    cv::Mat GetLatestFrame();
     
     void StartUpdateThread();
     void StopUpdateThread();
