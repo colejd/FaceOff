@@ -99,38 +99,38 @@ void FaceOffApp::setup(){
  Print information relevant to Cinder, OpenCV, etc.
  */
 void FaceOffApp::PrintDebugInfo(){
-    FaceOffGlobals::app_log.AddLog("--- BEGIN DEBUG INFO ---\n");
+    fg::app_log.AddLog("--- BEGIN DEBUG INFO ---\n");
     
     #ifdef DEBUG
         app_log.AddLog("Debug build\n");
         //std::cout << cv::getBuildInformation();
     #else
-        FaceOffGlobals::app_log.AddLog("Release build\n");
+        fg::app_log.AddLog("Release build\n");
     #endif
     
     bool openCLSupport = ocl::useOpenCL();
-    FaceOffGlobals::app_log.AddLog("OpenCL support: %s\n", openCLSupport ? "true" : "false");
+    fg::app_log.AddLog("OpenCL support: %s\n", openCLSupport ? "true" : "false");
     //#ifdef DEBUG
         if(openCLSupport){
             std::vector<cv::ocl::PlatformInfo> platforms;
             cv::ocl::getPlatfomsInfo(platforms);
             for(int i=0; i<platforms.size(); i++){
-                FaceOffGlobals::app_log.AddLog("  Platform %i of %lu\n", i+1, platforms.size());
-                FaceOffGlobals::app_log.AddLog("    Name:     %s\n", platforms[i].name().c_str());
-                FaceOffGlobals::app_log.AddLog("    Vendor:   %s\n", platforms[i].vendor().c_str());
-                FaceOffGlobals::app_log.AddLog("    Device:   %i\n", platforms[i].deviceNumber());
-                FaceOffGlobals::app_log.AddLog("    Version:  %s\n", platforms[i].version().c_str());
+                fg::app_log.AddLog("  Platform %i of %lu\n", i+1, platforms.size());
+                fg::app_log.AddLog("    Name:     %s\n", platforms[i].name().c_str());
+                fg::app_log.AddLog("    Vendor:   %s\n", platforms[i].vendor().c_str());
+                fg::app_log.AddLog("    Device:   %i\n", platforms[i].deviceNumber());
+                fg::app_log.AddLog("    Version:  %s\n", platforms[i].version().c_str());
             }
         }
     //#endif
     
-    FaceOffGlobals::app_log.AddLog("Optimized code support: %s\n", useOptimized() ? "true" : "false");
+    fg::app_log.AddLog("Optimized code support: %s\n", useOptimized() ? "true" : "false");
     
-    FaceOffGlobals::app_log.AddLog("IPP support: %s\n", cv::ipp::useIPP() ? "true" : "false");
+    fg::app_log.AddLog("IPP support: %s\n", cv::ipp::useIPP() ? "true" : "false");
     
-    FaceOffGlobals::app_log.AddLog("Threads used by OpenCV: %i\n", getNumThreads());
+    fg::app_log.AddLog("Threads used by OpenCV: %i\n", getNumThreads());
     
-    FaceOffGlobals::app_log.AddLog("--- END DEBUG INFO ---\n");
+    fg::app_log.AddLog("--- END DEBUG INFO ---\n");
 }
 
 void FaceOffApp::SetupGUIVariables(){
@@ -185,7 +185,7 @@ void FaceOffApp::DrawGUI(){
     
     //Draw the log if desired
     if(showLog){
-        FaceOffGlobals::app_log.Draw("Log");
+        fg::app_log.Draw("Log");
     }
     
 }
@@ -322,7 +322,7 @@ void FaceOffApp::keyDown( KeyEvent event )
 }
 
 void FaceOffApp::QuitApp(){
-    FaceOffGlobals::ThreadsShouldStop = true;
+    fg::ThreadsShouldStop = true;
     quit();
 }
 

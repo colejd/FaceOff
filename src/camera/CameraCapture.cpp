@@ -24,12 +24,12 @@ bool CameraCapture::Init(const int deviceNum, const DEVICE_TYPE deviceType){
     SetDeviceType(deviceType);
     
     if(GetDeviceType() == DEVICE_TYPE::GENERIC){
-        FaceOffGlobals::app_log.AddLog("Init [Generic] capture at index %i\n", deviceNum);
+        fg::app_log.AddLog("Init Generic capture at index %i\n", deviceNum);
         currentCapture = new SystemCameraCapture();
         initialized = currentCapture->Init(deviceNum);
     }
     else if(GetDeviceType() == DEVICE_TYPE::PS3EYE){
-        FaceOffGlobals::app_log.AddLog("Init [PS3EYE] capture at index %i\n", deviceNum);
+        fg::app_log.AddLog("Init PS3EYE capture at index %i\n", deviceNum);
         currentCapture = new PS3EyeCapture();
         initialized = currentCapture->Init(deviceNum);
     }
@@ -39,7 +39,7 @@ bool CameraCapture::Init(const int deviceNum, const DEVICE_TYPE deviceType){
     
     if(initialized) StartUpdateThread();
     else{
-        FaceOffGlobals::app_log.AddLog("Capture init failed!\n");
+        fg::app_log.AddLog("Capture init failed!\n");
     }
     
     return initialized;
@@ -120,7 +120,7 @@ void CameraCapture::UnlockFrame(){
 
 void CameraCapture::StartUpdateThread(){
     //updateThread = std::thread(std::bind(&CameraCapture::ThreadUpdateFunction, this));
-    FaceOffGlobals::app_log.AddLog("Starting update thread\n");
+    fg::app_log.AddLog("Starting update thread\n");
     updateThread = std::thread( [this] { this->ThreadUpdateFunction(); } );
     //std::thread updateThread = std::thread( [this] { this->ThreadUpdateFunction(); } );
     //updateThread.detach();
@@ -130,13 +130,13 @@ void CameraCapture::StartUpdateThread(){
 void CameraCapture::StopUpdateThread(){
     if(updateThread.joinable()){
         updateThread.join();
-        FaceOffGlobals::app_log.AddLog("Update thread stopped.\n");
+        fg::app_log.AddLog("Update thread stopped.\n");
     }
 }
 
 //Will terminate automatically when the program exits.
 void CameraCapture::ThreadUpdateFunction(){
-    while(FaceOffGlobals::ThreadsShouldStop == false){
+    while(fg::ThreadsShouldStop == false){
             Update();
     }
 }

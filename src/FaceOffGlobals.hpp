@@ -90,4 +90,5 @@ namespace FaceOffGlobals{
     extern FaceOffLog app_log;
 }
 
+namespace fg = FaceOffGlobals;
 #endif /* FaceOffGlobals_hpp */
