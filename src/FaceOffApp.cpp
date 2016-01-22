@@ -77,7 +77,7 @@ void FaceOffApp::setup(){
     
     //Set up camera device
     capture1 = new CameraCapture();
-    capture1->Init(0, CameraCapture::DEVICE_TYPE::PS3EYE);
+    capture1->Init(0, CameraCapture::DEVICE_TYPE::GENERIC);
     //Quit if the capture doesn't take
     if(!capture1->IsInitialized()){
         fg::app_log.AddLog("Camera is not initialized.\n");
@@ -85,7 +85,7 @@ void FaceOffApp::setup(){
     }
     
     capture2 = new CameraCapture();
-    capture2->Init(1, CameraCapture::DEVICE_TYPE::PS3EYE);
+    capture2->Init(0, CameraCapture::DEVICE_TYPE::PS3EYE);
     //Quit if the capture doesn't take
     if(!capture2->IsInitialized()){
         fg::app_log.AddLog("Camera is not initialized.\n");
@@ -108,8 +108,13 @@ void FaceOffApp::setup(){
     
     //Sets the window to fullscreen if requested by config. Do this at the end of the initialization
     //to avoid nullifying any calls to setWindowSize called after fullscreen is requested.
-    static bool FULLSCREEN_ON_LAUNCH = ConfigHandler::GetConfig().lookup("FULLSCREEN_ON_LAUNCH");
-    setFullScreen(FULLSCREEN_ON_LAUNCH);
+    //static bool FULLSCREEN_ON_LAUNCH = ConfigHandler::GetConfig().lookup("FULLSCREEN_ON_LAUNCH");
+    //setFullScreen(FULLSCREEN_ON_LAUNCH);
+    setFullScreen(true);
+    
+    leftFbo = gl::Fbo::create(getWindowSize().x/2, getWindowSize().y);
+    rightFbo = gl::Fbo::create(getWindowSize().x/2, getWindowSize().y);
+    
     fg::app_log.AddLog("FaceOff Init finished.\n");
     
 }
@@ -301,22 +306,31 @@ void FaceOffApp::draw(){
     
     //Draw the final image
     Rectf leftRect(0 + convergence, 0, (getWindowSize().x/2) + convergence, getWindowSize().y) ;
-    Rectf rightRect((getWindowSize().x/2) - convergence, 0, getWindowSize().x - convergence, getWindowSize().y);
+    Rectf rightRect(0 - convergence, 0, (getWindowSize().x/2) - convergence, getWindowSize().y);
     
-    cinder::gl::Texture2dRef leftRef = GetTextureFromMat(finalImageLeft);
-    cinder::gl::Texture2dRef rightRef = GetTextureFromMat(finalImageRight);
+    cinder::gl::Texture2dRef ref1 = GetTextureFromMat(finalImageLeft);
+    cinder::gl::Texture2dRef ref2 = GetTextureFromMat(finalImageRight);
+    
+    cinder::gl::Texture2dRef leftRef = ref1;
+    cinder::gl::Texture2dRef rightRef = ref2;
     
     if(swapEyes){
-        gl::draw(rightRef, Rectf(leftRef->getBounds()).getCenteredFit(leftRect, true));
-        gl::draw(leftRef, Rectf(rightRef->getBounds()).getCenteredFit(rightRect, true));
-    }
-    else{
-        gl::draw(leftRef, Rectf(leftRef->getBounds()).getCenteredFit(leftRect, true));
-        gl::draw(rightRef, Rectf(rightRef->getBounds()).getCenteredFit(rightRect, true));
+        leftRef = ref2;
+        rightRef = ref1;
     }
     
-    //gl::draw(GetTextureFromMat(finalImageLeft), Rectf(0, 0, getWindowSize().x/2, getWindowSize().y) );
-    //gl::draw(GetTextureFromMat(finalImageRight), Rectf(getWindowSize().x/2, 0, getWindowSize().x, getWindowSize().y));
+    leftFbo->bindFramebuffer();
+    gl::clear();
+    gl::draw(leftRef, Rectf(leftRef->getBounds()).getCenteredFit(leftRect, true));
+    leftFbo->unbindFramebuffer();
+
+    rightFbo->bindFramebuffer();
+    gl::clear();
+    gl::draw(rightRef, Rectf(rightRef->getBounds()).getCenteredFit(rightRect, true));
+    rightFbo->unbindFramebuffer();
+    
+    gl::draw(leftFbo->getColorTexture());
+    gl::draw(rightFbo->getColorTexture(), Rectf(getWindowSize().x/2, 0, getWindowSize().x, getWindowSize().y));
     
     //Draw the GUI (built-in)
     //GUIHandler::GetInstance().DrawAll();

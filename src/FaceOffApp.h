@@ -13,6 +13,7 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 
+#include "cinder/gl/Fbo.h"
 #include "cinder/gl/Texture.h"
 
 using namespace ci;
@@ -36,6 +37,8 @@ using namespace cv;
 
 #include "EdgeDetectorModule.hpp"
 #include "FaceDetectorModule.hpp"
+
+using namespace ci;
 
 /**
  The main application. This program is designed to interpret data
@@ -62,6 +65,9 @@ public:
     void DrawGUI() override;
     
     cinder::gl::Texture2dRef GetTextureFromMat(cv::Mat& mat);
+    
+    gl::FboRef leftFbo;
+    gl::FboRef rightFbo;
     
 private:
     
