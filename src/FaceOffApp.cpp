@@ -186,8 +186,8 @@ void FaceOffApp::DrawGUI(){
             ui::EndMenu();
         }
         
-        ui::Separator();
-        ui::SameLine(ui::GetWindowWidth() - 60); ui::Text("%4.0f FPS", ui::GetIO().Framerate);
+        //ui::SameLine(ui::GetWindowWidth() - 60); ui::Text("%4.0f FPS", ui::GetIO().Framerate);
+        ui::SameLine(ui::GetWindowWidth() - 60); ui::Text("%4.0f FPS", getAverageFps());
     }
     
     //Draw general settings window
@@ -296,22 +296,6 @@ void FaceOffApp::draw(){
     
     //gl::draw(GetTextureFromMat(finalImageLeft), Rectf(0, 0, getWindowSize().x/2, getWindowSize().y) );
     //gl::draw(GetTextureFromMat(finalImageRight), Rectf(getWindowSize().x/2, 0, getWindowSize().x, getWindowSize().y));
-    
-    
-    //Draw the FPS counter
-    char fpsString[50];
-    sprintf(fpsString, "FPS: %.2f", getAverageFps());
-    Font mFont = Font( "Courier", 20 );
-    gl::TextureRef mTextTexture;
-    vec2 mSize = vec2( 100, 100 );
-    TextBox tbox = TextBox().alignment( TextBox::CENTER ).font( mFont ).size( ivec2( mSize.x, TextBox::GROW ) );
-    tbox.text(fpsString);
-    tbox.setColor( Color( 1.0f, 0.65f, 0.35f ) );
-    tbox.setBackgroundColor( ColorA( 0, 0, 0, 0 ) );
-    mTextTexture = gl::Texture2d::create( tbox.render() );
-    if( mTextTexture ){
-        gl::draw( mTextTexture );
-    }
     
     //Draw the GUI (built-in)
     //GUIHandler::GetInstance().DrawAll();
