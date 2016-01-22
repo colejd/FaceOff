@@ -31,6 +31,7 @@ void FaceOffApp::setup(){
                    .itemInnerSpacing(vec2(10, 4)) //Spacing between elements of a composed widget
                    .color(ImGuiCol_CloseButton, ImVec4(0.86f, 0.93f, 0.89f, 0.39f)) //Darken the close button
                    .color(ImGuiCol_Border, ImVec4(0.86f, 0.93f, 0.89f, 0.39f))
+                   .color(ImGuiCol_TooltipBg, ImVec4(0.47f, 0.77f, 0.83f, 1.0f))
                    );
     
     //Load config stuff

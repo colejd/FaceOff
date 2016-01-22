@@ -27,6 +27,14 @@ public:
     
     bool showGUI = false;
     
+    static void ShowHelpMarker(const char* desc)
+    {
+        ImGui::SameLine();
+        ImGui::TextDisabled("(?)");
+        if (ImGui::IsItemHovered())
+            ImGui::SetTooltip("%s", desc);
+    }
+    
     
 };
 

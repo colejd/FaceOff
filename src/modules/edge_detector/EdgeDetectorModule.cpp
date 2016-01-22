@@ -59,12 +59,15 @@ void EdgeDetectorModule::DrawGUI(){
         ImGui::Separator();
         //if(enabled) ui::PushStyleVar(ImGuiCol_Text, ImColor::HSV(0, 0, 0.5));
         
-        if(!enabled) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2);
+        if(!enabled) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push global disabled style
         
         ui::SliderInt("Low Threshold", &cannyThresholdLow, 0, 255);
+            ShowHelpMarker("Set lower to look for more edges.");
         ui::SliderFloat("Ratio", &cannyThresholdRatio, 2.0, 3.0);
+            ShowHelpMarker("Fine tune edge results.");
         ui::ColorEdit3("Line Color", &lineColor[0]);
         ui::Checkbox("Edges Only", &showEdgesOnly);
+            ShowHelpMarker("Show just the edges.");
         ui::Combo("Channel Type", &currentChannelType, channelTypeVec);
         
         //Contour settings
@@ -72,8 +75,10 @@ void EdgeDetectorModule::DrawGUI(){
         ui::Text("Contour Settings");
         ui::Separator();
         ui::Checkbox("Use Contours", &useContours);
+            ShowHelpMarker("Use contour detection to filter out short lines and noise in the edge data");
         if(!useContours) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push disabled style
         ui::SliderInt("Subdivisions", &contourSubdivisions, 1, 16);
+            ShowHelpMarker("Number of chunks the image is divided into for parallel processing.");
         ui::SliderInt("Thickness", &lineThickness, -1, 8);
         if(!useContours) ui::PopStyleVar(); //Pop disabled style
         
@@ -82,12 +87,15 @@ void EdgeDetectorModule::DrawGUI(){
         ui::Separator();
         ui::Combo("Blur Type", &currentBlurType, blurTypeVec);
         ui::Checkbox("Erosion/Dilution", &doErosionDilution);
+            ShowHelpMarker("Try to keep erosion and dilution at the same value.");
         if(!doErosionDilution) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push disabled style
         ui::SliderInt("Erosion Iterations", &erosionIterations, 0, 6);
+            ShowHelpMarker("Morphological open operation; makes dark spots smaller and bright spots larger.");
         ui::SliderInt("Dilution Iterations", &dilutionIterations, 0, 6);
+            ShowHelpMarker("Morphologial close operation; makes dark spots larger and bright spots smaller.");
         if(!doErosionDilution) ui::PopStyleVar(); //Pop disabled style
         
-        if(!enabled) ui::PopStyleVar();
+        if(!enabled) ui::PopStyleVar(); //Pop global disabled style
         
         ui::End();
         
