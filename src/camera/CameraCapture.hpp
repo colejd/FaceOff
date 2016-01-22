@@ -18,8 +18,6 @@
 #include "SystemCameraCapture.hpp"
 #include "PS3EyeCapture.hpp"
 
-#include "FaceOffGlobals.hpp"
-
 using namespace cv;
 
 /**

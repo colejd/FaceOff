@@ -33,8 +33,6 @@ using namespace cv;
 
 #include <memory>
 
-#include "FaceOffGlobals.hpp"
-
 #include "EdgeDetectorModule.hpp"
 #include "FaceDetectorModule.hpp"
 
