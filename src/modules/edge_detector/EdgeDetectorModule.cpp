@@ -83,16 +83,16 @@ void EdgeDetectorModule::DrawGUI(){
         if(!useContours) ui::PopStyleVar(); //Pop disabled style
         
         ui::Spacing();
-        ui::Text("Quality Settings");
+        ui::Text("Image Tuning");
         ui::Separator();
         ui::Combo("Blur Type", &currentBlurType, blurTypeVec);
         ui::Checkbox("Erosion/Dilution", &doErosionDilution);
             ShowHelpMarker("Try to keep erosion and dilution at the same value.");
         if(!doErosionDilution) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push disabled style
         ui::SliderInt("Erosion Iterations", &erosionIterations, 0, 6);
-            ShowHelpMarker("Morphological open operation; makes dark spots smaller and bright spots larger.");
+            ShowHelpMarker("Morphological open operation; removes bright spots on a dark background.");
         ui::SliderInt("Dilution Iterations", &dilutionIterations, 0, 6);
-            ShowHelpMarker("Morphologial close operation; makes dark spots larger and bright spots smaller.");
+            ShowHelpMarker("Morphologial close operation; removes dark spots on a bright background.");
         if(!doErosionDilution) ui::PopStyleVar(); //Pop disabled style
         
         if(!enabled) ui::PopStyleVar(); //Pop global disabled style

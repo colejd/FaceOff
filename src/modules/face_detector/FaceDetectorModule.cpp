@@ -96,7 +96,12 @@ void FaceDetectorModule::DrawGUI(){
         ui::Begin("Face Detector", &showGUI, ImGuiWindowFlags_AlwaysAutoResize);
         
         ui::Checkbox("Enabled", &enabled);
+        ui::Separator();
+        if(!enabled) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push disabled style
+        
         ui::SliderFloat("Scale", &imageScale, 0.01, 1.00);
+        
+        if(!enabled) ui::PopStyleVar(); //Pop disabled style
         
         ui::End();
     }

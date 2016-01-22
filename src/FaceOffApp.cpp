@@ -315,6 +315,14 @@ void FaceOffApp::mouseDown( MouseEvent event ){
 
 void FaceOffApp::keyDown( KeyEvent event )
 {
+    if( event.getChar() == '-') {
+        convergence -= 1;
+        if(convergence < 0) convergence = 0;
+    }
+    if( event.getChar() == '=') {
+        convergence += 1;
+        if(convergence > 100) convergence = 100;
+    }
     if( event.getChar() == 's' ) {
         swapEyes = !swapEyes;
     }
