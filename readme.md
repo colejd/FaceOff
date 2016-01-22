@@ -18,7 +18,7 @@ Additional dependencies:
 - Intel Threading Building Blocks
 - OpenCV 3.0
 
-See BuildNotes.rtf for instructions on building OpenCV for this project.
+See [BuildNotes.rtf](/BuildNotes.rtf) for instructions on building OpenCV for this project.
 
 
 This program builds cleanly on OSX 10.11. Minor adjustments are all that are necessary to get this running on other platforms thanks to Cinder.
