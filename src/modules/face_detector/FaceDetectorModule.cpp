@@ -86,7 +86,6 @@ void FaceDetectorModule::SetupGUIVariables(){
     facesWindow->addParam("Module Enabled", &enabled).keyIncr("e");
     facesWindow->addSeparator("All");
     facesWindow->addParam("Scale", &imageScale).min(0.01).max(1.00);
-    ShowHelpMarker("Higher values give more accurate results, but run much slower.");
     
     
 }
@@ -100,6 +99,7 @@ void FaceDetectorModule::DrawGUI(){
         if(!enabled) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push disabled style
         
         ui::SliderFloat("Scale", &imageScale, 0.01, 1.00);
+        ShowHelpMarker("Higher values give more accurate results, but run much slower.");
         
         if(!enabled) ui::PopStyleVar(); //Pop disabled style
         
