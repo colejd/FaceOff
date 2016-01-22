@@ -158,6 +158,7 @@ void FaceOffApp::DrawGUI(){
             if(ui::MenuItem("Swap Eyes", "S")){
                 swapEyes ^= 1;
             }
+            ui::MenuItem("Help", nullptr, &showHelp);
             if(ui::MenuItem("Quit", "ESC")){
                 QuitApp();
             }
@@ -172,20 +173,33 @@ void FaceOffApp::DrawGUI(){
             //ui::MenuItem( "PS3 Eye Settings", nullptr, &showWindowWithMenu );
             ui::EndMenu();
         }
+        
         ui::Text("%4.0f FPS", ui::GetIO().Framerate);
     }
     
     //Draw general settings window
     if(showGUI)
     {
-        ui::ScopedWindow window( "General Settings" );
+        ui::Begin("General Settings", &showGUI, ImGuiWindowFlags_AlwaysAutoResize);
+        
         //ui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ui::GetIO().Framerate, ui::GetIO().Framerate);
         ui::SliderInt("Stereo Convergence", &convergence, 0, 100);
+        
+        ui::End();
     }
     
     //Draw the log if desired
     if(showLog){
         fg::app_log.Draw("Log");
+    }
+    
+    if(showHelp) ui::OpenPopup("Help");
+    //ui::ScopedWindow window( "Help", ImGuiWindowFlags_AlwaysAutoResize );
+    if(ui::BeginPopupModal("Help", &showHelp)){
+        ui::Text("FaceOff 0.1.0");
+        ui::Text("Jonathan Cole, VEMILab");
+        ui::Text("github.com/seieibob/faceoff");
+        ui::EndPopup();
     }
     
 }

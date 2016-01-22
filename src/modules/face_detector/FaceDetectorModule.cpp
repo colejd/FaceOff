@@ -93,8 +93,11 @@ void FaceDetectorModule::SetupGUIVariables(){
 
 void FaceDetectorModule::DrawGUI(){
     if(showGUI){
-        ui::ScopedWindow window("Face Detector");
+        ui::Begin("Face Detector", &showGUI, ImGuiWindowFlags_AlwaysAutoResize);
+        
         ui::Checkbox("Enabled", &enabled);
         ui::SliderFloat("Scale", &imageScale, 0.01, 1.00);
+        
+        ui::End();
     }
 }

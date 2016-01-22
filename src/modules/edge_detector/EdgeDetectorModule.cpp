@@ -53,27 +53,39 @@ void EdgeDetectorModule::SetupGUIVariables(){
 
 void EdgeDetectorModule::DrawGUI(){
     if(showGUI){
-        ui::ScopedWindow window("Edge Detector");
+        ui::Begin("Edge Detector", &showGUI, ImGuiWindowFlags_AlwaysAutoResize);
+        
         ui::Checkbox("Enabled", &enabled);
+        
+        //if(enabled) ui::PushStyleVar(ImGuiCol_Text, ImColor::HSV(0, 0, 0.5));
+        
+        if(!enabled) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2);
+                                     
         ui::SliderInt("Low Threshold", &cannyThresholdLow, 0, 255);
         ui::SliderFloat("Ratio", &cannyThresholdRatio, 2.0, 3.0);
         ui::ColorEdit3("Line Color", &lineColor[0]);
         ui::Checkbox("Edges Only", &showEdgesOnly);
-        //channel type --!
+        ui::Combo("Channel Type", &currentChannelType, channelTypeVec);
         
         //Contour settings
-        ui::Spacing();
+        ui::Text("Contour Settings");
         ui::Checkbox("Use Contours", &useContours);
+        if(!useContours) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push disabled style
         ui::SliderInt("Subdivisions", &contourSubdivisions, 1, 16);
         ui::SliderInt("Thickness", &lineThickness, -1, 8);
+        if(!useContours) ui::PopStyleVar(); //Pop disabled style
         
-        //Blur Type --!
-        ui::Spacing();
+        ui::Text("Quality Settings");
+        ui::Combo("Blur Type", &currentBlurType, blurTypeVec);
         ui::Checkbox("Erosion/Dilution", &doErosionDilution);
-        ui::DragInt("Erosion Iterations", &erosionIterations, 0, 6);
-        ui::DragInt("Dilution Iterations", &dilutionIterations, 0, 6);
+        if(!doErosionDilution) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push disabled style
+        ui::SliderInt("Erosion Iterations", &erosionIterations, 0, 6);
+        ui::SliderInt("Dilution Iterations", &dilutionIterations, 0, 6);
+        if(!doErosionDilution) ui::PopStyleVar(); //Pop disabled style
         
+        if(!enabled) ui::PopStyleVar();
         
+        ui::End();
         
     }
 }

@@ -62,9 +62,6 @@ public:
     
     cinder::gl::Texture2dRef GetTextureFromMat(cv::Mat& mat);
     
-    //FaceOffLog app_log;
-    bool showLog = false;
-    
 private:
     
     //const int WINDOW_WIDTH = 640;
@@ -83,6 +80,10 @@ private:
     bool swapEyes = false;
     
     int convergence = 0;
+    
+    bool showLog = false;
+    bool showHelp = false;
+    
     
 };
 
