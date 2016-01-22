@@ -27,8 +27,8 @@ void FaceOffApp::setup(){
     //static string path = ( getAssetPath( "" ) / "../resources/config/imgui.ini" ).string();
     //Options().iniPath(path).[...]
     ui::initialize(ui::Options()
-                   .itemSpacing(vec2(5, 6)) //Spacing between widgets/lines
-                   .itemInnerSpacing(vec2(10, 0)) //Spacing between elements of a composed widget
+                   .itemSpacing(vec2(6, 6)) //Spacing between widgets/lines
+                   .itemInnerSpacing(vec2(10, 4)) //Spacing between elements of a composed widget
                    .color(ImGuiCol_CloseButton, ImVec4(0.86f, 0.93f, 0.89f, 0.39f)) //Darken the close button
                    .color(ImGuiCol_Border, ImVec4(0.86f, 0.93f, 0.89f, 0.39f))
                    );
@@ -202,7 +202,7 @@ void FaceOffApp::DrawGUI(){
     
     //Draw the log if desired
     if(showLog){
-        fg::app_log.Draw("Log");
+        fg::app_log.Draw("Log", &showLog);
     }
     
     if(showHelp) ui::OpenPopup("Help");
