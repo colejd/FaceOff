@@ -56,11 +56,11 @@ void EdgeDetectorModule::DrawGUI(){
         ui::Begin("Edge Detector", &showGUI, ImGuiWindowFlags_AlwaysAutoResize);
         
         ui::Checkbox("Enabled", &enabled);
-        
+        ImGui::Separator();
         //if(enabled) ui::PushStyleVar(ImGuiCol_Text, ImColor::HSV(0, 0, 0.5));
         
         if(!enabled) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2);
-                                     
+        
         ui::SliderInt("Low Threshold", &cannyThresholdLow, 0, 255);
         ui::SliderFloat("Ratio", &cannyThresholdRatio, 2.0, 3.0);
         ui::ColorEdit3("Line Color", &lineColor[0]);
@@ -68,14 +68,18 @@ void EdgeDetectorModule::DrawGUI(){
         ui::Combo("Channel Type", &currentChannelType, channelTypeVec);
         
         //Contour settings
+        ui::Spacing();
         ui::Text("Contour Settings");
+        ui::Separator();
         ui::Checkbox("Use Contours", &useContours);
         if(!useContours) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push disabled style
         ui::SliderInt("Subdivisions", &contourSubdivisions, 1, 16);
         ui::SliderInt("Thickness", &lineThickness, -1, 8);
         if(!useContours) ui::PopStyleVar(); //Pop disabled style
         
+        ui::Spacing();
         ui::Text("Quality Settings");
+        ui::Separator();
         ui::Combo("Blur Type", &currentBlurType, blurTypeVec);
         ui::Checkbox("Erosion/Dilution", &doErosionDilution);
         if(!doErosionDilution) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push disabled style

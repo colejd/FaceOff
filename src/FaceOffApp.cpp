@@ -18,7 +18,20 @@ void prepareSettings( App::Settings *settings )
  */
 void FaceOffApp::setup(){
     
-    ui::initialize();
+    /*
+    style.Colors[ImGuiCol_TitleBg]               = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
+    style.Colors[ImGuiCol_TitleBgCollapsed]      = ImVec4(0.20f, 0.22f, 0.27f, 0.75f);
+    style.Colors[ImGuiCol_TitleBgActive]         = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+    */
+    
+    //static string path = ( getAssetPath( "" ) / "../resources/config/imgui.ini" ).string();
+    //Options().iniPath(path).[...]
+    ui::initialize(ui::Options()
+                   .itemSpacing(vec2(5, 6)) //Spacing between widgets/lines
+                   .itemInnerSpacing(vec2(10, 0)) //Spacing between elements of a composed widget
+                   .color(ImGuiCol_CloseButton, ImVec4(0.86f, 0.93f, 0.89f, 0.39f)) //Darken the close button
+                   .color(ImGuiCol_Border, ImVec4(0.86f, 0.93f, 0.89f, 0.39f))
+                   );
     
     //Load config stuff
     static int WINDOW_WIDTH = ConfigHandler::GetConfig().lookup("DEFAULT_WINDOW_WIDTH");
@@ -37,19 +50,19 @@ void FaceOffApp::setup(){
     if(USE_OPENCL && USE_DEDICATED_GPU){
         cv::ocl::Context context;
         if (!context.create(cv::ocl::Device::TYPE_DGPU)) {
-            cout << "Failed creating the dedicated GPU context!" << endl;
+            fg::app_log.AddLog("Failed creating the dedicated GPU context!\n");
             //return;
         }
             
-        cout << context.ndevices() << " GPU devices are detected." << endl;
+        fg::app_log.AddLog("%zu GPU devices are detected.\n", context.ndevices());
         //Enumerate all GPU devices in the computer
         for (int i = 0; i < context.ndevices(); i++) {
             cv::ocl::Device device = context.device(i);
             std::cout.setf(std::ios::boolalpha);
-            cout << "name: " << device.name() << endl;
-            cout << "available: " << device.available() << endl;
-            cout << "imageSupport: " << device.imageSupport() << endl;
-            cout << "OpenCL_C_Version: " << device.OpenCL_C_Version() << endl;
+            fg::app_log.AddLog("name: %s\n", device.name().c_str());
+            fg::app_log.AddLog("    available: %s\n", device.available() ? "true" : "false");
+            fg::app_log.AddLog("    imageSupport: %s\n", device.imageSupport()  ? "true" : "false");
+            fg::app_log.AddLog("    OpenCL_C_Version: %s\n", device.OpenCL_C_Version().c_str());
             cout << endl;
         }
         
@@ -59,29 +72,30 @@ void FaceOffApp::setup(){
     
     //Print debug info
     PrintDebugInfo();
-    
-    
+
     
     //Set up camera device
     capture1 = new CameraCapture();
     capture1->Init(0, CameraCapture::DEVICE_TYPE::GENERIC);
     //Quit if the capture doesn't take
     if(!capture1->IsInitialized()){
-        printf("Camera is not initialized.\n");
+        fg::app_log.AddLog("Camera is not initialized.\n");
         exit(EXIT_FAILURE);
     }
-    
     
     capture2 = new CameraCapture();
     capture2->Init(1, CameraCapture::DEVICE_TYPE::PS3EYE);
     //Quit if the capture doesn't take
     if(!capture2->IsInitialized()){
-        printf("Camera is not initialized.\n");
+        fg::app_log.AddLog("Camera is not initialized.\n");
         //exit(EXIT_FAILURE);
     }
     
+    
+    //Initialize modules
     edgeDetector = EdgeDetectorModule();
     faceDetector = FaceDetectorModule();
+    
     
     setWindowSize(capture1->GetWidth() * 2, capture1->GetHeight());
     
@@ -91,7 +105,7 @@ void FaceOffApp::setup(){
     //to avoid nullifying any calls to setWindowSize called after fullscreen is requested.
     static bool FULLSCREEN_ON_LAUNCH = ConfigHandler::GetConfig().lookup("FULLSCREEN_ON_LAUNCH");
     setFullScreen(FULLSCREEN_ON_LAUNCH);
-    printf("FaceOff Init finished.\n");
+    fg::app_log.AddLog("FaceOff Init finished.\n");
     
 }
 
@@ -125,11 +139,8 @@ void FaceOffApp::PrintDebugInfo(){
     //#endif
     
     fg::app_log.AddLog("Optimized code support: %s\n", useOptimized() ? "true" : "false");
-    
     fg::app_log.AddLog("IPP support: %s\n", cv::ipp::useIPP() ? "true" : "false");
-    
     fg::app_log.AddLog("Threads used by OpenCV: %i\n", getNumThreads());
-    
     fg::app_log.AddLog("--- END DEBUG INFO ---\n");
 }
 
@@ -174,7 +185,8 @@ void FaceOffApp::DrawGUI(){
             ui::EndMenu();
         }
         
-        ui::Text("%4.0f FPS", ui::GetIO().Framerate);
+        ui::Separator();
+        ui::SameLine(ui::GetWindowWidth() - 60); ui::Text("%4.0f FPS", ui::GetIO().Framerate);
     }
     
     //Draw general settings window

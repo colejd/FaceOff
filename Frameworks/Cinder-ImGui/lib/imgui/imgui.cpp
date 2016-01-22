@@ -8329,7 +8329,8 @@ bool ImGui::BeginMenuBar()
     ImGui::BeginGroup(); // Save position
     ImGui::PushID("##menubar");
     ImRect rect = window->MenuBarRect();
-    float border_size = (window->Flags & ImGuiWindowFlags_ShowBorders) ? 1.0f : 0.0f;
+    //float border_size = (window->Flags & ImGuiWindowFlags_ShowBorders) ? 1.0f : 0.0f; JON EDIT
+    float border_size = 1.0f; //JON EDIT: the main menu bar should never have a border. 1 is off for some reason
     PushClipRect(ImVec2(rect.Min.x+0.5f, rect.Min.y-0.5f+border_size), ImVec2(rect.Max.x+0.5f, rect.Max.y-0.5f), false);
     window->DC.CursorPos = ImVec2(rect.Min.x + window->DC.MenuBarOffsetX, rect.Min.y);// + g.Style.FramePadding.y);
     window->DC.LayoutType = ImGuiLayoutType_Horizontal;
@@ -8451,7 +8452,8 @@ bool ImGui::BeginMenu(const char* label, bool enabled)
     if (opened)
     {
         ImGui::SetNextWindowPos(popup_pos, ImGuiSetCond_Always);
-        ImGuiWindowFlags flags = ImGuiWindowFlags_ShowBorders | ((window->Flags & (ImGuiWindowFlags_Popup|ImGuiWindowFlags_ChildMenu)) ? ImGuiWindowFlags_ChildMenu|ImGuiWindowFlags_ChildWindow : ImGuiWindowFlags_ChildMenu);
+        //ImGuiWindowFlags flags = ImGuiWindowFlags_ShowBorders | ((window->Flags & (ImGuiWindowFlags_Popup|ImGuiWindowFlags_ChildMenu)) ? ImGuiWindowFlags_ChildMenu|ImGuiWindowFlags_ChildWindow : ImGuiWindowFlags_ChildMenu); //JON EDIT; COPIED TO NEXT LINE
+        ImGuiWindowFlags flags = ((window->Flags & (ImGuiWindowFlags_Popup|ImGuiWindowFlags_ChildMenu)) ? ImGuiWindowFlags_ChildMenu|ImGuiWindowFlags_ChildWindow : ImGuiWindowFlags_ChildMenu); //JON EDIT
         opened = BeginPopupEx(label, flags); // opened can be 'false' when the popup is completely clipped (e.g. zero size display)
     }
 
