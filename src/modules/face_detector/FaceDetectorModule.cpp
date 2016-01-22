@@ -9,9 +9,8 @@
 #include "FaceDetectorModule.hpp"
 
 FaceDetectorModule::FaceDetectorModule(){
-    face_cascade.load("haarcascade_frontalface_alt.xml") ;
-    eyes_cascade.load("haarcascade_eye.xml");
-    
+    face_cascade.load("data/haarcascade_frontalface_alt.xml") ;
+    eyes_cascade.load("data/haarcascade_eye.xml");
     
     //SetupGUIVariables();
 }
