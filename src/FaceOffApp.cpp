@@ -1,7 +1,5 @@
 #include "FaceOffApp.h"
 
-#include "CinderImGui.h"
-
 /** 
  Runs before the rest of the application starts.
  You should only alter Cinder settings from here. 
@@ -19,6 +17,8 @@ void prepareSettings( App::Settings *settings )
  Runs at the start of the program.
  */
 void FaceOffApp::setup(){
+    
+    ui::initialize();
     
     //Load config stuff
     static int WINDOW_WIDTH = ConfigHandler::GetConfig().lookup("DEFAULT_WINDOW_WIDTH");
@@ -85,7 +85,7 @@ void FaceOffApp::setup(){
     
     setWindowSize(capture1->GetWidth() * 2, capture1->GetHeight());
     
-    SetupGUIVariables();
+    //SetupGUIVariables();
     
     //Sets the window to fullscreen if requested by config. Do this at the end of the initialization
     //to avoid nullifying any calls to setWindowSize called after fullscreen is requested.
@@ -99,46 +99,41 @@ void FaceOffApp::setup(){
  Print information relevant to Cinder, OpenCV, etc.
  */
 void FaceOffApp::PrintDebugInfo(){
-    std::cout << "--- BEGIN DEBUG INFO ---\n";
-    
-    //Set stdout to print bools as true/false rather than 1/0
-    std::cout.setf(std::ios::boolalpha);
+    FaceOffGlobals::app_log.AddLog("--- BEGIN DEBUG INFO ---\n");
     
     #ifdef DEBUG
-        std::cout << "Debug build\n";
+        app_log.AddLog("Debug build\n");
         //std::cout << cv::getBuildInformation();
     #else
-        std::cout << "Release build\n";
+        FaceOffGlobals::app_log.AddLog("Release build\n");
     #endif
     
     bool openCLSupport = ocl::useOpenCL();
-    std::cout << "OpenCL support: " << openCLSupport << "\n";
+    FaceOffGlobals::app_log.AddLog("OpenCL support: %s\n", openCLSupport ? "true" : "false");
     //#ifdef DEBUG
         if(openCLSupport){
             std::vector<cv::ocl::PlatformInfo> platforms;
             cv::ocl::getPlatfomsInfo(platforms);
             for(int i=0; i<platforms.size(); i++){
-                printf("  Platform %i of %lu\n", i+1, platforms.size());
-                printf("    Name:     %s\n", platforms[i].name().c_str());
-                printf("    Vendor:   %s\n", platforms[i].vendor().c_str());
-                printf("    Device:   %i\n", platforms[i].deviceNumber());
-                printf("    Version:  %s\n", platforms[i].version().c_str());
+                FaceOffGlobals::app_log.AddLog("  Platform %i of %lu\n", i+1, platforms.size());
+                FaceOffGlobals::app_log.AddLog("    Name:     %s\n", platforms[i].name().c_str());
+                FaceOffGlobals::app_log.AddLog("    Vendor:   %s\n", platforms[i].vendor().c_str());
+                FaceOffGlobals::app_log.AddLog("    Device:   %i\n", platforms[i].deviceNumber());
+                FaceOffGlobals::app_log.AddLog("    Version:  %s\n", platforms[i].version().c_str());
             }
         }
     //#endif
     
-    std::cout << "Optimized code support: " << useOptimized() << "\n";
+    FaceOffGlobals::app_log.AddLog("Optimized code support: %s\n", useOptimized() ? "true" : "false");
     
-    std::cout << "IPP support: " << cv::ipp::useIPP() << "\n";
+    FaceOffGlobals::app_log.AddLog("IPP support: %s\n", cv::ipp::useIPP() ? "true" : "false");
     
-    std::cout << "Threads used by OpenCV: " << getNumThreads() << "\n";
+    FaceOffGlobals::app_log.AddLog("Threads used by OpenCV: %i\n", getNumThreads());
     
-    std::cout << "--- END DEBUG INFO ---\n";
+    FaceOffGlobals::app_log.AddLog("--- END DEBUG INFO ---\n");
 }
 
 void FaceOffApp::SetupGUIVariables(){
-    
-    ui::initialize();
     
     //Set up global preferences for the GUI
     //http://anttweakbar.sourceforge.net/doc/tools:anttweakbar:twbarparamsyntax
@@ -148,6 +143,50 @@ void FaceOffApp::SetupGUIVariables(){
     params::InterfaceGlRef generalWindow = GetGUI().GetWindow("General Settings");
     generalWindow->addParam("Stereo Convergence", &convergence).min(0).max(100).keyDecr("-").keyIncr("=");
     
+    
+}
+
+void FaceOffApp::DrawGUI(){
+    // Draw the menu bar
+    {
+        ui::ScopedMainMenuBar menuBar;
+        
+        if( ui::BeginMenu( "File" ) ){
+            //if(ui::MenuItem("Fullscreen")){
+            //    setFullScreen(!isFullScreen());
+            //}
+            if(ui::MenuItem("Swap Eyes", "S")){
+                swapEyes ^= 1;
+            }
+            if(ui::MenuItem("Quit", "ESC")){
+                QuitApp();
+            }
+            ui::EndMenu();
+        }
+        
+        if( ui::BeginMenu( "View" ) ){
+            ui::MenuItem( "General Settings", nullptr, &showGUI );
+            ui::MenuItem( "Edge Detection", nullptr, &edgeDetector.showGUI );
+            ui::MenuItem( "Face Detection", nullptr, &faceDetector.showGUI );
+            ui::MenuItem( "Log", nullptr, &showLog );
+            //ui::MenuItem( "PS3 Eye Settings", nullptr, &showWindowWithMenu );
+            ui::EndMenu();
+        }
+        ui::Text("%4.0f FPS", ui::GetIO().Framerate);
+    }
+    
+    //Draw general settings window
+    if(showGUI)
+    {
+        ui::ScopedWindow window( "General Settings" );
+        //ui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ui::GetIO().Framerate, ui::GetIO().Framerate);
+        ui::SliderInt("Stereo Convergence", &convergence, 0, 100);
+    }
+    
+    //Draw the log if desired
+    if(showLog){
+        FaceOffGlobals::app_log.Draw("Log");
+    }
     
 }
 
@@ -242,8 +281,12 @@ void FaceOffApp::draw(){
         gl::draw( mTextTexture );
     }
     
-    //Draw the GUI
-    GUIHandler::GetInstance().DrawAll();
+    //Draw the GUI (built-in)
+    //GUIHandler::GetInstance().DrawAll();
+    
+    DrawGUI();
+    faceDetector.DrawGUI();
+    edgeDetector.DrawGUI();
     
 }
 

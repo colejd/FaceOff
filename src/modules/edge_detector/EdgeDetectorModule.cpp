@@ -9,7 +9,7 @@
 #include "EdgeDetectorModule.hpp"
 
 EdgeDetectorModule::EdgeDetectorModule(){
-    SetupGUIVariables();
+    //SetupGUIVariables();
 }
 
 EdgeDetectorModule::~EdgeDetectorModule(){
@@ -49,6 +49,33 @@ void EdgeDetectorModule::SetupGUIVariables(){
     edgesWindow->addParam("Sigma Spatial", &sigmaSpatial).group("Misc.").min(0).max(200);
     edgesWindow->addParam("Edges Gamma", &edgesGamma).group("Misc.").min(0).max(300);
     
+}
+
+void EdgeDetectorModule::DrawGUI(){
+    if(showGUI){
+        ui::ScopedWindow window("Edge Detector");
+        ui::Checkbox("Enabled", &enabled);
+        ui::SliderInt("Low Threshold", &cannyThresholdLow, 0, 255);
+        ui::SliderFloat("Ratio", &cannyThresholdRatio, 2.0, 3.0);
+        ui::ColorEdit3("Line Color", &lineColor[0]);
+        ui::Checkbox("Edges Only", &showEdgesOnly);
+        //channel type --!
+        
+        //Contour settings
+        ui::Spacing();
+        ui::Checkbox("Use Contours", &useContours);
+        ui::SliderInt("Subdivisions", &contourSubdivisions, 1, 16);
+        ui::SliderInt("Thickness", &lineThickness, -1, 8);
+        
+        //Blur Type --!
+        ui::Spacing();
+        ui::Checkbox("Erosion/Dilution", &doErosionDilution);
+        ui::DragInt("Erosion Iterations", &erosionIterations, 0, 6);
+        ui::DragInt("Dilution Iterations", &dilutionIterations, 0, 6);
+        
+        
+        
+    }
 }
 
 

@@ -20,9 +20,9 @@ public:
     const bool IsEnabled(){
         return enabled;
     }
+    bool enabled = false;
     
 protected:
-    bool enabled = false;
     
 private:
     

@@ -18,7 +18,7 @@
 using namespace std;
 using namespace cv;
 
-class FaceDetectorModule : ModuleCommon, UsesGUI {
+class FaceDetectorModule : public ModuleCommon, public UsesGUI {
 public:
     FaceDetectorModule();
     ~FaceDetectorModule();
@@ -26,6 +26,7 @@ public:
     void ProcessFrame(cv::InputArray in, cv::OutputArray out);
     
     void SetupGUIVariables() override;
+    void DrawGUI() override;
     
 private:
     CascadeClassifier face_cascade;

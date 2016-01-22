@@ -10,6 +10,8 @@
 #define UsesGUI_h
 
 #include "GUIHandler.hpp"
+#include "CinderImGui.h"
+#include <stdio.h>
 
 class UsesGUI {
 public:
@@ -20,6 +22,10 @@ public:
     GUIHandler& GetGUI(){
         return GUIHandler::GetInstance();
     }
+    
+    virtual void DrawGUI() = 0;
+    
+    bool showGUI = false;
     
     
 };

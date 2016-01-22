@@ -60,8 +60,12 @@ public:
     void QuitApp();
     
     void SetupGUIVariables() override;
+    void DrawGUI() override;
     
     cinder::gl::Texture2dRef GetTextureFromMat(cv::Mat& mat);
+    
+    //FaceOffLog app_log;
+    bool showLog = false;
     
 private:
     

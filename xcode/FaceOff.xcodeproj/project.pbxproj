@@ -32,6 +32,9 @@
 		4661E96D1BE1E9C0001EA163 /* libopencv_ximgproc.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4661E96C1BE1E9C0001EA163 /* libopencv_ximgproc.3.0.0.dylib */; };
 		4661E9751BE2E8C6001EA163 /* EdgeDetectorModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E9731BE2E8C6001EA163 /* EdgeDetectorModule.cpp */; };
 		4661E97C1BE2F099001EA163 /* ParallelContourDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4661E97A1BE2F099001EA163 /* ParallelContourDetector.cpp */; };
+		46B8DFB81C5182C400089A89 /* CinderImGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B8DFB71C5182C400089A89 /* CinderImGui.cpp */; };
+		46B8DFBB1C5182F200089A89 /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B8DFB91C5182F200089A89 /* imgui_draw.cpp */; };
+		46B8DFBC1C5182F200089A89 /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B8DFBA1C5182F200089A89 /* imgui.cpp */; };
 		46EC09771BD84F800098FD81 /* ConfigHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09751BD84F800098FD81 /* ConfigHandler.cpp */; };
 		46EC097D1BD857060098FD81 /* libconfig++.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EC097C1BD857060098FD81 /* libconfig++.9.dylib */; };
 		46EC09831BD877130098FD81 /* CameraCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EC09821BD877130098FD81 /* CameraCapture.cpp */; };
@@ -118,6 +121,15 @@
 		4661E9741BE2E8C6001EA163 /* EdgeDetectorModule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = EdgeDetectorModule.hpp; path = ../src/modules/edge_detector/EdgeDetectorModule.hpp; sourceTree = "<group>"; };
 		4661E97A1BE2F099001EA163 /* ParallelContourDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParallelContourDetector.cpp; path = ../src/modules/edge_detector/ParallelContourDetector.cpp; sourceTree = "<group>"; };
 		4661E97B1BE2F099001EA163 /* ParallelContourDetector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ParallelContourDetector.hpp; path = ../src/modules/edge_detector/ParallelContourDetector.hpp; sourceTree = "<group>"; };
+		46B8DFB71C5182C400089A89 /* CinderImGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CinderImGui.cpp; path = "../Frameworks/Cinder-ImGui/src/CinderImGui.cpp"; sourceTree = "<group>"; };
+		46B8DFB91C5182F200089A89 /* imgui_draw.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = imgui_draw.cpp; path = "../Frameworks/Cinder-ImGui/lib/imgui/imgui_draw.cpp"; sourceTree = "<group>"; };
+		46B8DFBA1C5182F200089A89 /* imgui.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = imgui.cpp; path = "../Frameworks/Cinder-ImGui/lib/imgui/imgui.cpp"; sourceTree = "<group>"; };
+		46B8DFBD1C51834C00089A89 /* imconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imconfig.h; path = "../Frameworks/Cinder-ImGui/lib/imgui/imconfig.h"; sourceTree = "<group>"; };
+		46B8DFBE1C51834C00089A89 /* imgui_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imgui_internal.h; path = "../Frameworks/Cinder-ImGui/lib/imgui/imgui_internal.h"; sourceTree = "<group>"; };
+		46B8DFBF1C51834C00089A89 /* imgui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imgui.h; path = "../Frameworks/Cinder-ImGui/lib/imgui/imgui.h"; sourceTree = "<group>"; };
+		46B8DFC01C51834C00089A89 /* stb_rect_pack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_rect_pack.h; path = "../Frameworks/Cinder-ImGui/lib/imgui/stb_rect_pack.h"; sourceTree = "<group>"; };
+		46B8DFC11C51834C00089A89 /* stb_textedit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_textedit.h; path = "../Frameworks/Cinder-ImGui/lib/imgui/stb_textedit.h"; sourceTree = "<group>"; };
+		46B8DFC21C51834C00089A89 /* stb_truetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_truetype.h; path = "../Frameworks/Cinder-ImGui/lib/imgui/stb_truetype.h"; sourceTree = "<group>"; };
 		46EC09751BD84F800098FD81 /* ConfigHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigHandler.cpp; path = ../src/config/ConfigHandler.cpp; sourceTree = "<group>"; };
 		46EC09761BD84F800098FD81 /* ConfigHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConfigHandler.hpp; path = ../src/config/ConfigHandler.hpp; sourceTree = "<group>"; };
 		46EC097C1BD857060098FD81 /* libconfig++.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libconfig++.9.dylib"; path = "../../../../../../../usr/local/Cellar/libconfig/1.5/lib/libconfig++.9.dylib"; sourceTree = "<group>"; };
@@ -167,6 +179,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				006D720419952D00008149E2 /* AVFoundation.framework in Frameworks */,
+				006D720519952D00008149E2 /* CoreMedia.framework in Frameworks */,
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */,
+				5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */,
+				00B784B30FF439BC000DE1D7 /* Accelerate.framework in Frameworks */,
+				00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */,
+				00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */,
+				00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */,
+				00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */,
+				00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */,
 				4661E96D1BE1E9C0001EA163 /* libopencv_ximgproc.3.0.0.dylib in Frameworks */,
 				4661E95A1BE04F44001EA163 /* libPS3EyeDriver.dylib in Frameworks */,
 				46F2470C1BD812F5008292AC /* libopencv_calib3d.3.0.0.dylib in Frameworks */,
@@ -188,17 +211,6 @@
 				46F2471C1BD812F5008292AC /* libopencv_videoio.3.0.0.dylib in Frameworks */,
 				46F2471D1BD812F5008292AC /* libopencv_videostab.3.0.0.dylib in Frameworks */,
 				46EC097D1BD857060098FD81 /* libconfig++.9.dylib in Frameworks */,
-				006D720419952D00008149E2 /* AVFoundation.framework in Frameworks */,
-				006D720519952D00008149E2 /* CoreMedia.framework in Frameworks */,
-				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */,
-				5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */,
-				00B784B30FF439BC000DE1D7 /* Accelerate.framework in Frameworks */,
-				00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */,
-				00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */,
-				00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */,
-				00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */,
-				00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +387,45 @@
 			name = edge_detector;
 			sourceTree = "<group>";
 		};
+		46B8DFB41C51823300089A89 /* Cinder-ImGui */ = {
+			isa = PBXGroup;
+			children = (
+				46B8DFBD1C51834C00089A89 /* imconfig.h */,
+				46B8DFBE1C51834C00089A89 /* imgui_internal.h */,
+				46B8DFBF1C51834C00089A89 /* imgui.h */,
+				46B8DFC01C51834C00089A89 /* stb_rect_pack.h */,
+				46B8DFC11C51834C00089A89 /* stb_textedit.h */,
+				46B8DFC21C51834C00089A89 /* stb_truetype.h */,
+				46B8DFB91C5182F200089A89 /* imgui_draw.cpp */,
+				46B8DFBA1C5182F200089A89 /* imgui.cpp */,
+				46B8DFB71C5182C400089A89 /* CinderImGui.cpp */,
+				46B8DFB61C51824800089A89 /* include */,
+				46B8DFB51C51823E00089A89 /* lib */,
+			);
+			name = "Cinder-ImGui";
+			sourceTree = "<group>";
+		};
+		46B8DFB51C51823E00089A89 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
+		46B8DFB61C51824800089A89 /* include */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		46B8DFC31C5184DB00089A89 /* imgui */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = imgui;
+			sourceTree = "<group>";
+		};
 		46EC096F1BD84E730098FD81 /* OpenCV */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,6 +513,7 @@
 		46F246F41BD811B3008292AC /* User Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				46B8DFB41C51823300089A89 /* Cinder-ImGui */,
 				46EC09731BD84EA40098FD81 /* LibConfig */,
 				46EC09701BD84E850098FD81 /* PS3EyeDriver */,
 				46EC096F1BD84E730098FD81 /* OpenCV */,
@@ -472,6 +524,7 @@
 		46F247261BD83E85008292AC /* gui */ = {
 			isa = PBXGroup;
 			children = (
+				46B8DFC31C5184DB00089A89 /* imgui */,
 				46F2472B1BD83EF8008292AC /* GUIHandler.hpp */,
 				46F2472A1BD83EF8008292AC /* GUIHandler.cpp */,
 				46EC098D1BD97F470098FD81 /* UsesGUI.hpp */,
@@ -569,6 +622,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46B8DFBB1C5182F200089A89 /* imgui_draw.cpp in Sources */,
+				46B8DFBC1C5182F200089A89 /* imgui.cpp in Sources */,
+				46B8DFB81C5182C400089A89 /* CinderImGui.cpp in Sources */,
 				46EC098B1BD962D60098FD81 /* SystemCameraCapture.cpp in Sources */,
 				4661E9501BDFD23F001EA163 /* FaceOffGlobals.cpp in Sources */,
 				465DD3261BE88D4E00562FDB /* FaceDetectorModule.cpp in Sources */,
@@ -608,8 +664,8 @@
 					"\"$(CINDER_PATH)/include\"",
 					/usr/local/include,
 					"$(SRCROOT)/../Frameworks/PS3EyeDriver",
-					"$(SRCROOT)/../Frameworks/Cinder-ImGui/include/**",
-					"$(SRCROOT)/../Frameworks/Cinder-ImGui/lib/imgui/**",
+					"$(SRCROOT)/../Frameworks/Cinder-ImGui/include",
+					"$(SRCROOT)/../Frameworks/Cinder-ImGui/lib",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -653,8 +709,8 @@
 					"\"$(CINDER_PATH)/include\"",
 					/usr/local/include,
 					"$(SRCROOT)/../Frameworks/PS3EyeDriver",
-					"$(SRCROOT)/../Frameworks/Cinder-ImGui/include/**",
-					"$(SRCROOT)/../Frameworks/Cinder-ImGui/lib/imgui/**",
+					"$(SRCROOT)/../Frameworks/Cinder-ImGui/include",
+					"$(SRCROOT)/../Frameworks/Cinder-ImGui/lib",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";

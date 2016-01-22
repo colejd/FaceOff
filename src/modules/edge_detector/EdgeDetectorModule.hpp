@@ -27,10 +27,13 @@
 using namespace std;
 using namespace cv;
 
-class EdgeDetectorModule : ModuleCommon, UsesGUI {
+class EdgeDetectorModule : public ModuleCommon, public UsesGUI {
 public:
     EdgeDetectorModule();
     ~EdgeDetectorModule();
+    
+    void SetupGUIVariables() override;
+    void DrawGUI() override;
     
     void ProcessFrame(cv::InputArray in, cv::OutputArray out);
     cv::Mat CompositeImages(cv::Mat& result, cv::Mat& base);
@@ -64,7 +67,6 @@ private:
     //The final image that will be shown
     Mat finalMat;
     
-    void SetupGUIVariables() override;
     void UpdateGUIState();
     
     bool drawEdges = true;

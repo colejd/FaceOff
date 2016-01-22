@@ -13,7 +13,7 @@ FaceDetectorModule::FaceDetectorModule(){
     eyes_cascade.load("haarcascade_eye.xml");
     
     
-    SetupGUIVariables();
+    //SetupGUIVariables();
 }
 
 FaceDetectorModule::~FaceDetectorModule(){
@@ -89,4 +89,12 @@ void FaceDetectorModule::SetupGUIVariables(){
     facesWindow->addParam("Scale", &imageScale).min(0.01).max(1.00);
     
     
+}
+
+void FaceDetectorModule::DrawGUI(){
+    if(showGUI){
+        ui::ScopedWindow window("Face Detector");
+        ui::Checkbox("Enabled", &enabled);
+        ui::SliderFloat("Scale", &imageScale, 0.01, 1.00);
+    }
 }
