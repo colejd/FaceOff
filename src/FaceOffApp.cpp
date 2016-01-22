@@ -77,7 +77,7 @@ void FaceOffApp::setup(){
     
     //Set up camera device
     capture1 = new CameraCapture();
-    capture1->Init(0, CameraCapture::DEVICE_TYPE::GENERIC);
+    capture1->Init(0, CameraCapture::DEVICE_TYPE::PS3EYE);
     //Quit if the capture doesn't take
     if(!capture1->IsInitialized()){
         fg::app_log.AddLog("Camera is not initialized.\n");
@@ -96,6 +96,10 @@ void FaceOffApp::setup(){
     //Initialize modules
     edgeDetector = EdgeDetectorModule();
     faceDetector = FaceDetectorModule();
+    
+    while(fpsHistory.size() < QUEUE_SIZE){
+        fpsHistory.push(0);
+    }
     
     
     setWindowSize(capture1->GetWidth() * 2, capture1->GetHeight());
@@ -200,6 +204,18 @@ void FaceOffApp::DrawGUI(){
         ui::End();
     }
     
+    //Draw FPS overlay
+    {
+        ui::SetNextWindowPos(ImVec2(10,12));
+        if (!ui::Begin("FPS Overlay", &showOverlay, ImVec2(0,0), 0.3f, ImGuiWindowFlags_NoTitleBar|ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoSavedSettings))
+        {
+            ui::End();
+            return;
+        }
+        ui::PlotLines("FPS", &fpsHistory.front(), QUEUE_SIZE, 0, NULL, 0.0f, 80.0f, ImVec2(0, 20));
+        ui::End();
+    }
+    
     //Draw the log if desired
     if(showLog){
         fg::app_log.Draw("Log", &showLog);
@@ -216,6 +232,7 @@ void FaceOffApp::DrawGUI(){
         ui::LogFinish();
         ui::Text("");
         ui::Text("Mouse over any"); ShowHelpMarker("We did it!"); ui::SameLine(); ui::Text("to show help.");
+        ui::Text("Ctrl+Click any slider to set its value manually.");
         ui::EndPopup();
     }
     
@@ -230,9 +247,9 @@ void FaceOffApp::update(){
         if(capture1->FrameIsReady()){
             //Explicitly make a new Mat with the properties of the capture and the data of the capture's latest frame.
             //We do this because capture->GetLatestFrame returns a Mat with an invalid header but correct data.
-            capture1->LockFrame();
+            //capture1->LockFrame();
             cv::Mat rawFrame(capture1->GetWidth(), capture1->GetHeight(), CV_8UC3, capture1->GetLatestFrame().data);
-            capture1->UnlockFrame();
+            //capture1->UnlockFrame();
             
             //cv::UMat rawFrameGPU;
             //rawFrame.copyTo(rawFrameGPU);
@@ -263,8 +280,13 @@ void FaceOffApp::update(){
             
             //More or less a mutex unlock for capture->GetLatestFrame()
             capture2->MarkFrameUsed();
-            rawFrame.release();
+            //rawFrame.release();
         }
+    }
+    
+    fpsHistory.push(getAverageFps());
+    if(fpsHistory.size() > QUEUE_SIZE){
+        fpsHistory.pop();
     }
     
 

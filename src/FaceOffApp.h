@@ -32,6 +32,7 @@ using namespace cv;
 #include "camera/CameraCapture.hpp"
 
 #include <memory>
+#include <queue>
 
 #include "EdgeDetectorModule.hpp"
 #include "FaceDetectorModule.hpp"
@@ -83,7 +84,10 @@ private:
     
     bool showLog = false;
     bool showHelp = false;
+    bool showOverlay = false;
     
+    const int QUEUE_SIZE = 200;
+    queue<float> fpsHistory;
     
 };
 
