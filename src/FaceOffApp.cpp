@@ -187,7 +187,7 @@ void FaceOffApp::DrawGUI(){
         }
         
         //ui::SameLine(ui::GetWindowWidth() - 60); ui::Text("%4.0f FPS", ui::GetIO().Framerate);
-        ui::SameLine(ui::GetWindowWidth() - 60); ui::Text("%4.0f FPS", getAverageFps());
+        ui::SameLine(ui::GetWindowWidth() - 60); ui::Text("%4.1f FPS", getAverageFps());
     }
     
     //Draw general settings window
@@ -195,7 +195,6 @@ void FaceOffApp::DrawGUI(){
     {
         ui::Begin("General Settings", &showGUI, ImGuiWindowFlags_AlwaysAutoResize);
         
-        //ui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ui::GetIO().Framerate, ui::GetIO().Framerate);
         ui::SliderInt("Stereo Convergence", &convergence, 0, 100);
         
         ui::End();

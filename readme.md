@@ -10,7 +10,7 @@ This project is in a very early alpha state and doesn't really have an end goal 
 
 
 ###Requirements
-This project uses Cinder as its base.
+This project uses Cinder 0.9 as its base.
 
 Additional dependencies:
 - Libconfig
