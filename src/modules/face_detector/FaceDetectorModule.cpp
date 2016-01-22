@@ -86,6 +86,7 @@ void FaceDetectorModule::SetupGUIVariables(){
     facesWindow->addParam("Module Enabled", &enabled).keyIncr("e");
     facesWindow->addSeparator("All");
     facesWindow->addParam("Scale", &imageScale).min(0.01).max(1.00);
+    ShowHelpMarker("Higher values give more accurate results, but run much slower.");
     
     
 }

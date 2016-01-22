@@ -31,7 +31,7 @@ void FaceOffApp::setup(){
                    .itemInnerSpacing(vec2(10, 4)) //Spacing between elements of a composed widget
                    .color(ImGuiCol_CloseButton, ImVec4(0.86f, 0.93f, 0.89f, 0.39f)) //Darken the close button
                    .color(ImGuiCol_Border, ImVec4(0.86f, 0.93f, 0.89f, 0.39f))
-                   .color(ImGuiCol_TooltipBg, ImVec4(0.47f, 0.77f, 0.83f, 1.0f))
+                   .color(ImGuiCol_TooltipBg, ImVec4(0.27f, 0.57f, 0.63f, 0.95f))
                    );
     
     //Load config stuff
@@ -124,7 +124,7 @@ void FaceOffApp::PrintDebugInfo(){
     #endif
     
     bool openCLSupport = ocl::useOpenCL();
-    fg::app_log.AddLog("OpenCL support: %s\n", openCLSupport ? "true" : "false");
+    fg::app_log.AddLog("OpenCL used: %s\n", openCLSupport ? "true" : "false");
     //#ifdef DEBUG
         if(openCLSupport){
             std::vector<cv::ocl::PlatformInfo> platforms;
@@ -209,9 +209,14 @@ void FaceOffApp::DrawGUI(){
     if(showHelp) ui::OpenPopup("Help");
     //ui::ScopedWindow window( "Help", ImGuiWindowFlags_AlwaysAutoResize );
     if(ui::BeginPopupModal("Help", &showHelp)){
-        ui::Text("FaceOff 0.1.0");
+        ui::TextColored(ImVec4(0.92f, 0.18f, 0.29f, 1.00f), "FaceOff 0.1.0");
         ui::Text("Jonathan Cole, VEMILab");
+        if(ui::Button("Copy")) ui::LogToClipboard();
+        ui::SameLine();
         ui::Text("github.com/seieibob/faceoff");
+        ui::LogFinish();
+        ui::Text("");
+        ui::Text("Mouse over any"); ShowHelpMarker("We did it!"); ui::SameLine(); ui::Text("to show help.");
         ui::EndPopup();
     }
     

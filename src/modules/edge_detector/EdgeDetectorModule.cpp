@@ -75,7 +75,7 @@ void EdgeDetectorModule::DrawGUI(){
         ui::Text("Contour Settings");
         ui::Separator();
         ui::Checkbox("Use Contours", &useContours);
-            ShowHelpMarker("Use contour detection to filter out short lines and noise in the edge data");
+            ShowHelpMarker("Use contour detection to filter out short lines and noise in the edge data.");
         if(!useContours) ui::PushStyleVar(ImGuiStyleVar_Alpha, 0.2); //Push disabled style
         ui::SliderInt("Subdivisions", &contourSubdivisions, 1, 16);
             ShowHelpMarker("Number of chunks the image is divided into for parallel processing.");
