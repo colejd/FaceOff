@@ -16,6 +16,7 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
 		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
+		46199D1E1C5ACD5000F28FB0 /* imgui_user.inl in Resources */ = {isa = PBXBuildFile; fileRef = 46199D1D1C5ACD5000F28FB0 /* imgui_user.inl */; };
 		465DD3261BE88D4E00562FDB /* FaceDetectorModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465DD3241BE88D4E00562FDB /* FaceDetectorModule.cpp */; };
 		465DD3461BE914E200562FDB /* FaceOff.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 465DD3451BE914E200562FDB /* FaceOff.cfg */; };
 		465DD34F1BE914EE00562FDB /* haarcascade_eye_tree_eyeglasses.xml in Resources */ = {isa = PBXBuildFile; fileRef = 465DD3471BE914EE00562FDB /* haarcascade_eye_tree_eyeglasses.xml */; };
@@ -97,6 +98,9 @@
 		2C1A6260141C4A69B2558FE2 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		3645407D08A84202B093A03D /* FaceOff_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = FaceOff_Prefix.pch; sourceTree = "<group>"; };
 		46199D181C5ABB7900F28FB0 /* AppLog.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = AppLog.hpp; path = ../src/util/AppLog.hpp; sourceTree = "<group>"; };
+		46199D1B1C5ACD5000F28FB0 /* CinderImGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CinderImGui.h; path = "../Frameworks/Cinder-ImGui/include/CinderImGui.h"; sourceTree = "<group>"; };
+		46199D1C1C5ACD5000F28FB0 /* imgui_user.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imgui_user.h; path = "../Frameworks/Cinder-ImGui/include/imgui_user.h"; sourceTree = "<group>"; };
+		46199D1D1C5ACD5000F28FB0 /* imgui_user.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = imgui_user.inl; path = "../Frameworks/Cinder-ImGui/include/imgui_user.inl"; sourceTree = "<group>"; };
 		465DD3241BE88D4E00562FDB /* FaceDetectorModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FaceDetectorModule.cpp; path = ../src/modules/face_detector/FaceDetectorModule.cpp; sourceTree = "<group>"; };
 		465DD3251BE88D4E00562FDB /* FaceDetectorModule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FaceDetectorModule.hpp; path = ../src/modules/face_detector/FaceDetectorModule.hpp; sourceTree = "<group>"; };
 		465DD3401BE894BA00562FDB /* ModuleCommon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ModuleCommon.hpp; path = ../src/modules/ModuleCommon.hpp; sourceTree = "<group>"; };
@@ -425,6 +429,9 @@
 		46B8DFB61C51824800089A89 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				46199D1B1C5ACD5000F28FB0 /* CinderImGui.h */,
+				46199D1C1C5ACD5000F28FB0 /* imgui_user.h */,
+				46199D1D1C5ACD5000F28FB0 /* imgui_user.inl */,
 			);
 			name = include;
 			sourceTree = "<group>";
@@ -601,6 +608,7 @@
 				465DD3541BE914EE00562FDB /* haarcascade_frontalface_default.xml in Resources */,
 				B953DB2F6F2048828BBAAA1D /* CinderApp.icns in Resources */,
 				465DD3461BE914E200562FDB /* FaceOff.cfg in Resources */,
+				46199D1E1C5ACD5000F28FB0 /* imgui_user.inl in Resources */,
 				465DD3511BE914EE00562FDB /* haarcascade_frontalface_alt_tree.xml in Resources */,
 				465DD3521BE914EE00562FDB /* haarcascade_frontalface_alt.xml in Resources */,
 				465DD34F1BE914EE00562FDB /* haarcascade_eye_tree_eyeglasses.xml in Resources */,

@@ -8,6 +8,8 @@
 
 #include "FaceOffGlobals.hpp"
 
+#import "AppLog.hpp"
+
 namespace FaceOffGlobals{
     /**
      When this is set to false the threads managed by this program will stop and join the main thread.

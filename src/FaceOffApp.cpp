@@ -126,7 +126,7 @@ void FaceOffApp::PrintDebugInfo(){
     fg::app_log.AddLog("--- BEGIN DEBUG INFO ---\n");
     
     #ifdef DEBUG
-        app_log.AddLog("Debug build\n");
+        fg::app_log.AddLog("Debug build\n");
         //std::cout << cv::getBuildInformation();
     #else
         fg::app_log.AddLog("Release build\n");
