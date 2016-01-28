@@ -177,7 +177,7 @@ void FaceOffApp::DrawGUI(){
             //    setFullScreen(!isFullScreen());
             //}
             if(ui::MenuItem("Swap Eyes", "S")){
-                swapEyes ^= 1;
+                swapEyes = !swapEyes;
             }
             ui::MenuItem("Help", nullptr, &showHelp);
             if(ui::MenuItem("Quit", "ESC")){
