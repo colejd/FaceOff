@@ -20,6 +20,9 @@ public:
     const bool IsEnabled(){
         return enabled;
     }
+    void ToggleEnabled(){
+        enabled = !enabled;
+    }
     bool enabled = false;
     
 protected:

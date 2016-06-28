@@ -96,8 +96,8 @@ void CameraCapture::Update(){
 }
 
 cv::Mat CameraCapture::GetLatestFrame(){
-    //std::lock_guard<std::mutex> guard(frameMutex);
-    return currentCapture->GetLatestFrame();
+    std::lock_guard<std::mutex> guard(frameMutex);
+    return currentCapture->GetLatestFrame().clone();
 }
 
 const bool CameraCapture::FrameIsReady(){
@@ -137,7 +137,7 @@ void CameraCapture::StopUpdateThread(){
 //Will terminate automatically when the program exits.
 void CameraCapture::ThreadUpdateFunction(){
     while(fg::ThreadsShouldStop == false){
-            Update();
+        Update();
     }
 }
 

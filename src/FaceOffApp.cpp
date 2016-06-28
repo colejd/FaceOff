@@ -85,7 +85,7 @@ void FaceOffApp::setup(){
     }
     
     capture2 = new CameraCapture();
-    capture2->Init(0, CameraCapture::DEVICE_TYPE::PS3EYE);
+    capture2->Init(1, CameraCapture::DEVICE_TYPE::PS3EYE);
     //Quit if the capture doesn't take
     if(!capture2->IsInitialized()){
         fg::app_log.AddLog("Camera is not initialized.\n");
@@ -112,7 +112,7 @@ void FaceOffApp::setup(){
     //setFullScreen(FULLSCREEN_ON_LAUNCH);
     setFullScreen(true);
     
-    leftFbo = gl::Fbo::create(getWindowSize().x/2, getWindowSize().y);
+    leftFbo = gl::Fbo::create(getWindowSize().x, getWindowSize().y);
     rightFbo = gl::Fbo::create(getWindowSize().x/2, getWindowSize().y);
     
     fg::app_log.AddLog("FaceOff Init finished.\n");
@@ -210,6 +210,7 @@ void FaceOffApp::DrawGUI(){
     }
     
     //Draw FPS overlay
+    /*
     {
         ui::SetNextWindowPos(ImVec2(10,12));
         if (!ui::Begin("FPS Overlay", &showOverlay, ImVec2(0,0), 0.3f, ImGuiWindowFlags_NoTitleBar|ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoMove|ImGuiWindowFlags_NoSavedSettings))
@@ -220,6 +221,7 @@ void FaceOffApp::DrawGUI(){
         ui::PlotLines("FPS", &fpsHistory.front(), QUEUE_SIZE, 0, NULL, 0.0f, 80.0f, ImVec2(0, 20));
         ui::End();
     }
+     */
     
     //Draw the log if desired
     if(showLog){
@@ -266,7 +268,7 @@ void FaceOffApp::update(){
             rawFrame.copyTo(finalImageLeft);
             //More or less a mutex unlock for capture->GetLatestFrame()
             capture1->MarkFrameUsed();
-            //rawFrame.release();
+            rawFrame.release();
             //rawFrameGPU.release();
         }
     }
@@ -285,7 +287,7 @@ void FaceOffApp::update(){
             
             //More or less a mutex unlock for capture->GetLatestFrame()
             capture2->MarkFrameUsed();
-            //rawFrame.release();
+            rawFrame.release();
         }
     }
     
@@ -305,7 +307,8 @@ void FaceOffApp::draw(){
     //https://gist.github.com/jkosoy/3895744
     
     //Draw the final image
-    Rectf leftRect(0 + convergence, 0, (getWindowSize().x/2) + convergence, getWindowSize().y) ;
+    //Rectf leftRect(0 + convergence, 0, (getWindowSize().x/2) + convergence, getWindowSize().y) ;
+    Rectf leftRect(0, 0, getWindowSize().x, getWindowSize().y) ;
     Rectf rightRect(0 - convergence, 0, (getWindowSize().x/2) - convergence, getWindowSize().y);
     
     cinder::gl::Texture2dRef ref1 = GetTextureFromMat(finalImageLeft);
@@ -330,7 +333,7 @@ void FaceOffApp::draw(){
     rightFbo->unbindFramebuffer();
     
     gl::draw(leftFbo->getColorTexture());
-    gl::draw(rightFbo->getColorTexture(), Rectf(getWindowSize().x/2, 0, getWindowSize().x, getWindowSize().y));
+    //gl::draw(rightFbo->getColorTexture(), Rectf(getWindowSize().x/2, 0, getWindowSize().x, getWindowSize().y));
     
     //Draw the GUI (built-in)
     //GUIHandler::GetInstance().DrawAll();
@@ -366,17 +369,18 @@ void FaceOffApp::keyDown( KeyEvent event )
         // Toggle full screen when the user presses the 'f' key.
         setFullScreen( ! isFullScreen() );
     }
-    else if( event.getCode() == KeyEvent::KEY_SPACE ) {
+    if( event.getCode() == KeyEvent::KEY_SPACE ) {
     }
-    else if( event.getCode() == KeyEvent::KEY_ESCAPE ) {
+    
+    if( event.getCode() == KeyEvent::KEY_e ){
+        edgeDetector.ToggleEnabled();
+    }
+    if( event.getCode() == KeyEvent::KEY_ESCAPE ) {
         // Exit full screen, or quit the application, when the user presses the ESC key.
         if( isFullScreen() )
             setFullScreen( false );
         else
             QuitApp();
-    }
-    else if( event.getCode() == KeyEvent::KEY_w ){
-        exit(EXIT_SUCCESS);
     }
 }
 

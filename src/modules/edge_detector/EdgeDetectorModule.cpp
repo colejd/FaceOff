@@ -107,8 +107,8 @@ void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
     
     if(!in.empty() && IsEnabled()){
         
-        cv::UMat latestStep;
-        cv::UMat finalFrame;
+        cv::Mat latestStep;
+        cv::Mat finalFrame;
         
         in.copyTo(latestStep);
         
@@ -166,7 +166,7 @@ void EdgeDetectorModule::ProcessFrame(cv::InputArray in, cv::OutputArray out){
             if(useContours){
                 cv::Mat contourOutput;
                 latestStep.copyTo(contourOutput);
-                ParallelContourDetector::DetectContoursParallel(latestStep, contourOutput, contourSubdivisions, lineThickness);
+                //ParallelContourDetector::DetectContoursParallel(latestStep, contourOutput, contourSubdivisions, lineThickness);
                 contourOutput.copyTo(latestStep);
                 //ParallelContourDetector::DetectContours(latestStep, latestStep, lineThickness);
             }
